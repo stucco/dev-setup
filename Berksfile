@@ -1,0 +1,7 @@
+cookbook "git"
+cookbook "python"
+cookbook "java"
+cookbook "zookeeper"
+cookbook "riak"
+cookbook "redisio"
+cookbook "rabbitmq"
