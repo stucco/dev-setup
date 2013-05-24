@@ -53,6 +53,9 @@ Vagrant.configure("2") do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
 
+  # Mount the parent directory under /stucco in the VM
+  config.vm.synced_folder "../", "/stucco"
+
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   
@@ -108,6 +111,6 @@ Vagrant.configure("2") do |config|
   end
 
   # Install [Storm](http://storm-project.net/) 0.8.2
-  config.vm.provision :shell, :inline => "cd /usr/local && curl -LO https://dl.dropbox.com/u/133901206/storm-0.8.2.zip && unzip -qo storm-0.8.2.zip && sudo ln -s ../storm-0.8.2/bin/storm bin/storm && sudo rm -f storm-0.8.2.zip"
+  config.vm.provision :shell, :inline => "cd /usr/local && curl --quiet -LO https://dl.dropbox.com/u/133901206/storm-0.8.2.zip && unzip -o storm-0.8.2.zip && sudo ln -s ../storm-0.8.2/bin/storm bin/storm && sudo rm -f storm-0.8.2.zip && echo 'Storm has been installed.'"
 
 end
