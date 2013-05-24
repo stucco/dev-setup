@@ -38,6 +38,10 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 8087, host: 8087  # Protocol Buffers
   config.vm.network :forwarded_port, guest: 8098, host: 8098  # HTTP
 
+  # Forward the default Neo4j ports to enable access from host OS
+  config.vm.network :forwarded_port, guest: 1337, host: 1337
+  config.vm.network :forwarded_port, guest: 7474, host: 7474
+
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   # config.vm.network :private_network, ip: "192.168.33.10"
@@ -112,5 +116,8 @@ Vagrant.configure("2") do |config|
 
   # Install [Storm](http://storm-project.net/) 0.8.2
   config.vm.provision :shell, :inline => "cd /usr/local && curl --silent -LO https://dl.dropbox.com/u/133901206/storm-0.8.2.zip && unzip -o storm-0.8.2.zip && sudo ln -s ../storm-0.8.2/bin/storm bin/storm && sudo rm -f storm-0.8.2.zip && echo 'Storm has been installed.'"
+
+  # Install [Neo4j](http://www.neo4j.org/download/linux) using debian package
+  config.vm.provision :shell, :inline => "echo \"wget -O - http://debian.neo4j.org/neotechnology.gpg.key | apt-key add - && echo 'deb http://debian.neo4j.org/repo stable/' > /etc/apt/sources.list.d/neo4j.list && apt-get update -y && apt-get install neo4j -y\" | sudo sh"
 
 end
