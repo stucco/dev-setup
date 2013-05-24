@@ -111,6 +111,6 @@ Vagrant.configure("2") do |config|
   end
 
   # Install [Storm](http://storm-project.net/) 0.8.2
-  config.vm.provision :shell, :inline => "cd /usr/local && curl --quiet -LO https://dl.dropbox.com/u/133901206/storm-0.8.2.zip && unzip -o storm-0.8.2.zip && sudo ln -s ../storm-0.8.2/bin/storm bin/storm && sudo rm -f storm-0.8.2.zip && echo 'Storm has been installed.'"
+  config.vm.provision :shell, :inline => "cd /usr/local && curl --silent -LO https://dl.dropbox.com/u/133901206/storm-0.8.2.zip && unzip -o storm-0.8.2.zip && sudo ln -s ../storm-0.8.2/bin/storm bin/storm && sudo rm -f storm-0.8.2.zip && echo 'Storm has been installed.'"
 
 end
