@@ -3,8 +3,15 @@
 
 Vagrant.configure("2") do |config|
 
-  # Use [berkshelf](http://berkshelf.com/)
+  # Use [berkshelf plugin](https://github.com/RiotGames/vagrant-berkshelf) 
+  # to use [berkshelf](http://berkshelf.com/) to manage cookbooks
+  # To install plugin: `vagrant plugin install vagrant-berkshelf`
   config.berkshelf.enabled = true
+
+  # Use [omnibus plugin](https://github.com/schisamo/vagrant-omnibus) 
+  # to use the omnibus installer to install [chef](http://www.opscode.com/chef/)
+  # Install plugin: `vagrant plugin install vagrant-omnibus`
+  config.omnibus.chef_version = "11.4.4"
 
   # VM name
   config.vm.hostname = "stucco"
@@ -76,7 +83,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :inline => "sudo apt-get update"
 
   # Install latest [chef](http://www.opscode.com/chef/)
-  config.vm.provision :shell, :inline => "curl -L https://www.opscode.com/chef/install.sh | sudo bash"
+#  config.vm.provision :shell, :inline => "curl -L https://www.opscode.com/chef/install.sh | sudo bash"
 
   # Install required packages
   config.vm.provision :chef_solo do |chef|
