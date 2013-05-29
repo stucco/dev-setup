@@ -108,6 +108,7 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "git"
     chef.add_recipe "python"
     chef.add_recipe "java"
+    chef.add_recipe "maven"
     chef.add_recipe "zookeeper"
     chef.add_recipe "riak"
     chef.add_recipe "redisio"
@@ -119,5 +120,8 @@ Vagrant.configure("2") do |config|
 
   # Install [Neo4j](http://www.neo4j.org/download/linux) using debian package
   config.vm.provision :shell, :inline => "echo \"wget -O - http://debian.neo4j.org/neotechnology.gpg.key | apt-key add - && echo 'deb http://debian.neo4j.org/repo stable/' > /etc/apt/sources.list.d/neo4j.list && apt-get update -y && apt-get install neo4j -y\" | sudo sh"
+
+  # Turn on NTP
+  config.vm.provision :shell, :inline => "echo \"ntpdate time.ornl.gov ; apt-get install ntp -y && echo 'server time.ornl.gov' > /etc/ntp.conf \" | sudo sh"
 
 end

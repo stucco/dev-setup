@@ -1,6 +1,7 @@
 cookbook "git"
 cookbook "python"
 cookbook "java"
+cookbook "maven"
 cookbook "zookeeper"
 cookbook "riak"
 cookbook "redisio"
