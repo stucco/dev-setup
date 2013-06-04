@@ -70,32 +70,14 @@ Vagrant.configure("2") do |config|
   end
   
 
-  # Enable provisioning with chef solo, specifying a cookbooks path, roles
-  # path, and data_bags path (all relative to this Vagrantfile), and adding
-  # some recipes and/or roles.
-  #
-  # config.vm.provision :chef_solo do |chef|
-  #   chef.cookbooks_path = "../my-recipes/cookbooks"
-  #   chef.roles_path = "../my-recipes/roles"
-  #   chef.data_bags_path = "../my-recipes/data_bags"
-  #   chef.add_recipe "mysql"
-  #   chef.add_role "web"
-  #
-  #   # You may also specify custom JSON attributes:
-  #   chef.json = { :mysql_password => "foo" }
-  # end
-
   # Update package list, but do not do upgrade. Upgrades should
   # be done manually, if required (`sudo apt-get upgrade`)
   config.vm.provision :shell, :inline => "sudo apt-get update"
 
-  # Install latest [chef](http://www.opscode.com/chef/)
-#  config.vm.provision :shell, :inline => "curl -L https://www.opscode.com/chef/install.sh | sudo bash"
-
   # Install required packages
   config.vm.provision :chef_solo do |chef|
-    # use Oracle Java JDK instead of default OpenJDK
     chef.json = {
+      # use Oracle Java JDK instead of default OpenJDK
       "java" => {
         "install_flavor" => 'oracle',
         "jdk_version" => 6,
@@ -108,12 +90,14 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "git"
     chef.add_recipe "python"
     chef.add_recipe "java"
-    chef.add_recipe "maven"
     chef.add_recipe "zookeeper"
     chef.add_recipe "riak"
     chef.add_recipe "redisio"
     chef.add_recipe "rabbitmq"
   end
+
+  # Install Maven manually since chef recipe is not working
+  config.vm.provision :shell, :inline => "sudo apt-get install maven -y && echo 'Maven has been installed.'"
 
   # Install [Storm](http://storm-project.net/) 0.8.2
   config.vm.provision :shell, :inline => "cd /usr/local && curl --silent -LO https://dl.dropbox.com/u/133901206/storm-0.8.2.zip && unzip -o storm-0.8.2.zip && sudo ln -s ../storm-0.8.2/bin/storm bin/storm && sudo rm -f storm-0.8.2.zip && echo 'Storm has been installed.'"

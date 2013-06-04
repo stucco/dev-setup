@@ -1,10 +1,10 @@
 
 This project will set up the test and demonstration environment for Stucco using Vagrant. Your directory structure should look something like this:
 
-    stucco
-      vagrant-setup
-      other-stucco-project-1
-      other-stucco-project-2
+    - stucco
+      |-- vagrant-setup
+      |-- other-stucco-project-1
+      |-- other-stucco-project-2
 
 # Usage
 
