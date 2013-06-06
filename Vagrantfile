@@ -23,7 +23,8 @@ Vagrant.configure("2") do |config|
   # doesn't already exist on the user's system.
   # Ubuntu cloud images, including virtual box images for vagrant, can
   # be found here: http://cloud-images.ubuntu.com/
-  config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/precise/20130523/precise-server-cloudimg-amd64-vagrant-disk1.box"
+  # This image is from 2013-06-06 and is stored on John G's SkyDrive
+  config.vm.box_url = "http://sdrv.ms/15NVXJu"
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine.
