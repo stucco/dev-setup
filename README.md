@@ -39,6 +39,8 @@ To be able to push code out to a storm cluster, you will need to download the st
 
 ## Set up Vagrant
 
+Note: to use the provided setup, **you must have a 64-bit machine that supports Intel VT-x or AMD-V**.
+
 This project will set up the test and demonstration environment for Stucco using Vagrant. Your directory structure should look something like this:
 
     - stucco
@@ -56,4 +58,8 @@ To log into the VM, run `vagrant ssh`. The parent directory from this project (w
 
 ## Deploy to Storm
 
-**needs to be documented**
+To run a project locally, you can just use SBT: `sbt run`.
+
+To package a project into a jar file for deployment, you can run `sbt assembly` and submit the jar file using `storm jar /path/to/archive.jar class.of.Topology [args...]`.
+
+More information about submitting to a storm cluster can be found in the [storm command line client documentation](https://github.com/nathanmarz/storm/wiki/Command-line-client).
