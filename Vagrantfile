@@ -23,8 +23,7 @@ Vagrant.configure("2") do |config|
   # doesn't already exist on the user's system.
   # Ubuntu cloud images, including virtual box images for vagrant, can
   # be found here: http://cloud-images.ubuntu.com/
-  # This image is from 2013-06-06 and is stored on John G's SkyDrive
-  config.vm.box_url = "http://sdrv.ms/15NVXJu"
+  config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box"
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine.
@@ -97,8 +96,11 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "rabbitmq"
   end
 
+  # Install [SBT](www.scala-sbt.org) 0.12.3
+  config.vm.provision :shell, :inline => "curl --silent -LO http://scalasbt.artifactoryonline.com/scalasbt/sbt-native-packages/org/scala-sbt/sbt/0.12.3/sbt.deb && dpkg -i sbt.deb; apt-get -f -q -y install && rm -f sbt.deb && echo 'SBT has been installed.'"
+
   # Install Maven manually since chef recipe is not working
-  config.vm.provision :shell, :inline => "sudo apt-get install maven -y && echo 'Maven has been installed.'"
+  # config.vm.provision :shell, :inline => "sudo apt-get install maven -y && echo 'Maven has been installed.'"
 
   # Install [Storm](http://storm-project.net/) 0.8.2
   config.vm.provision :shell, :inline => "cd /usr/local && curl --silent -LO https://dl.dropbox.com/u/133901206/storm-0.8.2.zip && unzip -o storm-0.8.2.zip && sudo ln -s ../storm-0.8.2/bin/storm bin/storm && sudo rm -f storm-0.8.2.zip && echo 'Storm has been installed.'"
