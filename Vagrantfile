@@ -23,8 +23,7 @@ Vagrant.configure("2") do |config|
   # doesn't already exist on the user's system.
   # Ubuntu cloud images, including virtual box images for vagrant, can
   # be found here: http://cloud-images.ubuntu.com/
-  # This image is from 2013-06-06 and is stored on John G's SkyDrive
-  config.vm.box_url = "http://sdrv.ms/15NVXJu"
+  config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box"
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine.
@@ -97,11 +96,15 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "rabbitmq"
   end
 
+  # Install [SBT](www.scala-sbt.org) 0.12.3
+  # config.vm.provision :shell, :inline => "curl --silent -LO http://scalasbt.artifactoryonline.com/scalasbt/sbt-native-packages/org/scala-sbt/sbt/0.12.3/sbt.deb && dpkg -i sbt.deb; apt-get -f -q -y install && rm -f sbt.deb && echo 'SBT has been installed.'"
+  config.vm.provision :shell, :inline => "sudo apt-get -f -q -y install default-jdk && cd /usr/local/bin && sudo curl --silent -LO http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch//0.12.3/sbt-launch.jar && echo 'java -Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=384M -jar `dirname $0`/sbt-launch.jar \"$@\"' | sudo tee sbt > /dev/null && sudo chmod +x sbt"
+
   # Install Maven manually since chef recipe is not working
-  config.vm.provision :shell, :inline => "sudo apt-get install maven -y && echo 'Maven has been installed.'"
+  # config.vm.provision :shell, :inline => "sudo apt-get install maven -y && echo 'Maven has been installed.'"
 
   # Install [Storm](http://storm-project.net/) 0.8.2
-  config.vm.provision :shell, :inline => "cd /usr/local && curl --silent -LO https://dl.dropbox.com/u/133901206/storm-0.8.2.zip && unzip -o storm-0.8.2.zip && sudo ln -s ../storm-0.8.2/bin/storm bin/storm && sudo rm -f storm-0.8.2.zip && echo 'Storm has been installed.'"
+  config.vm.provision :shell, :inline => "if [ ! -f /usr/local/bin/storm ]; then cd /usr/local && curl --silent -LO https://dl.dropbox.com/u/133901206/storm-0.8.2.zip && unzip -o storm-0.8.2.zip && sudo ln -s ../storm-0.8.2/bin/storm bin/storm && sudo rm -f storm-0.8.2.zip && echo 'Storm has been installed.'; fi"
 
   # Install [Neo4j](http://www.neo4j.org/download/linux) using debian package
   config.vm.provision :shell, :inline => "echo \"wget -O - http://debian.neo4j.org/neotechnology.gpg.key | apt-key add - && echo 'deb http://debian.neo4j.org/repo stable/' > /etc/apt/sources.list.d/neo4j.list && apt-get update -y && apt-get install neo4j -y\" | sudo sh"

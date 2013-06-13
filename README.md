@@ -3,26 +3,29 @@
 ## Set up Eclipse
 
 1. Install Eclipse: Download [Eclipse IDE for Java EE Developers](eclipse.org/downloads/). Then open Eclipse and set up the default workspace somewhere on your drive.
-2. Install Maven plugin: Help menu -> Eclipse Marketplace -> search for 'Maven' -> Install `Maven Integration for Eclipse`
-3. Install e-git plugin: Help menu -> Eclipse Marketplace -> search for 'git' -> Install `EGit - Git Team Provider`
-4. Create a new project: File menu -> New -> Other… -> Maven Project, then check 'Create a simple project', assign a 'Group Id' (project/org path) and 'Artifact Id' (project name)
-5. Open the project: Click on workbench (top right)
+2. Install e-git plugin: Help menu -> Eclipse Marketplace -> search for 'git' -> Install `EGit - Git Team Provider`
 
-## Set up Maven
+## Set up SBT (Simple Build Tool)
 
-For an example Maven project, see the [storm wiki](https://github.com/nathanmarz/storm/wiki/Maven)
+To be able to compile the project, run unit tests, and deploy jar files, you will need to download [SBT](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html). Be sure to get version 0.12.3.
 
-View the [Maven Compiler Plugin options](http://maven.apache.org/plugins/maven-compiler-plugin/compile-mojo.html).
+## Get the project
 
-## Test within Eclipse
+The base project is available here: [storm-base](https://github.com/anishathalye/storm-base). An up-to-date project may be available in the stucco repository - if so, clone that instead.
 
-Right click on Project -> 'Run As…' -> 'Maven Build…' -> Edit the Goals to 'clean package' (built in Maven tasks) -> click 'Run'
+Note that the project is a mixed source project. Any portion may be written in Java or Scala. Scala code can call Java code, and vice versa. Unit tests may be written in ScalaTest (which is preferred) or JUnit.
+
+## Test the project
+
+SBT makes it easy to compile, run, and deploy. Example usage is provided below. More information is available at the [SBT getting started guide](http://www.scala-sbt.org/release/docs/Getting-Started/Welcome.html).
+
+    sbt compile     # compiles the project
+    sbt test        # runs unit tests
+    sbt assembly    # packages project into .jar file (for Storm CLI client)
 
 ## Set up Git Repo
 
-1. Right click on Project -> 'Team' -> 'Share'. Create a repo (within project folder)
-2. Commit files
-3. Push to add remote
+If you used `git clone` to get the most up-to-date version of the project, no additional set up should be necessary.
 
 ## Set up Storm
 
@@ -36,10 +39,12 @@ To be able to push code out to a storm cluster, you will need to download the st
 
 ## Set up Vagrant
 
+Note: to use the provided setup, **you must have a 64-bit machine that supports Intel VT-x or AMD-V**.
+
 This project will set up the test and demonstration environment for Stucco using Vagrant. Your directory structure should look something like this:
 
     - stucco
-      |-- vagrant-setup
+      |-- dev-setup
       |-- other-stucco-project-1
       |-- other-stucco-project-2
 
@@ -53,4 +58,8 @@ To log into the VM, run `vagrant ssh`. The parent directory from this project (w
 
 ## Deploy to Storm
 
-**needs to be documented**
+To run a project locally, you can just use SBT: `sbt run`.
+
+To package a project into a jar file for deployment, you can run `sbt assembly` and submit the jar file using `storm jar /path/to/archive.jar class.of.Topology [args...]`.
+
+More information about submitting to a storm cluster can be found in the [storm command line client documentation](https://github.com/nathanmarz/storm/wiki/Command-line-client).
