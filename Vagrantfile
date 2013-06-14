@@ -42,6 +42,11 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 1337, host: 1337
   config.vm.network :forwarded_port, guest: 7474, host: 7474
 
+  # Forward the default Logstash ports to enable access from host OS
+  config.vm.network :forwarded_port, guest: 9200, host: 9200
+  config.vm.network :forwarded_port, guest: 9292, host: 9292
+  config.vm.network :forwarded_port, guest: 9300, host: 9300
+
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   # config.vm.network :private_network, ip: "192.168.33.10"
@@ -97,8 +102,20 @@ Vagrant.configure("2") do |config|
   end
 
   # Install [SBT](www.scala-sbt.org) 0.12.3
-  # config.vm.provision :shell, :inline => "curl --silent -LO http://scalasbt.artifactoryonline.com/scalasbt/sbt-native-packages/org/scala-sbt/sbt/0.12.3/sbt.deb && dpkg -i sbt.deb; apt-get -f -q -y install && rm -f sbt.deb && echo 'SBT has been installed.'"
   config.vm.provision :shell, :inline => "sudo apt-get -f -q -y install default-jdk && cd /usr/local/bin && sudo curl --silent -LO http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch//0.12.3/sbt-launch.jar && echo 'java -Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=384M -jar `dirname $0`/sbt-launch.jar \"$@\"' | sudo tee sbt > /dev/null && sudo chmod +x sbt"
+
+  # Install [Logstash](http://logstash.net)
+  config.vm.provision :shell, :inline => <<-eos
+  if [ ! -d /opt/logstash ]; then sudo adduser --system --home /opt/logstash --ingroup adm --disabled-password logstash; fi
+  cd /opt/logstash
+  sudo curl --silent -LO https://logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jar
+  cd /etc/init
+  sudo curl --silent -LO https://github.com/stucco/dev-setup/raw/master/logstash-indexer.conf
+  cd /etc/
+  sudo curl --silent -LO https://github.com/stucco/rt/raw/master/logstash.conf
+  sudo initctl reload-configuration
+  sudo initctl start logstash-indexer
+  eos
 
   # Install Maven manually since chef recipe is not working
   # config.vm.provision :shell, :inline => "sudo apt-get install maven -y && echo 'Maven has been installed.'"
