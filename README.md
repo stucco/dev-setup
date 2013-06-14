@@ -11,7 +11,7 @@ To be able to compile the project, run unit tests, and deploy jar files, you wil
 
 ## Get the project
 
-The base project is available here: [storm-base](https://github.com/anishathalye/storm-base). An up-to-date project may be available in the stucco repository - if so, clone that instead.
+The stucco-rt project is available here: [stucco-rt](https://github.com/stucco/rt)
 
 Note that the project is a mixed source project. Any portion may be written in Java or Scala. Scala code can call Java code, and vice versa. Unit tests may be written in ScalaTest (which is preferred) or JUnit.
 
