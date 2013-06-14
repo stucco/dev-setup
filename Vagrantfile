@@ -106,6 +106,8 @@ Vagrant.configure("2") do |config|
   sudo curl --silent -LO https://logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jar
   cd /etc/init
   sudo curl --silent -LO https://github.com/anishathalye/dev-setup/raw/master/logstash-indexer.conf
+  cd /etc/
+  sudo curl --silent -LO https://github.com/anishathalye/rt/raw/master/logstash.conf
   sudo initctl reload-configuration
   sudo initctl start logstash-indexer
   eos
