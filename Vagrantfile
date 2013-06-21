@@ -31,9 +31,6 @@ Vagrant.configure("2") do |config|
   # Forward the default RabbitMQ port to enable access from host OS
   config.vm.network :forwarded_port, guest: 5672, host: 5672
 
-  # Forward the default Redis port to enable access from host OS
-  config.vm.network :forwarded_port, guest: 6379, host: 6379
-
   # Forward the default Riak ports to enable access from host OS
   config.vm.network :forwarded_port, guest: 8087, host: 8087  # Protocol Buffers
   config.vm.network :forwarded_port, guest: 8098, host: 8098  # HTTP
@@ -97,7 +94,6 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "java"
     chef.add_recipe "zookeeper"
     chef.add_recipe "riak"
-    chef.add_recipe "redisio"
     chef.add_recipe "rabbitmq"
   end
 
