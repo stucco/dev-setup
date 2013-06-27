@@ -63,3 +63,13 @@ To run a project locally, you can just use SBT: `sbt run`.
 To package a project into a jar file for deployment, you can run `sbt assembly` and submit the jar file using `storm jar /path/to/archive.jar class.of.Topology [args...]`.
 
 More information about submitting to a storm cluster can be found in the [storm command line client documentation](https://github.com/nathanmarz/storm/wiki/Command-line-client).
+
+## Notes
+
+### sbt on a Mac
+
+If `sbt` throws an error like `Error during sbt execution: java.lang.OutOfMemoryError: PermGen space`, you can create a `~/.sbtconfig` file with the following contents:
+
+    SBT_OPTS="-XX:MaxPermSize=512M"%                                              
+
+This is only tested on the `brew` version of sbt on Mac OS.
