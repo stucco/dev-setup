@@ -23,6 +23,20 @@ SBT makes it easy to compile, run, and deploy. Example usage is provided below. 
     sbt test        # runs unit tests
     sbt assembly    # packages project into .jar file (for Storm CLI client)
 
+## Optional SBT Plugins
+
+There are some SBT plugins that are quite useful. You can find more online, but here are some that we recommend you install:
+
+* [Scalastyle](http://www.scalastyle.org/sbt.html)
+* [Scalariform](https://github.com/sbt/sbt-scalariform)
+
+## SBT Configuration
+
+You can configure global SBT settings and plugins in your `~/.sbt` directory. The `~/.sbt/build.sbt` is included in all projects, and the `~/.sbt/plugins/plugins.sbt` are loaded for all projects. See the following examples for more details:
+
+* [build.sbt](https://gist.github.com/anishathalye/6140974)
+* [plugins.sbt](https://gist.github.com/anishathalye/6140962)
+
 ## Set up Git Repo
 
 If you used `git clone` to get the most up-to-date version of the project, no additional set up should be necessary.
