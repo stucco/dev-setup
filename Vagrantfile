@@ -82,7 +82,7 @@ Vagrant.configure("2") do |config|
       # use Oracle Java JDK instead of default OpenJDK
       "java" => {
         "install_flavor" => 'oracle',
-        "jdk_version" => 6,
+        "jdk_version" => 7,
         "oracle" => {
           "accept_oracle_download_terms" => true
         }
@@ -96,6 +96,9 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "riak"
     chef.add_recipe "rabbitmq"
   end
+
+  # Recommended for riak
+  config.vm.provision :shell, :inline => "ulimit -n 4096"
 
   # Install [SBT](www.scala-sbt.org) 0.12.3
   config.vm.provision :shell, :inline => "sudo apt-get -f -q -y install default-jdk && cd /usr/local/bin && sudo curl --silent -LO http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch//0.12.3/sbt-launch.jar && echo 'java -Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=384M -jar `dirname $0`/sbt-launch.jar \"$@\"' | sudo tee sbt > /dev/null && sudo chmod +x sbt"
