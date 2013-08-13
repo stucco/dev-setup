@@ -93,8 +93,8 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "python"
     chef.add_recipe "java"
     chef.add_recipe "zookeeper"
-    chef.add_recipe "riak"
     chef.add_recipe "rabbitmq"
+    chef.add_recipe "riak"
   end
 
   # Recommended for riak
