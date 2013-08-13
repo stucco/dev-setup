@@ -126,6 +126,6 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :inline => "echo \"wget -O - http://debian.neo4j.org/neotechnology.gpg.key | apt-key add - && echo 'deb http://debian.neo4j.org/repo stable/' > /etc/apt/sources.list.d/neo4j.list && apt-get update -y && apt-get install neo4j -y\" | sudo sh"
 
   # Turn on NTP
-  config.vm.provision :shell, :inline => "echo \"ntpdate time.ornl.gov ; apt-get install ntp -y && echo 'server time.ornl.gov' > /etc/ntp.conf \" | sudo sh"
+  config.vm.provision :shell, :inline => "echo \"echo 'America/New_York' > /etc/timezone; ntpdate time.ornl.gov ; apt-get install ntp -y && echo 'server time.ornl.gov' > /etc/ntp.conf \" | sudo sh"
 
 end
