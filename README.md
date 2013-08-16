@@ -84,6 +84,13 @@ For example, to connect to riak, do:
 
 Networking is set up as *host-only*, so you will not be able to connect to the VM from another machine.
 
+### Configured Ports
+
+* RabbitMQ: 5672
+* Riak: 8087 (Protobufs), 8098 (HTTP)
+* Neo4J: 1337, 7474 (webadmin)
+* Logstash: 9200/9300 (embedded elasticsearch), 9292 (web ui)
+
 
 ## Demonstration and Testing
 

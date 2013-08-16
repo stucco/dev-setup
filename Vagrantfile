@@ -29,25 +29,6 @@ Vagrant.configure("2") do |config|
   # be found here: http://cloud-images.ubuntu.com/
   config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box"
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine.
-
-  # Forward the default RabbitMQ port to enable access from host OS
-  config.vm.network :forwarded_port, guest: 5672, host: 5672
-
-  # Forward the default Riak ports to enable access from host OS
-  #config.vm.network :forwarded_port, guest: 8087, host: 8087  # Protocol Buffers
-  config.vm.network :forwarded_port, guest: 8098, host: 8098  # HTTP
-
-  # Forward the default Neo4j ports to enable access from host OS
-  config.vm.network :forwarded_port, guest: 1337, host: 1337
-  config.vm.network :forwarded_port, guest: 7474, host: 7474
-
-  # Forward the default Logstash ports to enable access from host OS
-  config.vm.network :forwarded_port, guest: 9200, host: 9200
-  config.vm.network :forwarded_port, guest: 9292, host: 9292
-  config.vm.network :forwarded_port, guest: 9300, host: 9300
-
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   config.vm.network :private_network, ip: "#{options[:ip]}"
@@ -67,13 +48,13 @@ Vagrant.configure("2") do |config|
 
   # Update package list, but do not do upgrade. Upgrades should
   # be done manually, if required (`sudo apt-get upgrade`)
-  config.vm.provision :shell, :inline => "sudo apt-get update"
+  config.vm.provision :shell, :inline => "echo 'Running apt-get update' ; sudo apt-get update"
 
   # Recommended for riak
-  config.vm.provision :shell, :inline => "ulimit -n 8192"
+  config.vm.provision :shell, :inline => "echo 'Increasing ulimit for Riak' ; ulimit -n 8192"
 
   # Turn on NTP
-  config.vm.provision :shell, :inline => "echo \"echo 'America/New_York' > /etc/timezone; ntpdate us.pool.ntp.org ; apt-get install ntp -y && echo 'server us.pool.ntp.org' > /etc/ntp.conf \" | sudo sh"
+  config.vm.provision :shell, :inline => "echo 'Setting up NTP' ; echo \"echo 'America/New_York' > /etc/timezone; ntpdate us.pool.ntp.org ; apt-get install ntp -y && echo 'server us.pool.ntp.org' > /etc/ntp.conf \" | sudo sh"
 
   # Install required packages
   config.vm.provision :chef_solo do |chef|
@@ -113,7 +94,13 @@ Vagrant.configure("2") do |config|
   end
 
   # Install [SBT](www.scala-sbt.org) 0.12.3
-  config.vm.provision :shell, :inline => "sudo apt-get -f -q -y install default-jdk && cd /usr/local/bin && sudo curl --silent -LO http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch//0.12.3/sbt-launch.jar && echo 'java -Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=384M -jar `dirname $0`/sbt-launch.jar \"$@\"' | sudo tee sbt > /dev/null && sudo chmod +x sbt"
+  config.vm.provision :shell, :inline => "echo 'Installing sbt' ; sudo apt-get -f -q -y install default-jdk && cd /usr/local/bin && sudo curl --silent -LO http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch//0.12.3/sbt-launch.jar && echo 'java -Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=384M -jar `dirname $0`/sbt-launch.jar \"$@\"' | sudo tee sbt > /dev/null && sudo chmod +x sbt"
+
+  # Install [Storm](http://storm-project.net/) 0.8.2
+  config.vm.provision :shell, :inline => "echo 'Installing Storm' ; if [ ! -f /usr/local/bin/storm ]; then cd /usr/local && curl --silent -LO https://dl.dropbox.com/u/133901206/storm-0.8.2.zip && unzip -o storm-0.8.2.zip && sudo ln -s ../storm-0.8.2/bin/storm bin/storm && sudo rm -f storm-0.8.2.zip && echo 'Storm has been installed.'; fi"
+
+  # Install [Neo4j](http://www.neo4j.org/download/linux) using debian package
+  config.vm.provision :shell, :inline => "echo 'Installing Neo4J' ; echo \"wget -O - http://debian.neo4j.org/neotechnology.gpg.key | apt-key add - && echo 'deb http://debian.neo4j.org/repo stable/' > /etc/apt/sources.list.d/neo4j.list && apt-get update -y && apt-get install neo4j -y && sed -i -e '/org\.neo4j\.server\.webserver\.address/s/^#//' /etc/neo4j/neo4j-server.properties \" | sudo sh"
 
   # Install [Logstash](http://logstash.net)
   config.vm.provision :shell, :inline => <<-eos
@@ -127,12 +114,5 @@ Vagrant.configure("2") do |config|
   sudo initctl reload-configuration
   sudo initctl start logstash-indexer
   eos
-
-
-  # Install [Storm](http://storm-project.net/) 0.8.2
-  config.vm.provision :shell, :inline => "if [ ! -f /usr/local/bin/storm ]; then cd /usr/local && curl --silent -LO https://dl.dropbox.com/u/133901206/storm-0.8.2.zip && unzip -o storm-0.8.2.zip && sudo ln -s ../storm-0.8.2/bin/storm bin/storm && sudo rm -f storm-0.8.2.zip && echo 'Storm has been installed.'; fi"
-
-  # Install [Neo4j](http://www.neo4j.org/download/linux) using debian package
-  config.vm.provision :shell, :inline => "echo \"wget -O - http://debian.neo4j.org/neotechnology.gpg.key | apt-key add - && echo 'deb http://debian.neo4j.org/repo stable/' > /etc/apt/sources.list.d/neo4j.list && apt-get update -y && apt-get install neo4j -y && sed -i -e '/org\.neo4j\.server\.webserver\.address/s/^#//' /etc/neo4j/neo4j-server.properties \" | sudo sh"
 
 end
