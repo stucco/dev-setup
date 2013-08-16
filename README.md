@@ -108,6 +108,10 @@ More information about submitting to a storm cluster can be found in the [storm 
 
 ## Notes
 
+### VPN
+
+The Cisco VPN, and maybe others, may screw up the ability to access the guest from the host OS. Turn off the VPN and maybe restart.
+
 ### Berkshelf
 
 Vagrant uses [Berkshelf](http://berkshelf.com/) to manage the Chef cookbooks, which define how applications are installed on the VM. To get new versions of cookbooks, you will need to delete the `Berksfile.lock` file, which locks in the versions of the cookbooks that are used.
