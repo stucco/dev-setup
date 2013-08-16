@@ -1,6 +1,10 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+options = {
+  :ip => "10.10.10.100"
+}
+
 Vagrant.configure("2") do |config|
 
   # Use [berkshelf plugin](https://github.com/RiotGames/vagrant-berkshelf) 
@@ -32,7 +36,7 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 5672, host: 5672
 
   # Forward the default Riak ports to enable access from host OS
-  config.vm.network :forwarded_port, guest: 8087, host: 8087  # Protocol Buffers
+  #config.vm.network :forwarded_port, guest: 8087, host: 8087  # Protocol Buffers
   config.vm.network :forwarded_port, guest: 8098, host: 8098  # HTTP
 
   # Forward the default Neo4j ports to enable access from host OS
@@ -46,18 +50,7 @@ Vagrant.configure("2") do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  # config.vm.network :private_network, ip: "192.168.33.10"
-
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  # config.vm.network :public_network
-
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.network :private_network, ip: "#{options[:ip]}"
 
   # Mount the parent directory under /stucco in the VM
   config.vm.synced_folder "../", "/stucco"
@@ -76,6 +69,12 @@ Vagrant.configure("2") do |config|
   # be done manually, if required (`sudo apt-get upgrade`)
   config.vm.provision :shell, :inline => "sudo apt-get update"
 
+  # Recommended for riak
+  config.vm.provision :shell, :inline => "ulimit -n 8192"
+
+  # Turn on NTP
+  config.vm.provision :shell, :inline => "echo \"echo 'America/New_York' > /etc/timezone; ntpdate us.pool.ntp.org ; apt-get install ntp -y && echo 'server us.pool.ntp.org' > /etc/ntp.conf \" | sudo sh"
+
   # Install required packages
   config.vm.provision :chef_solo do |chef|
     chef.json = {
@@ -85,6 +84,22 @@ Vagrant.configure("2") do |config|
         "jdk_version" => 7,
         "oracle" => {
           "accept_oracle_download_terms" => true
+        }
+      },
+      # set up riak to use the configured IP address
+      "riak" => {
+        "args" => {
+          "-name" => "riak@#{options[:ip]}"
+        },
+        "config" => {
+          "riak_core" => {
+            "http" => {
+              "__string_#{options[:ip]}" => 8098
+            }
+          },
+          "riak_api" => {
+            "pb_ip" => "__string_#{options[:ip]}"
+          }
         }
       }
     }
@@ -96,9 +111,6 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "rabbitmq"
     chef.add_recipe "riak"
   end
-
-  # Recommended for riak
-  config.vm.provision :shell, :inline => "ulimit -n 4096"
 
   # Install [SBT](www.scala-sbt.org) 0.12.3
   config.vm.provision :shell, :inline => "sudo apt-get -f -q -y install default-jdk && cd /usr/local/bin && sudo curl --silent -LO http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch//0.12.3/sbt-launch.jar && echo 'java -Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=384M -jar `dirname $0`/sbt-launch.jar \"$@\"' | sudo tee sbt > /dev/null && sudo chmod +x sbt"
@@ -116,16 +128,11 @@ Vagrant.configure("2") do |config|
   sudo initctl start logstash-indexer
   eos
 
-  # Install Maven manually since chef recipe is not working
-  # config.vm.provision :shell, :inline => "sudo apt-get install maven -y && echo 'Maven has been installed.'"
 
   # Install [Storm](http://storm-project.net/) 0.8.2
   config.vm.provision :shell, :inline => "if [ ! -f /usr/local/bin/storm ]; then cd /usr/local && curl --silent -LO https://dl.dropbox.com/u/133901206/storm-0.8.2.zip && unzip -o storm-0.8.2.zip && sudo ln -s ../storm-0.8.2/bin/storm bin/storm && sudo rm -f storm-0.8.2.zip && echo 'Storm has been installed.'; fi"
 
   # Install [Neo4j](http://www.neo4j.org/download/linux) using debian package
   config.vm.provision :shell, :inline => "echo \"wget -O - http://debian.neo4j.org/neotechnology.gpg.key | apt-key add - && echo 'deb http://debian.neo4j.org/repo stable/' > /etc/apt/sources.list.d/neo4j.list && apt-get update -y && apt-get install neo4j -y\" | sudo sh"
-
-  # Turn on NTP
-  config.vm.provision :shell, :inline => "echo \"echo 'America/New_York' > /etc/timezone; ntpdate time.ornl.gov ; apt-get install ntp -y && echo 'server time.ornl.gov' > /etc/ntp.conf \" | sudo sh"
 
 end
