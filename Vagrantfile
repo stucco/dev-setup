@@ -133,6 +133,6 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :inline => "if [ ! -f /usr/local/bin/storm ]; then cd /usr/local && curl --silent -LO https://dl.dropbox.com/u/133901206/storm-0.8.2.zip && unzip -o storm-0.8.2.zip && sudo ln -s ../storm-0.8.2/bin/storm bin/storm && sudo rm -f storm-0.8.2.zip && echo 'Storm has been installed.'; fi"
 
   # Install [Neo4j](http://www.neo4j.org/download/linux) using debian package
-  config.vm.provision :shell, :inline => "echo \"wget -O - http://debian.neo4j.org/neotechnology.gpg.key | apt-key add - && echo 'deb http://debian.neo4j.org/repo stable/' > /etc/apt/sources.list.d/neo4j.list && apt-get update -y && apt-get install neo4j -y\" | sudo sh"
+  config.vm.provision :shell, :inline => "echo \"wget -O - http://debian.neo4j.org/neotechnology.gpg.key | apt-key add - && echo 'deb http://debian.neo4j.org/repo stable/' > /etc/apt/sources.list.d/neo4j.list && apt-get update -y && apt-get install neo4j -y && sed -i -e '/org\.neo4j\.server\.webserver\.address/s/^#//' /etc/neo4j/neo4j-server.properties \" | sudo sh"
 
 end
