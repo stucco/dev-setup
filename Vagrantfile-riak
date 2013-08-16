@@ -1,0 +1,62 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+options = {
+  :ip => "10.10.10.100"
+}
+
+Vagrant.configure("2") do |config|
+
+  # Use [berkshelf plugin](https://github.com/RiotGames/vagrant-berkshelf) 
+  # to use [berkshelf](http://berkshelf.com/) to manage cookbooks
+  # To install plugin: `vagrant plugin install vagrant-berkshelf`
+  config.berkshelf.enabled = true
+
+  # Use [omnibus plugin](https://github.com/schisamo/vagrant-omnibus) 
+  # to use the omnibus installer to install [chef](http://www.opscode.com/chef/)
+  # Install plugin: `vagrant plugin install vagrant-omnibus`
+  config.omnibus.chef_version = "11.4.4"
+
+  # VM name
+  config.vm.hostname = "stucco"
+
+  # Every Vagrant virtual environment requires a box to build off of.
+  config.vm.box = "precise-server-cloudimg-amd64-vagrant-disk1"
+
+  config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box"
+
+  # Host-only IP address the VM will be accessible from
+  config.vm.network :private_network, ip: "#{options[:ip]}"
+
+  # Forward the default Riak ports to enable access from host OS
+  #config.vm.network :forwarded_port, guest: 8087, host: 8087  # Protocol Buffers
+  config.vm.network :forwarded_port, guest: 8098, host: 8098  # HTTP
+
+  
+  # Install required packages
+  config.vm.provision :chef_solo do |chef|
+    chef.json = {
+      "riak" => {
+        "args" => {
+          "-name" => "riak@#{options[:ip]}"
+        },
+        "config" => {
+          "riak_core" => {
+            "http" => {
+              "__string_#{options[:ip]}" => 8098
+            }
+          },
+          "riak_api" => {
+            "pb_ip" => "__string_#{options[:ip]}"
+          }
+        }
+      }
+    }
+
+    chef.add_recipe "riak"
+  end
+
+  # Recommended for riak
+  config.vm.provision :shell, :inline => "ulimit -n 4096"
+
+end
