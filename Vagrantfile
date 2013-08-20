@@ -2,7 +2,8 @@
 # vi: set ft=ruby :
 
 options = {
-  :ip => "10.10.10.100"
+  :ip => "10.10.10.100",
+  :scriptDir => "setup-scripts"
 }
 
 Vagrant.configure("2") do |config|
@@ -29,12 +30,22 @@ Vagrant.configure("2") do |config|
   # be found here: http://cloud-images.ubuntu.com/
   config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box"
 
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine.
+  # config.vm.network :forwarded_port, guest: 5672, host: 5672
+  # No port forwarding, use private network IP to connect to VM
+
+  # Create a public network, which generally matched to bridged network.
+  # Bridged networks make the machine appear as another physical device on
+  # your network.
+  config.vm.network :public_network
+
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   config.vm.network :private_network, ip: "#{options[:ip]}"
 
   # Mount the parent directory under /stucco in the VM
-  config.vm.synced_folder "../", "/stucco"
+  # config.vm.synced_folder "../", "/stucco"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -51,14 +62,15 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :inline => "echo 'Running apt-get update' ; sudo apt-get update"
 
   # Recommended for riak
-  config.vm.provision :shell, :inline => "echo 'Increasing ulimit for Riak' ; ulimit -n 8192"
-
-  # Turn on NTP
-  config.vm.provision :shell, :inline => "echo 'Setting up NTP' ; echo \"echo 'America/New_York' > /etc/timezone; ntpdate us.pool.ntp.org ; apt-get install ntp -y && echo 'server us.pool.ntp.org' > /etc/ntp.conf \" | sudo sh"
+  config.vm.provision :shell, :inline => "echo 'Increasing ulimit for Riak' ; ulimit -n 10240"
 
   # Install required packages
   config.vm.provision :chef_solo do |chef|
     chef.json = {
+      # turn on ntp
+      "ntp" => {
+        "servers" => ["0.us.pool.ntp.org", "1.us.pool.ntp.org", "2.us.pool.ntp.org"]
+      },
       # use Oracle Java JDK instead of default OpenJDK
       "java" => {
         "install_flavor" => 'oracle',
@@ -82,37 +94,43 @@ Vagrant.configure("2") do |config|
             "pb_ip" => "__string_#{options[:ip]}"
           }
         }
+      },
+      # set the cluster name
+      "elasticsearch" => {
+        "cluster_name" => "stucco-es"
       }
     }
 
+    chef.add_recipe "ntp"
     chef.add_recipe "git"
+    chef.add_recipe "chef-sbt"
     chef.add_recipe "python"
     chef.add_recipe "java"
     chef.add_recipe "zookeeper"
     chef.add_recipe "rabbitmq"
     chef.add_recipe "riak"
+    chef.add_recipe "elasticsearch"
   end
 
-  # Install [SBT](www.scala-sbt.org) 0.12.3
-  config.vm.provision :shell, :inline => "echo 'Installing sbt' ; sudo apt-get -f -q -y install default-jdk && cd /usr/local/bin && sudo curl --silent -LO http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch//0.12.3/sbt-launch.jar && echo 'java -Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=384M -jar `dirname $0`/sbt-launch.jar \"$@\"' | sudo tee sbt > /dev/null && sudo chmod +x sbt"
+  # Install [Storm](http://storm-project.net/), passing version as argument
+  config.vm.provision :shell do |shell|
+    shell.path = "#{options[:scriptDir]}/storm.sh"
+    shell.args = "0.8.2"
+  end
 
-  # Install [Storm](http://storm-project.net/) 0.8.2
-  config.vm.provision :shell, :inline => "echo 'Installing Storm' ; if [ ! -f /usr/local/bin/storm ]; then cd /usr/local && curl --silent -LO https://dl.dropbox.com/u/133901206/storm-0.8.2.zip && unzip -o storm-0.8.2.zip && sudo ln -s ../storm-0.8.2/bin/storm bin/storm && sudo rm -f storm-0.8.2.zip && echo 'Storm has been installed.'; fi"
+  # Install [Logstash](http://logstash.net), passing version as argument
+  config.vm.provision :shell do |shell|
+    shell.path = "#{options[:scriptDir]}/logstash.sh"
+    shell.args = "1.1.13"
+  end
 
-  # Install [Neo4j](http://www.neo4j.org/download/linux) using debian package
-  config.vm.provision :shell, :inline => "echo 'Installing Neo4J' ; echo \"wget -O - http://debian.neo4j.org/neotechnology.gpg.key | apt-key add - && echo 'deb http://debian.neo4j.org/repo stable/' > /etc/apt/sources.list.d/neo4j.list && apt-get update -y && apt-get install neo4j -y && sed -i -e '/org\.neo4j\.server\.webserver\.address/s/^#//' /etc/neo4j/neo4j-server.properties \" | sudo sh"
+  # Install [Neo4j](http://www.neo4j.org/), passing version as argument
+  config.vm.provision :shell do |shell|
+    shell.path = "#{options[:scriptDir]}/neo4j.sh"
+    shell.args = "1.9.2"
+  end
 
-  # Install [Logstash](http://logstash.net)
-  config.vm.provision :shell, :inline => <<-eos
-  if [ ! -d /opt/logstash ]; then sudo adduser --system --home /opt/logstash --ingroup adm --disabled-password logstash; fi
-  cd /opt/logstash
-  sudo curl --silent -LO https://logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jar
-  cd /etc/init
-  sudo curl --silent -LO https://github.com/stucco/dev-setup/raw/master/logstash-indexer.conf
-  cd /etc/
-  sudo curl --silent -LO https://github.com/stucco/rt/raw/master/logstash.conf
-  sudo initctl reload-configuration
-  sudo initctl start logstash-indexer
-  eos
+  # Set up Stucco
+  config.vm.provision :shell, :path => "#{options[:scriptDir]}/stucco.sh"
 
 end
