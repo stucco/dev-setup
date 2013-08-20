@@ -50,13 +50,13 @@ Log into the vagrant box and run the unit tests. For example, to test the storm 
 
 To run the demonstration or test, you should start up vagrant, start up the rt project, and then send data into the RabbitMQ queue.
 
-    vagrant up
+    vagrant ssh
     cd /usr/local/stucco/rt
     sbt run
     # send data to queue to process
 
 
-## Deploy to Storm
+## Deploy to Storm Cluster
 
 To run a project locally within the VM, you can just use SBT: `sbt run`.
 
