@@ -3,7 +3,7 @@
 
 options = {
   :ip => "10.10.10.100",
-  :scriptDir => "setup-scripts"
+  :scriptDir => "setup"
 }
 
 Vagrant.configure("2") do |config|
