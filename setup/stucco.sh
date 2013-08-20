@@ -3,7 +3,7 @@
 # Get stucco components
 
 STUCCO_HOME=/usr/local/stucco
-STUCCO_REPOS="rt" # change to "rt collectors" when collectors is ready
+STUCCO_REPOS="rt collectors"
 
 if [ ! -d "${STUCCO_HOME}" ]; then
   sudo mkdir -m 0777 $STUCCO_HOME  
