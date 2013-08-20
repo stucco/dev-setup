@@ -1,4 +1,4 @@
-# Instructions for setting up Stucco development environment
+# Setup for development and test environment
 
 
 ## Vagrant
