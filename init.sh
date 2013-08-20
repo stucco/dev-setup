@@ -4,5 +4,4 @@
 vagrant plugin install vagrant-berkshelf
 vagrant plugin install vagrant-omnibus
 
-# Initialize the Vagrant vm
-vagrant up
+echo "Now you can start the VM with the command: vagrant up"
