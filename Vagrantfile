@@ -80,31 +80,42 @@ Vagrant.configure("2") do |config|
       },
       "logstash" => {
         "basedir" => "/usr/local/logstash",
-        # "elasticsearch_cluster" => "stucco-es",
+        "elasticsearch_cluster" => "stucco-es",
         "server" => {
-          # "enable_embedded_es" => false,
+          "enable_embedded_es" => false,
+          "install_rabbitmq" => false,
           "inputs" => [
             "file" => {
-              "type" => "stucco-rt",
+              "type" => "stucco",
               "path" => "/usr/local/stucco/rt/logstash.log",
               "format" => "json_event"
+            },
+            "log4j" => {
+              "type" => "stucco",
+              "port" => 9559
+            }
+          ],
+          "filters" => [
+            "multiline" => {
+              "type" => "log4j-type",
+              "pattern" => "^\\s",
+              "what" => "previous"
             }
           ],
           "outputs" => [
-            "elasticsearch" => {
-              "embedded" => true
+            "elasticsearch_http" => {
+              "host" => "localhost"
             }
-            # "elasticsearch_http" => {
-            #   "host" => "localhost"
-            # }
           ]
         }
       }
     }
 
     chef.add_recipe "java"
-    # chef.add_recipe "elasticsearch"
+    chef.add_recipe "elasticsearch"
     chef.add_recipe "logstash::server"
-    # chef.add_recipe "logstash::agent"
+    #chef.add_recipe "logstash::kibana"
+
   end
 
+end
