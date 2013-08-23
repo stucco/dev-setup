@@ -149,6 +149,7 @@ Vagrant.configure("2") do |config|
       },
 
       "kibana" => {
+        "repo" => "https://github.com/elasticsearch/kibana",
         "installdir" => "/usr/local/kibana",
         "es_server" => "localhost",
         "es_port" => 9200,
