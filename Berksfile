@@ -8,4 +8,4 @@ cookbook "riak"
 cookbook "rabbitmq"
 cookbook "elasticsearch"
 cookbook "logstash"
-cookbook "kibana", git: 'git://github.com/lusis/chef-kibana.git'
+cookbook "kibana", git: 'https://github.com/lusis/chef-kibana.git'
