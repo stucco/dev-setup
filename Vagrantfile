@@ -52,14 +52,26 @@ Vagrant.configure("2") do |config|
   
   # Use VBoxManage to customize the VM. Change memory and limit VM's CPU.
   config.vm.provider :virtualbox do |vb|
-    vb.customize ["modifyvm", :id, "--memory", "2048"]
+    vb.customize ["modifyvm", :id, "--memory", "3072"]
     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
   end
   
 
+  # Update package list, but do not do upgrade. Upgrades should
+  # be done manually, if required (`sudo apt-get upgrade`)
+  config.vm.provision :shell, :inline => "echo 'Running apt-get update' ; sudo apt-get update"
+
+  # Recommended for riak
+  config.vm.provision :shell, :inline => "echo 'Increasing ulimit for Riak' ; ulimit -n 64000"
+
   # Install required packages
   config.vm.provision :chef_solo do |chef|
     chef.json = {
+
+      "ntp" => {
+        "servers" => ["0.us.pool.ntp.org", "1.us.pool.ntp.org", "2.us.pool.ntp.org"]
+      },
+
       # use Oracle Java JDK instead of default OpenJDK
       "java" => {
         "install_flavor" => 'oracle',
@@ -68,54 +80,111 @@ Vagrant.configure("2") do |config|
           "accept_oracle_download_terms" => true
         }
       },
-      # set the cluster name
-      "elasticsearch" => {
-        "cluster_name" => "stucco-es",
-        "network" => {
-          "host" => "0.0.0.0"
+
+      # set up riak to use the configured IP address
+      "riak" => {
+        "args" => {
+          "-name" => "riak@#{options[:ip]}"
         },
-        "http" => {
-          "port" => 9200
+        "config" => {
+          "riak_core" => {
+            "http" => {
+              "__string_#{options[:ip]}" => 8098
+            }
+          },
+          "riak_api" => {
+            "pb_ip" => "__string_#{options[:ip]}"
+          }
         }
       },
+
+      "elasticsearch" => {
+        "cluster_name" => "stucco-es",
+        "bootstrap.mlockall" => false
+      },
+
       "logstash" => {
         "basedir" => "/usr/local/logstash",
-        "elasticsearch_cluster" => "stucco-es",
         "server" => {
+          "version" => "1.1.13",
           "enable_embedded_es" => false,
           "install_rabbitmq" => false,
           "inputs" => [
             "file" => {
-              "type" => "stucco",
+              "type" => "stucco-file",
               "path" => "/usr/local/stucco/rt/logstash.log",
               "format" => "json_event"
             },
             "log4j" => {
-              "type" => "stucco",
-              "port" => 9559
+              "type" => "stucco-log4j",
+              "debug" => true,
+              "port" => 9562
+            },
+            "tcp" => {
+              "type" => "stucco-tcp",
+              "port" => 9563,
+              "charset" => "UTF-8",
+              "format" => "json_event"
             }
           ],
           "filters" => [
             "multiline" => {
-              "type" => "log4j-type",
+              "type" => "stucco-log4j",
               "pattern" => "^\\s",
               "what" => "previous"
             }
           ],
           "outputs" => [
+            "file" => {
+              "path" => "/usr/local/logstash/server/log/output.log",
+              "flush_interval" => 0
+            },
             "elasticsearch_http" => {
-              "host" => "localhost"
+              "host" => "localhost",
+              "port" => 9200,
+              "flush_size" => 1
             }
           ]
         }
+      },
+
+      "kibana" => {
+        "installdir" => "/usr/local/kibana",
+        "es_server" => "localhost",
+        "es_port" => 9200,
+        "webserver" => "nginx",
+        "webserver_listen" => "0.0.0.0",
+        "webserver_port" => 8080
       }
+
     }
 
+    chef.add_recipe "ntp"
+    chef.add_recipe "git"
+    chef.add_recipe "chef-sbt"
+    chef.add_recipe "python"
     chef.add_recipe "java"
+    chef.add_recipe "zookeeper"
+    chef.add_recipe "rabbitmq"
+    chef.add_recipe "riak"
     chef.add_recipe "elasticsearch"
     chef.add_recipe "logstash::server"
-    #chef.add_recipe "logstash::kibana"
-
+    chef.add_recipe "kibana"
   end
+
+  # Install [Storm](http://storm-project.net/), passing version as argument
+  config.vm.provision :shell do |shell|
+    shell.path = "#{options[:scriptDir]}/storm.sh"
+    shell.args = "0.8.2"
+  end
+
+  # Install [Neo4j](http://www.neo4j.org/), passing version as argument
+  config.vm.provision :shell do |shell|
+    shell.path = "#{options[:scriptDir]}/neo4j.sh"
+    shell.args = "1.9.2"
+  end
+
+  # Set up Stucco
+  config.vm.provision :shell, :path => "#{options[:scriptDir]}/stucco.sh"
 
 end
