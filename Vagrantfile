@@ -155,7 +155,7 @@ Vagrant.configure("2") do |config|
         "es_port" => 9200,
         "webserver" => "nginx",
         "webserver_listen" => "0.0.0.0",
-        "webserver_port" => 8080
+        "webserver_port" => 8088
       }
 
     }
