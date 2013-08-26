@@ -112,13 +112,10 @@ Vagrant.configure("2") do |config|
           "inputs" => [
             "file" => {
               "type" => "stucco-file",
-              "path" => "/usr/local/stucco/rt/logstash.log",
+              "path" => "/var/log/stucco/*.log",
+              "exclude" => "*.gz",
+              "charset" => "UTF-8",
               "format" => "json_event"
-            },
-            "log4j" => {
-              "type" => "stucco-log4j",
-              "debug" => true,
-              "port" => 9562
             },
             "tcp" => {
               "type" => "stucco-tcp",
