@@ -3,7 +3,7 @@
 # Get stucco components
 
 STUCCO_HOME=/usr/local/stucco
-STUCCO_REPOS="rt collectors"
+STUCCO_REPOS="rt collectors get-exogenous-data"
 
 if [ ! -d "${STUCCO_HOME}" ]; then
   sudo mkdir -m 0777 $STUCCO_HOME  
