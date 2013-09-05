@@ -5,12 +5,26 @@
 
 This project will set up the test and demonstration environment for Stucco using Vagrant. 
 
+It is expected that you will have a directory structure where all of the repositories are in a common folder, so it looks like this:
+
+    - `stucco`
+      - `dev-setup`
+      - `collectors`
+      - `rt`
+      - other required repos...
+
 Note: to use the provided setup, **you must have a 64-bit machine that supports Intel VT-x or AMD-V**.
 
 1. [Download VirtualBox](https://www.virtualbox.org/wiki/Downloads) and install. This was tested with version 4.2.x.
 2. [Download a Vagrant installer](http://downloads.vagrantup.com/) for Mac OS, Windows, and Linux and install it. This was tested with version 1.2.x.
 3. Install [Vagrant plugins](http://docs.vagrantup.com/v2/plugins/index.html) by running `init.sh`. 
-4. Run `vagrant up` to build the VM. If you have multiple networks interfaces, you may be asked what interface should the network bridge to - pick whichever one you normally use on your host OS.
+4. Get this repo from [github](https://github.com/stucco/dev-setup) and run `vagrant up` to build the VM. If you have multiple networks interfaces, you may be asked what interface should the network bridge to - pick whichever one you normally use on your host OS:
+
+    mkdir stucco && cd stucco
+    git clone https://github.com/stucco/dev-setup.git
+    cd dev-setup
+    vagrant up
+
 5. Run `vagrant ssh` to log into the VM. The stucco project will be in `/usr/local/stucco`.
 
 To stop/start the VM, the fastest approach is to use `vagrant suspend` and `vagrant resume`. You can also use `vagrant halt` and `vagrant up`, but this will completely rebuild the VM each time.
@@ -42,7 +56,7 @@ Services generally use defaults and exposed interfaces bind to the host-only IP.
 Log into the vagrant box and run the unit tests. For example, to test the storm [rt](https://github.com/stucco/rt) project:
 
     vagrant ssh
-    cd /usr/local/stucco/rt
+    cd /stucco/rt
     sbt test
 
 

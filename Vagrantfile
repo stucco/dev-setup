@@ -45,7 +45,8 @@ Vagrant.configure("2") do |config|
   config.vm.network :private_network, ip: "#{options[:ip]}"
 
   # Mount the parent directory under /stucco in the VM
-  # config.vm.synced_folder "../", "/stucco"
+  # All project repos should be in the parent dir
+  config.vm.synced_folder "../", "/stucco"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -181,8 +182,5 @@ Vagrant.configure("2") do |config|
     shell.path = "#{options[:scriptDir]}/neo4j.sh"
     shell.args = "1.9.2"
   end
-
-  # Set up Stucco
-  config.vm.provision :shell, :path => "#{options[:scriptDir]}/stucco.sh"
 
 end
