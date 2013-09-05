@@ -7,10 +7,10 @@ This project will set up the test and demonstration environment for Stucco using
 
 It is expected that you will have a directory structure where all of the repositories are in a common folder, so it looks like this:
 
-    - `stucco`
-      - `dev-setup`
-      - `collectors`
-      - `rt`
+    - stucco
+      - dev-setup
+      - collectors
+      - rt
       - other required repos...
 
 Note: to use the provided setup, **you must have a 64-bit machine that supports Intel VT-x or AMD-V**.
