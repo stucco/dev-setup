@@ -48,7 +48,7 @@ Services generally use defaults and exposed interfaces bind to the host-only IP.
 * RabbitMQ: 5672
 * Riak: 8087 (Protobufs), 8098 (HTTP)
 * Neo4J: 1337, 7474 (webadmin)
-* Logstash: 9200/9300 (elasticsearch), 8088 (kibana web ui), 9562 (log4j input), 9563 (tcp input)
+* Logstash: 9200/9300 (elasticsearch), 8000 (kibana web ui), 9562 (log4j input), 9563 (tcp input)
 
 
 ## Testing

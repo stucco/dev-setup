@@ -107,13 +107,13 @@ Vagrant.configure("2") do |config|
       "logstash" => {
         "basedir" => "/usr/local/logstash",
         "server" => {
-          "version" => "1.1.13",
+          "version" => "1.2.0",
           "enable_embedded_es" => false,
           "install_rabbitmq" => false,
           "inputs" => [
             "file" => {
-              "type" => "stucco-file",
-              "path" => "/var/log/stucco/*.log",
+              "type" => "stucco-rt",
+              "path" => "/stucco/rt/logstash.log",
               "exclude" => "*.gz",
               "charset" => "UTF-8",
               "format" => "json_event"
@@ -125,18 +125,7 @@ Vagrant.configure("2") do |config|
               "format" => "json_event"
             }
           ],
-          "filters" => [
-            "multiline" => {
-              "type" => "stucco-log4j",
-              "pattern" => "^\\s",
-              "what" => "previous"
-            }
-          ],
           "outputs" => [
-            "file" => {
-              "path" => "/usr/local/logstash/server/log/output.log",
-              "flush_interval" => 0
-            },
             "elasticsearch_http" => {
               "host" => "localhost",
               "port" => 9200,
@@ -149,11 +138,11 @@ Vagrant.configure("2") do |config|
       "kibana" => {
         "repo" => "https://github.com/elasticsearch/kibana",
         "installdir" => "/usr/local/kibana",
-        "es_server" => "localhost",
+        "es_server" => "#{options[:ip]}",
         "es_port" => 9200,
         "webserver" => "nginx",
         "webserver_listen" => "0.0.0.0",
-        "webserver_port" => 8088
+        "webserver_port" => 8000
       }
 
     }
