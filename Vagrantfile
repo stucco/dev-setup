@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
   # Use [omnibus plugin](https://github.com/schisamo/vagrant-omnibus) 
   # to use the omnibus installer to install [chef](http://www.opscode.com/chef/)
   # Install plugin: `vagrant plugin install vagrant-omnibus`
-  config.omnibus.chef_version = "11.4.4"
+  config.omnibus.chef_version = :latest
 
   # VM name
   config.vm.hostname = "stucco"
