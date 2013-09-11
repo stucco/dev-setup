@@ -20,12 +20,12 @@ Note: to use the provided setup, **you must have a 64-bit machine that supports 
 3. Install [Vagrant plugins](http://docs.vagrantup.com/v2/plugins/index.html) by running `init.sh`. 
 4. Get this repo from [github](https://github.com/stucco/dev-setup) and run `vagrant up` to build the VM. If you have multiple networks interfaces, you may be asked what interface should the network bridge to - pick whichever one you normally use on your host OS:
 
-    mkdir stucco && cd stucco
-    git clone https://github.com/stucco/dev-setup.git
-    cd dev-setup
-    vagrant up
+```mkdir stucco && cd stucco
+git clone https://github.com/stucco/dev-setup.git
+cd dev-setup
+vagrant up```
 
-5. Run `vagrant ssh` to log into the VM. The stucco project will be in `/usr/local/stucco`.
+5. Run `vagrant ssh` to log into the VM. The stucco project will be in `/stucco`.
 
 To stop/start the VM, the fastest approach is to use `vagrant suspend` and `vagrant resume`. You can also use `vagrant halt` and `vagrant up`, but this will completely rebuild the VM each time.
 
@@ -65,7 +65,7 @@ Log into the vagrant box and run the unit tests. For example, to test the storm 
 To run the demonstration or test, you should start up vagrant, start up the rt project, and then send data into the RabbitMQ queue.
 
     vagrant ssh
-    cd /usr/local/stucco/rt
+    cd /stucco/rt
     sbt run
     # send data to queue to process
 
