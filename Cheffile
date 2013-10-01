@@ -1,3 +1,7 @@
+# encoding: utf-8
+
+site 'http://community.opscode.com/api/v1'
+
 cookbook "ntp"
 cookbook "git"
 cookbook "chef-sbt"
@@ -8,4 +12,5 @@ cookbook "riak"
 cookbook "rabbitmq"
 cookbook "elasticsearch"
 cookbook "logstash"
-cookbook "kibana", git: 'https://github.com/lusis/chef-kibana.git'
+cookbook "kibana",
+  :github=>"lusis/chef-kibana"

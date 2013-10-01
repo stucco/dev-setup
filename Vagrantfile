@@ -8,11 +8,6 @@ options = {
 
 Vagrant.configure("2") do |config|
 
-  # Use [berkshelf plugin](https://github.com/RiotGames/vagrant-berkshelf) 
-  # to use [berkshelf](http://berkshelf.com/) to manage cookbooks
-  # To install plugin: `vagrant plugin install vagrant-berkshelf`
-  config.berkshelf.enabled = true
-
   # Use [omnibus plugin](https://github.com/schisamo/vagrant-omnibus) 
   # to use the omnibus installer to install [chef](http://www.opscode.com/chef/)
   # Install plugin: `vagrant plugin install vagrant-omnibus`
