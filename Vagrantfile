@@ -153,6 +153,7 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "elasticsearch"
     chef.add_recipe "logstash::server"
     chef.add_recipe "kibana"
+    chef.add_recipe "neo4j-server::tarball"
   end
 
   # Install [Storm](http://storm-project.net/), passing version as argument
@@ -162,9 +163,9 @@ Vagrant.configure("2") do |config|
   end
 
   # Install [Neo4j](http://www.neo4j.org/), passing version as argument
-  config.vm.provision :shell do |shell|
-    shell.path = "#{options[:scriptDir]}/neo4j.sh"
-    shell.args = "1.9.2"
-  end
+  # config.vm.provision :shell do |shell|
+  #   shell.path = "#{options[:scriptDir]}/neo4j.sh"
+  #   shell.args = "1.9.3"
+  # end
 
 end

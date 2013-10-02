@@ -17,7 +17,7 @@ Note: to use the provided setup, **you must have a 64-bit machine that supports 
 
 1. [Download VirtualBox](https://www.virtualbox.org/wiki/Downloads) and install. This was tested with version 4.2.x.
 2. [Download a Vagrant installer](http://downloads.vagrantup.com/) for Mac OS, Windows, and Linux and install it. This was tested with version 1.2.x.
-3. Install [Vagrant plugins](http://docs.vagrantup.com/v2/plugins/index.html) by running `init.sh`. 
+3. Install [Vagrant plugins](http://docs.vagrantup.com/v2/plugins/index.html) by running `install-vagrant-plugins.sh`. 
 4. Get this repo from [github](https://github.com/stucco/dev-setup) and run `vagrant up` to build the VM. If you have multiple networks interfaces, you may be asked what interface should the network bridge to - pick whichever one you normally use on your host OS:
 
 ```mkdir stucco && cd stucco

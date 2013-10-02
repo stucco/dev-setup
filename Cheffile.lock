@@ -65,7 +65,7 @@ SITE
       build-essential (>= 0.0.0)
       git (>= 0.0.0)
       ohai (>= 1.1)
-    riak (2.3.3)
+    riak (2.3.4)
       apt (>= 0.0.0)
       build-essential (>= 0.0.0)
       erlang (>= 0.0.0)
@@ -88,11 +88,19 @@ SITE
       java (>= 0.0.0)
 
 GIT
-  remote: https://github.com/lusis/chef-kibana
+  remote: https://github.com/michaelklishin/neo4j-server-chef-cookbook
   ref: master
-  sha: 3af9fd8adf0d4fbf971818ef50c29835a5ff6c06
+  sha: 9ddb3c5170a1e408bd62be0da1f192f85e351834
   specs:
-    kibana (1.0.1)
+    neo4j-server (0.0.1)
+      java (>= 0.0.1)
+
+GIT
+  remote: https://github.com/nickpellant/chef-kibana
+  ref: master
+  sha: 54afc93f6fe61d648fe8e1f4e12ed8a885c6847a
+  specs:
+    kibana (1.1.4)
       apache2 (>= 0.0.0)
       git (>= 0.0.0)
       nginx (>= 0.0.0)
@@ -104,6 +112,7 @@ DEPENDENCIES
   java (>= 0)
   kibana (>= 0)
   logstash (>= 0)
+  neo4j-server (>= 0)
   ntp (>= 0)
   python (>= 0)
   rabbitmq (>= 0)
