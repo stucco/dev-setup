@@ -138,6 +138,10 @@ Vagrant.configure("2") do |config|
         "webserver" => "nginx",
         "webserver_listen" => "0.0.0.0",
         "webserver_port" => 8000
+      },
+
+      "nodejs" => {
+        "version" => "0.10.20"
       }
 
     }
@@ -153,6 +157,8 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "elasticsearch"
     chef.add_recipe "logstash::server"
     chef.add_recipe "kibana"
+    chef.add_recipe "nodejs::install_from_package"
+    chef.add_recipe "nodejs::npm"
     chef.add_recipe "neo4j-server::tarball"
   end
 
@@ -161,5 +167,8 @@ Vagrant.configure("2") do |config|
     shell.path = "#{options[:scriptDir]}/storm.sh"
     shell.args = "0.8.2"
   end
+
+  # Start stucco
+  config.vm.provision :shell, :inline => "#{options[:scriptDir]}/stucco.sh"
 
 end

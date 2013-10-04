@@ -5,7 +5,7 @@ SITE
       ark (>= 0.0.0)
       java (>= 0.0.0)
     apache2 (1.7.0)
-    apt (2.1.2)
+    apt (2.2.0)
     ark (0.4.0)
     build-essential (1.4.2)
     chef-sbt (0.0.1)
@@ -88,6 +88,16 @@ SITE
       java (>= 0.0.0)
 
 GIT
+  remote: https://github.com/mdxp/nodejs-cookbook
+  ref: master
+  sha: 4c685529e7a8db0222b17407367e8b309afd3137
+  specs:
+    nodejs (1.3.0)
+      apt (>= 0.0.0)
+      build-essential (>= 0.0.0)
+      yum (>= 0.0.0)
+
+GIT
   remote: https://github.com/michaelklishin/neo4j-server-chef-cookbook
   ref: master
   sha: 9ddb3c5170a1e408bd62be0da1f192f85e351834
@@ -113,6 +123,7 @@ DEPENDENCIES
   kibana (>= 0)
   logstash (>= 0)
   neo4j-server (>= 0)
+  nodejs (>= 0)
   ntp (>= 0)
   python (>= 0)
   rabbitmq (>= 0)
