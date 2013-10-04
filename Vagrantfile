@@ -162,10 +162,4 @@ Vagrant.configure("2") do |config|
     shell.args = "0.8.2"
   end
 
-  # Install [Neo4j](http://www.neo4j.org/), passing version as argument
-  # config.vm.provision :shell do |shell|
-  #   shell.path = "#{options[:scriptDir]}/neo4j.sh"
-  #   shell.args = "1.9.3"
-  # end
-
 end
