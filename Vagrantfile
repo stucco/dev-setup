@@ -169,6 +169,8 @@ Vagrant.configure("2") do |config|
   end
 
   # Start stucco
-  config.vm.provision :shell, :inline => "#{options[:scriptDir]}/stucco.sh"
+  config.vm.provision :shell do |shell|
+    shell.path = "#{options[:scriptDir]}/stucco.sh"
+  end
 
 end
