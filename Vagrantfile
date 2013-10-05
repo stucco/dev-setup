@@ -142,7 +142,13 @@ Vagrant.configure("2") do |config|
 
       "nodejs" => {
         "version" => "0.10.20"
-      }
+      },
+
+      "neo4j" => {
+        "server" => {
+          "version" => "1.9.4"
+        }
+      }      
 
     }
 
