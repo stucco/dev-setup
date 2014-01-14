@@ -168,4 +168,10 @@ Vagrant.configure("2") do |config|
   #   shell.args = "1.9.3"
   # end
 
+  # Install [Titan](http://thinkaurelius.github.io/titan/), passing version as argument if needed
+  config.vm.provision :shell do |shell|
+    shell.path = "#{options[:scriptDir]}/titan.sh"
+    #shell.args = "0.4.2"
+  end
+
 end
