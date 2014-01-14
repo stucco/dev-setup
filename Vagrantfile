@@ -102,7 +102,7 @@ Vagrant.configure("2") do |config|
       "logstash" => {
         "basedir" => "/usr/local/logstash",
         "server" => {
-          "version" => "1.2.0",
+          "version" => "1.3.2",
           "enable_embedded_es" => false,
           "install_rabbitmq" => false,
           "inputs" => [
@@ -141,7 +141,7 @@ Vagrant.configure("2") do |config|
       },
 
       "nodejs" => {
-        "version" => "0.10.20"
+        "version" => "0.10.24"
       },
 
       "neo4j" => {
@@ -171,7 +171,7 @@ Vagrant.configure("2") do |config|
   # Install [Storm](http://storm-project.net/), passing version as argument
   config.vm.provision :shell do |shell|
     shell.path = "#{options[:scriptDir]}/storm.sh"
-    shell.args = "0.8.2"
+    shell.args = "0.9.0.1"
   end
 
   # Start stucco
