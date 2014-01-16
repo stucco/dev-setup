@@ -4,12 +4,13 @@
 
 DIR=/stucco
 sudo mkdir $DIR
+sudo chmod 4777 $DIR
 cd $DIR
 repos="ontology config rt collectors document-service"
 for repo in $repos; do
   IFS=" "
   echo "cloning ${repo}"
-  sudo git clone https://github.com/stucco/${repo}.git
+  git clone https://github.com/stucco/${repo}.git
 done
 
 # Additional setup
