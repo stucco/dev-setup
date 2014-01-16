@@ -3,7 +3,8 @@
 
 options = {
   :ip => "10.10.10.100",
-  :scriptDir => "setup"
+  :scriptDir => "setup",
+  :testDir => "test"
 }
 
 Vagrant.configure("2") do |config|
@@ -39,9 +40,9 @@ Vagrant.configure("2") do |config|
   # using a specific IP.
   config.vm.network :private_network, ip: "#{options[:ip]}"
 
-  # Mount the parent directory under /stucco in the VM
+  # Mount the parent directory under /stucco-shared in the VM
   # All project repos should be in the parent dir
-  config.vm.synced_folder "../", "/stucco"
+  config.vm.synced_folder "../", "/stucco-shared"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -174,15 +175,16 @@ Vagrant.configure("2") do |config|
     shell.args = "0.9.0.1"
   end
 
-  # Start stucco
-  config.vm.provision :shell do |shell|
-    shell.path = "#{options[:scriptDir]}/stucco.sh"
-  end
-
   # Install [Titan](http://thinkaurelius.github.io/titan/), passing version as argument if needed
   config.vm.provision :shell do |shell|
     shell.path = "#{options[:scriptDir]}/titan.sh"
-    #shell.args = "0.4.2"
+    shell.args = "0.4.2"
   end
+
+  # Get stucco
+  config.vm.provision "shell", path: "#{options[:scriptDir]}/stucco.sh"
+
+  # Run stucco tests
+  config.vm.provision "shell", path: "#{options[:testDir]}/run-tests.sh"
 
 end
