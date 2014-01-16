@@ -83,6 +83,17 @@ To run the demonstration or test, you should start up vagrant, start up the rt p
     # send data to queue to process
 
 
+## Uninstall
+
+To completely remove everything:
+
+    vagrant plugin uninstall vagrant-librarian-chef
+    vagrant plugin uninstall vagrant-omnibus
+    rm -rf .vagrant cookbooks tmp
+
+Then uninstall Vagrant and VirtualBox.
+
+
 ## Notes
 
 ### VPN
