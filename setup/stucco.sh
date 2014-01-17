@@ -21,4 +21,4 @@ sudo npm install -d
 
 # Load configuration
 cd $DIR/config-loader
-node load.js
+NODE_ENV=vagrant node load.js
