@@ -16,5 +16,4 @@ cookbook "kibana",
   :github=>"nickpellant/chef-kibana"  # forked from "lusis/chef-kibana"
 cookbook "nodejs",
   :github=>"mdxp/nodejs-cookbook"
-cookbook "neo4j-server",
-  :github=>"michaelklishin/neo4j-server-chef-cookbook"
+cookbook "etcd"

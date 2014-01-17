@@ -145,10 +145,8 @@ Vagrant.configure("2") do |config|
         "version" => "0.10.24"
       },
 
-      "neo4j" => {
-        "server" => {
-          "version" => "1.9.4"
-        }
+      "etcd" => {
+        "version" => "0.2.0"
       }      
 
     }
@@ -166,7 +164,7 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "kibana"
     chef.add_recipe "nodejs::install_from_package"
     chef.add_recipe "nodejs::npm"
-    chef.add_recipe "neo4j-server::tarball"
+    chef.add_recipe "etcd"
   end
 
   # Install [Storm](http://storm-project.net/), passing version as argument
