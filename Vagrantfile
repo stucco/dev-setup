@@ -65,6 +65,13 @@ Vagrant.configure("2") do |config|
   config.vm.provision :chef_solo do |chef|
     chef.json = {
 
+      # The apt cookbook uses port 11371 to connect to the keyserver, but this
+      # port is often blocked. To force apt to use port 80 we need to specify
+      # a keyserver proxy. Setting this to " " is sufficient.
+      "apt" => {
+        "key_proxy" => " " # one space so it is not empty
+      },
+
       "ntp" => {
         "servers" => ["0.us.pool.ntp.org", "1.us.pool.ntp.org", "2.us.pool.ntp.org"]
       },
