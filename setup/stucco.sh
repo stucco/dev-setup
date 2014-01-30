@@ -22,7 +22,12 @@ sudo npm install -g forever --quiet
 cd $DIR/config-loader
 NODE_ENV=vagrant node load.js
 
-# Install node modules and start
+# Compile rt
+cd $DIR/rt
+sudo sbt compile
+# sudo sbt run
+
+# Install node modules and start document-service
 cd $DIR/document-service
 sudo npm install --quiet
 sudo forever start --append -l /var/log/doc-service-forever.log -o /var/log/doc-service-out.log -e /var/log/doc-service-err.log --pid /var/run/document-service.pid server.js
