@@ -8,5 +8,4 @@ sbt test
 
 # Test [document-service](https://github.com/stucco/document-service)
 cd /stucco/document-service
-npm test
-
+NODE_ENV=vagrant npm test
