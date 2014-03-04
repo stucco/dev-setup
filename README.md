@@ -11,13 +11,13 @@ Note: to use the provided setup, **you must have a 64-bit machine that supports 
 3. Install [Vagrant plugins](http://docs.vagrantup.com/v2/plugins/index.html) by running `install-vagrant-plugins.sh`. 
 4. Get this repo from [github](https://github.com/stucco/dev-setup) and any other repos that you need.
 
-    mkdir stucco && cd stucco
-    git clone https://github.com/stucco/dev-setup.git
-
+        mkdir stucco && cd $_
+        git clone https://github.com/stucco/dev-setup.git
+      
 5. Run `vagrant up` to build the VM. If you have multiple networks interfaces, you may be asked what interface should the network bridge to - pick whichever one you normally use on your host OS. This will take a few minutes as your VM is built.
 
-    cd dev-setup
-    vagrant up
+        cd dev-setup
+        vagrant up
 
 6. Run `vagrant ssh` to log into the VM. The stucco project will be in `/stucco` and/or `stucco-shared` (see below).
 
