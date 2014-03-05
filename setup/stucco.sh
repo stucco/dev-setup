@@ -6,7 +6,7 @@ DIR=/stucco
 sudo mkdir $DIR
 sudo chmod 4777 $DIR
 cd $DIR
-repos="ontology config-loader rt collectors document-service"
+repos="ontology config-loader rt collectors document-service jetcd get-exogenous-data endogenous-data-uc1"
 for repo in $repos; do
   IFS=" "
   echo "cloning ${repo}"
@@ -31,3 +31,16 @@ sudo sbt compile
 cd $DIR/document-service
 sudo npm install --quiet
 sudo forever start --append -l /var/log/doc-service-forever.log -o /var/log/doc-service-out.log -e /var/log/doc-service-err.log --pid /var/run/document-service.pid server.js
+
+# Install jetcd
+cd $DIR/jetcd
+sudo ./gradlew install
+
+# Install collectors
+cd $DIR/collectors
+sudo mvn install
+
+# Download exogenous data
+cd $DIR/get-exogenous-data
+npm start
+
