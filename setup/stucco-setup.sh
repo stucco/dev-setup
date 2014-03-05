@@ -2,10 +2,13 @@
 
 ### Download the repositories
 
-DIR=/stucco
-sudo mkdir $DIR
-sudo chmod 4777 $DIR
-cd $DIR
+export STUCCO_HOME=${DIR}
+
+sudo mkdir $STUCCO_HOME
+sudo chmod 4777 $STUCCO_HOME
+sudo chown vagrant:vagrant $STUCCO_HOME
+
+cd $STUCCO_HOME
 repos="ontology config-loader rt collectors document-service"
 for repo in $repos; do
   IFS=" "
@@ -16,18 +19,18 @@ done
 # Additional setup
 
 # [forever](https://github.com/nodejitsu/forever) for starting node.js daemons
-sudo npm install -g forever --quiet
+npm install -g forever --quiet
 
 # Load configuration into etcd
-cd $DIR/config-loader
+cd $STUCCO_HOME/config-loader
 NODE_ENV=vagrant node load.js
 
 # Compile rt
-cd $DIR/rt
-sudo sbt compile
-# sudo sbt run
+cd $STUCCO_HOME/rt
+./maven-rt-build.sh
+cd stucco-topology
+mvn clean package
 
 # Install node modules and start document-service
-cd $DIR/document-service
-sudo npm install --quiet
-sudo forever start --append -l /var/log/doc-service-forever.log -o /var/log/doc-service-out.log -e /var/log/doc-service-err.log --pid /var/run/document-service.pid server.js
+cd $STUCCO_HOME/document-service
+npm install --quiet
