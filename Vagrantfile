@@ -3,8 +3,7 @@
 
 options = {
   :ip => "10.10.10.100",
-  :scriptDir => "setup",
-  :testDir => "test"
+  :scriptsDir => "scripts"
 }
 
 Vagrant.configure("2") do |config|
@@ -58,9 +57,6 @@ Vagrant.configure("2") do |config|
   # be done manually, if required (`sudo apt-get upgrade`)
   config.vm.provision :shell, :inline => "echo 'Running apt-get update' ; sudo apt-get update"
 
-  # Recommended for riak
-  config.vm.provision :shell, :inline => "echo 'Increasing ulimit for Riak' ; ulimit -n 64000"
-
   # Install required packages
   config.vm.provision :chef_solo do |chef|
     chef.json = {
@@ -68,13 +64,9 @@ Vagrant.configure("2") do |config|
       # The apt cookbook uses port 11371 to connect to the keyserver, but this
       # port is often blocked. To force apt to use port 80 we need to specify
       # a keyserver proxy. Setting this to " " is sufficient.
-      "apt" => {
-        "key_proxy" => " " # one space so it is not empty
-      },
-
-      "ntp" => {
-        "servers" => ["0.us.pool.ntp.org", "1.us.pool.ntp.org", "2.us.pool.ntp.org"]
-      },
+#      "apt" => {
+#        "key_proxy" => " " # one space so it is not empty
+#      },
 
       # use Oracle Java JDK instead of default OpenJDK
       "java" => {
@@ -85,24 +77,8 @@ Vagrant.configure("2") do |config|
         }
       },
 
-      # set up riak to use the configured IP address
-      "riak" => {
-        "args" => {
-          "-name" => "riak@#{options[:ip]}"
-        },
-        "config" => {
-          "riak_core" => {
-            "http" => {
-              "__string_#{options[:ip]}" => 8098
-            }
-          },
-          "riak_api" => {
-            "pb_ip" => "__string_#{options[:ip]}"
-          }
-        }
-      },
-
       "elasticsearch" => {
+        "version" => "1.0.1",
         "cluster_name" => "stucco-es",
         "bootstrap.mlockall" => false
       },
@@ -110,7 +86,7 @@ Vagrant.configure("2") do |config|
       "logstash" => {
         "basedir" => "/usr/local/logstash",
         "server" => {
-          "version" => "1.3.2",
+          "version" => "1.3.3",
           "enable_embedded_es" => false,
           "install_rabbitmq" => false,
           "inputs" => [
@@ -148,51 +124,43 @@ Vagrant.configure("2") do |config|
         "webserver_port" => 8000
       },
 
-      "nodejs" => {
-        "version" => "0.10.24"
-      },
-
       "etcd" => {
-        "version" => "0.2.0"
+        "version" => "0.3.0"
       }      
 
     }
 
-    chef.add_recipe "ntp"
     chef.add_recipe "git"
-    chef.add_recipe "chef-sbt"
-    chef.add_recipe "python"
     chef.add_recipe "java"
-    chef.add_recipe "zookeeper"
     chef.add_recipe "rabbitmq"
-    chef.add_recipe "riak"
     chef.add_recipe "elasticsearch"
     chef.add_recipe "logstash::server"
     chef.add_recipe "kibana"
-    chef.add_recipe "nodejs::install_from_package"
-    chef.add_recipe "nodejs::npm"
     chef.add_recipe "etcd"
   end
+
+  # Install Node.js stable
+  config.vm.provision "shell", path: "#{options[:scriptsDir]}/install-node.sh"
 
   # Install Apache Maven (v3)
   config.vm.provision "shell", privileged: "true", inline: "apt-get install maven -y"
 
-  # Install [Storm](http://storm-project.net/), passing version as argument
-  config.vm.provision :shell do |shell|
-    shell.path = "#{options[:scriptDir]}/storm.sh"
-    shell.args = "0.9.0.1"
-  end
-
   # Install [Titan](http://thinkaurelius.github.io/titan/), passing version as argument if needed
   config.vm.provision :shell do |shell|
-    shell.path = "#{options[:scriptDir]}/titan.sh"
+    shell.path = "#{options[:scriptsDir]}/install-titan.sh"
     shell.args = "0.4.2"
   end
 
+  # [forever](https://github.com/nodejitsu/forever) for starting node.js daemons
+  config.vm.provision "shell", privileged: "true", inline: "npm install -g forever"
+
   # Get stucco
-  config.vm.provision "shell", path: "#{options[:scriptDir]}/stucco.sh"
+  config.vm.provision "shell", path: "#{options[:scriptsDir]}/setup-stucco.sh"
+
+  # Start stucco
+  config.vm.provision "shell", path: "#{options[:scriptsDir]}/start-stucco.sh"
 
   # Run stucco tests
-  config.vm.provision "shell", path: "#{options[:testDir]}/run-tests.sh"
+  config.vm.provision "shell", path: "#{options[:scriptsDir]}/run-stucco-tests.sh"
 
 end

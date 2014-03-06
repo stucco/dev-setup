@@ -32,10 +32,6 @@ To access the VM from the host, use the  host-only IP address defined at the top
       :ip => "10.10.10.100"
     }
 
-For example, to connect to riak, do:
-
-    curl -XGET http://10.10.10.100:8098/
-
 Networking is set up as *host-only*, so you will not be able to connect to the VM from another machine. A public network is also set up, but no ports are forwarded on that interface; this allows the VM to connect to the Internet.
 
 Within the created Virtual Machine, you can either run the shared source code from your machine or the [version on github](https://github.com/stucco):
@@ -63,9 +59,9 @@ All Stucco components will be pulled from github and built in the `/stucco` dire
 Services generally use defaults and exposed interfaces bind to the host-only IP.
 
 * RabbitMQ: 5672
-* Riak: 8087 (Protobufs), 8098 (HTTP)
 * Neo4J: 1337, 7474 (webadmin)
-* Logstash: 9200/9300 (elasticsearch), 8000 (kibana web ui), 9562 (log4j input), 9563 (tcp input)
+* Elasticsearch: 9200, 9300
+* Logstash: 8000 (kibana web ui), 9562 (log4j input), 9563 (tcp input)
 
 
 ## Testing
@@ -75,13 +71,11 @@ Tests are run automatically at the end of the VM building process. All commands 
 
 ## Demonstration
 
-To run the demonstration or test, you should start up vagrant, start up the rt project, and then send data into the RabbitMQ queue.
+To run the demonstration or test, you should start up vagrant and then send data into the RabbitMQ queue.
 
     vagrant ssh
-    cd /stucco/rt
-    sbt run
     # send data to queue to process
-
+    /vagrant/scripts/load-stucco-data.sh
 
 ## Uninstall
 

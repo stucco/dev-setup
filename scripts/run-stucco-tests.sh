@@ -4,7 +4,7 @@
 
 # Test [rt](https://github.com/stucco/rt)
 cd /stucco/rt
-sbt test
+# TODO: run tests
 
 # Test [document-service](https://github.com/stucco/document-service)
 cd /stucco/document-service
