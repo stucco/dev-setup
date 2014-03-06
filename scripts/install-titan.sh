@@ -21,8 +21,6 @@ VERSION=${1:-'0.4.2'}
 BACKEND=server  #"server" includes rexter, cassandra, and all other backend/indexing support
 TITAN=titan-${BACKEND}-${VERSION}
 
-#http://s3.thinkaurelius.com/downloads/titan/titan-server-0.4.2.zip
-
 if [ ! -d /usr/local/${TITAN} ]; then 
   echo "Installing Titan ${VERSION}..."
   cd /usr/local
@@ -31,4 +29,6 @@ if [ ! -d /usr/local/${TITAN} ]; then
   sudo unzip -qo ${FILE}
   sudo rm -f ${FILE}
   echo "Titan has been installed."
+  /usr/local/titan-server-0.4.2/bin/titan.sh start
+  echo "Titan has been started."
 fi
