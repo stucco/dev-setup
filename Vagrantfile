@@ -66,9 +66,9 @@ Vagrant.configure("2") do |config|
       # The apt cookbook uses port 11371 to connect to the keyserver, but this
       # port is often blocked. To force apt to use port 80 we need to specify
       # a keyserver proxy. Setting this to " " is sufficient.
-      "apt" => {
-        "key_proxy" => " " # one space so it is not empty
-      },
+#      "apt" => {
+#        "key_proxy" => " " # one space so it is not empty
+#      },
 
       # use Oracle Java JDK instead of default OpenJDK
       "java" => {
@@ -155,6 +155,9 @@ Vagrant.configure("2") do |config|
     shell.path = "#{options[:setupDir]}/titan.sh"
     shell.args = "0.4.2"
   end
+
+  # [forever](https://github.com/nodejitsu/forever) for starting node.js daemons
+  config.vm.provision "shell", privileged: "true", inline: "npm install -g forever"
 
   # Get stucco
   config.vm.provision "shell", path: "#{options[:setupDir]}/stucco-setup.sh"
