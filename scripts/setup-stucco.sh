@@ -1,8 +1,9 @@
 #!/bin/sh
 
-
 STUCCO_HOME=/stucco
 STUCCO_DATA_DIR=${STUCCO_HOME}/data
+
+echo "Installing Stucco components..."
 
 sudo mkdir -p $STUCCO_HOME
 sudo chmod 4777 $STUCCO_HOME
@@ -41,3 +42,5 @@ mvn clean package
 # Install node modules and start document-service
 cd $STUCCO_HOME/document-service
 npm install --quiet
+
+echo "Stucco has been installed."

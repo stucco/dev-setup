@@ -11,6 +11,7 @@ if [ ! -e /usr/sbin/cassandra ]; then
   gpg --export --armor 2B5C1B00 | sudo apt-key add -
   sudo apt-get update
   sudo apt-get -y install cassandra
+  echo "Cassandra has been installed."
 fi
 
 # Install [Titan](http://thinkaurelius.github.io/titan/)
