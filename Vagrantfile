@@ -155,12 +155,12 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", privileged: "true", inline: "npm install -g forever"
 
   # Get stucco
-  config.vm.provision "shell", path: "#{options[:scriptsDir]}/setup-stucco.sh"
+  config.vm.provision "shell", privileged: "true", path: "#{options[:scriptsDir]}/setup-stucco.sh"
 
   # Start stucco
-  config.vm.provision "shell", path: "#{options[:scriptsDir]}/start-stucco.sh"
+  config.vm.provision "shell", privileged: "false", path: "#{options[:scriptsDir]}/start-stucco.sh"
 
   # Run stucco tests
-  config.vm.provision "shell", path: "#{options[:scriptsDir]}/run-stucco-tests.sh"
+  config.vm.provision "shell", privileged: "false", path: "#{options[:scriptsDir]}/run-stucco-tests.sh"
 
 end
