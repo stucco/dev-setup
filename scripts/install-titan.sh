@@ -28,7 +28,10 @@ if [ ! -d /usr/local/${TITAN} ]; then
   sudo curl --silent -LO http://s3.thinkaurelius.com/downloads/titan/${FILE}
   sudo unzip -qo ${FILE}
   sudo rm -f ${FILE}
+  sudo chown -R vagrant /usr/local/titan-server-0.4.2/
   echo "Titan has been installed."
-  /usr/local/titan-server-0.4.2/bin/titan.sh start
+  sudo service cassandra stop
+  sudo /usr/local/titan-server-0.4.2/bin/cassandra
+  sudo /usr/local/titan-server-0.4.2/bin/titan.sh start
   echo "Titan has been started."
 fi
