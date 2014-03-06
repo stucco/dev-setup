@@ -1,6 +1,8 @@
 #!/bin/sh
 
 STUCCO_HOME=/stucco
-STUCCO_DATA_DIR=${STUCCO_HOME}/data
 
 echo "Loading data into message queue..."
+
+cd $STUCCO_HOME
+$STUCCO_HOME/collectors/replay.sh
