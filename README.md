@@ -1,4 +1,4 @@
-# Setup for development and test environment
+# Setup for development, test, and demo environment
 
 This project will set up the test and demonstration environment for Stucco using [Vagrant](http://www.vagrantup.com/). 
 
@@ -19,7 +19,7 @@ Note: to use the provided setup, **you must have a 64-bit machine that supports 
         cd dev-setup
         vagrant up
 
-6. Run `vagrant ssh` to log into the VM. The stucco project will be in `/stucco` and/or `stucco-shared` (see below).
+6. Run `vagrant ssh` to log into the VM. The stucco project will be in `/stucco` and/or `stucco-shared` (see below). To start loading data, run the following in the VM:  `/vagrant/scripts/load-stucco-data.sh`
 
 
 ## Usage
@@ -34,7 +34,7 @@ To access the VM from the host, use the  host-only IP address defined at the top
 
 Networking is set up as *host-only*, so you will not be able to connect to the VM from another machine. A public network is also set up, but no ports are forwarded on that interface; this allows the VM to connect to the Internet.
 
-Within the created Virtual Machine, you can either run the shared source code from your machine or the [version on github](https://github.com/stucco):
+Within the created Virtual Machine, you can either run the shared source code from your machine or the [version on github](https://github.com/stucco).
 
 ### Shared Directory
 
@@ -54,19 +54,10 @@ Using the Github directory is a good way to demonstrate stucco, since it ensures
 
 All Stucco components will be pulled from github and built in the `/stucco` directory.
 
-### Configured Ports
-
-Services generally use defaults and exposed interfaces bind to the host-only IP.
-
-* RabbitMQ: 5672
-* Neo4J: 1337, 7474 (webadmin)
-* Elasticsearch: 9200, 9300
-* Logstash: 8000 (kibana web ui), 9562 (log4j input), 9563 (tcp input)
-
 
 ## Testing
 
-Tests are run automatically at the end of the VM building process. All commands run in `test/run-tests.sh` will run. To run all tests you can run this script manually.
+Tests are run automatically at the end of the VM building process. All commands in `scripts/run-stucco-tests.sh` will execute. To run all tests you can execute this script manually from within the VM.
 
 
 ## Demonstration
@@ -77,6 +68,7 @@ To run the demonstration or test, you should start up vagrant and then send data
     # send data to queue to process
     /vagrant/scripts/load-stucco-data.sh
 
+
 ## Uninstall
 
 To completely remove everything:
@@ -85,7 +77,7 @@ To completely remove everything:
     vagrant plugin uninstall vagrant-omnibus
     rm -rf .vagrant cookbooks tmp
 
-Then uninstall Vagrant and VirtualBox.
+Then uninstall Vagrant and VirtualBox. (Look at disk images to see if there is an uninstall script for your OS.)
 
 
 ## Notes
