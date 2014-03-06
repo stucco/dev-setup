@@ -9,6 +9,4 @@ cookbook "elasticsearch"
 cookbook "logstash"
 cookbook "kibana",
   :github=>"nickpellant/chef-kibana"  # forked from "lusis/chef-kibana"
-cookbook "nodejs",
-  :github=>"mdxp/nodejs-cookbook"
 cookbook "etcd"

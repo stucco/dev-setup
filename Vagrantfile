@@ -124,10 +124,6 @@ Vagrant.configure("2") do |config|
         "webserver_port" => 8000
       },
 
-      "nodejs" => {
-        "version" => "0.10.26"
-      },
-
       "etcd" => {
         "version" => "0.3.0"
       }      
@@ -141,9 +137,10 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "logstash::server"
     chef.add_recipe "kibana"
     chef.add_recipe "etcd"
-    chef.add_recipe "nodejs::install_from_package"
-    chef.add_recipe "nodejs::npm"
   end
+
+  # Install Node.js stable
+  config.vm.provision "shell", path: "#{options[:scriptsDir]}/install-node.sh"
 
   # Install Apache Maven (v3)
   config.vm.provision "shell", privileged: "true", inline: "apt-get install maven -y"
