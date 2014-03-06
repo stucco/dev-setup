@@ -105,16 +105,6 @@ SITE
       yum (>= 2.3.0)
 
 GIT
-  remote: https://github.com/mdxp/nodejs-cookbook
-  ref: master
-  sha: e2415cd8c4e03dccf21d7ef6ca31e1c5c81467ca
-  specs:
-    nodejs (1.3.0)
-      apt (>= 0.0.0)
-      build-essential (>= 0.0.0)
-      yum-epel (>= 0.0.0)
-
-GIT
   remote: https://github.com/nickpellant/chef-kibana
   ref: master
   sha: 54afc93f6fe61d648fe8e1f4e12ed8a885c6847a
@@ -131,6 +121,5 @@ DEPENDENCIES
   java (>= 0)
   kibana (>= 0)
   logstash (>= 0)
-  nodejs (>= 0)
   rabbitmq (>= 0)
 
