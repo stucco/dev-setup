@@ -32,10 +32,6 @@ To access the VM from the host, use the  host-only IP address defined at the top
       :ip => "10.10.10.100"
     }
 
-For example, to connect to riak, do:
-
-    curl -XGET http://10.10.10.100:8098/
-
 Networking is set up as *host-only*, so you will not be able to connect to the VM from another machine. A public network is also set up, but no ports are forwarded on that interface; this allows the VM to connect to the Internet.
 
 Within the created Virtual Machine, you can either run the shared source code from your machine or the [version on github](https://github.com/stucco):
