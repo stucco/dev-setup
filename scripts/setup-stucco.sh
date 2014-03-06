@@ -1,6 +1,5 @@
 #!/bin/sh
 
-### Download the repositories
 
 STUCCO_HOME=/stucco
 STUCCO_DATA_DIR=${STUCCO_HOME}/data
@@ -9,8 +8,9 @@ sudo mkdir -p $STUCCO_HOME
 sudo chmod 4777 $STUCCO_HOME
 sudo chown vagrant:vagrant $STUCCO_HOME
 
-mkdir STUCCO_DATA_DIR
+mkdir $STUCCO_DATA_DIR
 
+### Download the repositories
 cd $STUCCO_HOME
 repos="ontology config-loader rt collectors document-service endogenous-data-uc1 get-exogenous-data"
 for repo in $repos; do

@@ -3,9 +3,7 @@
 
 options = {
   :ip => "10.10.10.100",
-  :setupDir => "setup",
-  :runDir => "run",
-  :testDir => "test"
+  :scriptsDir => "scripts"
 }
 
 Vagrant.configure("2") do |config|
@@ -152,7 +150,7 @@ Vagrant.configure("2") do |config|
 
   # Install [Titan](http://thinkaurelius.github.io/titan/), passing version as argument if needed
   config.vm.provision :shell do |shell|
-    shell.path = "#{options[:setupDir]}/titan.sh"
+    shell.path = "#{options[:scriptsDir]}/install-titan.sh"
     shell.args = "0.4.2"
   end
 
@@ -160,12 +158,12 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", privileged: "true", inline: "npm install -g forever"
 
   # Get stucco
-  config.vm.provision "shell", path: "#{options[:setupDir]}/stucco-setup.sh"
+  config.vm.provision "shell", path: "#{options[:scriptsDir]}/setup-stucco.sh"
 
   # Start stucco
-  config.vm.provision "shell", path: "#{options[:runDir]}/stucco-start.sh"
+  config.vm.provision "shell", path: "#{options[:scriptsDir]}/start-stucco.sh"
 
   # Run stucco tests
-  config.vm.provision "shell", path: "#{options[:testDir]}/stucco-tests.sh"
+  config.vm.provision "shell", path: "#{options[:scriptsDir]}/run-stucco-tests.sh"
 
 end
