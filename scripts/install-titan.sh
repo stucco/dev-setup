@@ -31,7 +31,8 @@ if [ ! -d /usr/local/${TITAN} ]; then
   rm -f ${FILE}
   echo "Titan has been installed."
   cd ${TITAN}
-  ./bin/cassandra -p cassandra.pid
+  mv conf/rexster-cassandra-es.xml conf/rexster-cassandra-es.xml.orig
+  cat conf/rexster-cassandra-es.xml.orig | sed -e '/<base-uri>/s/localhost/10.10.10.100/' > conf/rexster-cassandra-es.xml
   ./bin/titan.sh start
   echo "Titan has been started."
 fi
