@@ -139,11 +139,14 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "etcd"
   end
 
-  # Install Node.js stable
-  config.vm.provision "shell", path: "#{options[:scriptsDir]}/install-node.sh"
-
   # Install Apache Maven (v3)
   config.vm.provision "shell", privileged: "true", inline: "apt-get install maven -y"
+
+  # Install Node.js stable
+  config.vm.provision :shell do |shell|
+    shell.path = "#{options[:scriptsDir]}/install-node.sh"
+    shell.args = "0.10.26"
+  end
 
   # Install [Titan](http://thinkaurelius.github.io/titan/), passing version as argument if needed
   config.vm.provision :shell do |shell|

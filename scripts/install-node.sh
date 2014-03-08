@@ -2,9 +2,10 @@
 
 echo "Installing node.js..."
 
-sudo apt-get install python-software-properties python g++ make -y
-sudo add-apt-repository ppa:chris-lea/node.js -y
-sudo apt-get update
-sudo apt-get install nodejs -y
+VERSION=${1:-'0.10.26'}
+PLATFORM=linux-x64
+
+cd /usr/local
+curl http://nodejs.org/dist/v${VERSION}/node-v${VERSION}-${PLATFORM}.tar.gz | tar xvz --strip-components=1 && rm ChangeLog LICENSE README.md
 
 echo "Node.js has been installed"
