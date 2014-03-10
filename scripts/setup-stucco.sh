@@ -45,7 +45,7 @@ cd $STUCCO_HOME/jetcd
 
 # Install collectors
 cd $STUCCO_HOME/collectors
-mvn install
+sudo mvn install
 
 sudo chown -R vagrant:vagrant $STUCCO_HOME
 
