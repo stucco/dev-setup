@@ -140,7 +140,7 @@ Vagrant.configure("2") do |config|
   end
 
   # Install Apache Maven (v3)
-  config.vm.provision "shell", privileged: "true", inline: "apt-get install maven -y"
+  config.vm.provision "shell", privileged: "false", inline: "apt-get install maven -y"
 
   # Install Node.js stable
   config.vm.provision :shell do |shell|
@@ -155,10 +155,10 @@ Vagrant.configure("2") do |config|
   end
 
   # [forever](https://github.com/nodejitsu/forever) for starting node.js daemons
-  config.vm.provision "shell", privileged: "true", inline: "npm install -g forever"
+  config.vm.provision "shell", privileged: "false", inline: "npm install -g forever"
 
   # Get stucco
-  config.vm.provision "shell", privileged: "true", path: "#{options[:scriptsDir]}/setup-stucco.sh"
+  config.vm.provision "shell", privileged: "false", path: "#{options[:scriptsDir]}/setup-stucco.sh"
 
   # Start stucco
   config.vm.provision "shell", privileged: "false", path: "#{options[:scriptsDir]}/start-stucco.sh"
