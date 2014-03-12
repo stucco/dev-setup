@@ -11,7 +11,7 @@ sudo chown vagrant:vagrant $STUCCO_HOME
 
 ### Download the repositories
 cd $STUCCO_HOME
-repos="ontology config-loader rt collectors document-service-client-java document-service endogenous-data-uc1 get-exogenous-data jetcd"
+repos="ontology config-loader rt collectors document-service endogenous-data-uc1 get-exogenous-data jetcd"
 for repo in $repos; do
   IFS=" "
   echo "cloning ${repo}"
@@ -28,10 +28,6 @@ cd $STUCCO_HOME/endogenous-data-uc1
 # Load configuration into etcd
 cd $STUCCO_HOME/config-loader
 NODE_ENV=vagrant node load.js
-
-# Install document-service-client-java
-cd $STUCCO_HOME/document-service-client-java
-mvn install
 
 # Compile rt
 cd $STUCCO_HOME/rt
