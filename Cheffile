@@ -2,18 +2,11 @@
 
 site 'http://community.opscode.com/api/v1'
 
-cookbook "ntp"
 cookbook "git"
-cookbook "chef-sbt"
-cookbook "python"
 cookbook "java"
-cookbook "zookeeper"
-cookbook "riak"
 cookbook "rabbitmq"
 cookbook "elasticsearch"
 cookbook "logstash"
 cookbook "kibana",
   :github=>"nickpellant/chef-kibana"  # forked from "lusis/chef-kibana"
-cookbook "nodejs",
-  :github=>"mdxp/nodejs-cookbook"
 cookbook "etcd"
