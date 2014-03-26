@@ -38,7 +38,6 @@ SITE
     iis (2.0.2)
       windows (>= 1.2.6)
     iptables (0.12.0)
-    java (1.20.0)
     logrotate (1.5.0)
     logstash (0.5.9)
       ant (>= 0.0.0)
@@ -113,6 +112,13 @@ GIT
       apache2 (>= 0.0.0)
       git (>= 0.0.0)
       nginx (>= 0.0.0)
+
+GIT
+  remote: https://github.com/socrata-cookbooks/java
+  ref: master
+  sha: 9c9dac76f72e5607fb11deac7dfb235db91e002a
+  specs:
+    java (1.22.1)
 
 DEPENDENCIES
   elasticsearch (>= 0)
