@@ -11,7 +11,7 @@ sudo chown vagrant:vagrant $STUCCO_HOME
 
 ### Download the repositories
 cd $STUCCO_HOME
-repos="ontology config-loader rt collectors document-service endogenous-data-uc1 get-exogenous-data jetcd"
+repos="ontology config-loader rt collectors document-service endogenous-data-uc1 get-exogenous-data"
 for repo in $repos; do
   IFS=" "
   echo "cloning ${repo}"
@@ -39,13 +39,9 @@ mvn clean package
 cd $STUCCO_HOME/document-service
 npm install --quiet
 
-# Install jetcd
-cd $STUCCO_HOME/jetcd
-./gradlew install
-
 # Install collectors
 cd $STUCCO_HOME/collectors
-mvn install
+./maven-collectors-build.sh
 
 #sudo chown -R vagrant:vagrant $STUCCO_HOME
 
