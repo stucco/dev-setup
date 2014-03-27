@@ -43,6 +43,6 @@ npm install --quiet
 cd $STUCCO_HOME/collectors
 ./maven-collectors-build.sh
 
-#sudo chown -R vagrant:vagrant $STUCCO_HOME
+sudo chown -R vagrant:vagrant $STUCCO_HOME
 
 echo "Stucco has been installed."
