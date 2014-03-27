@@ -78,7 +78,7 @@ Vagrant.configure("2") do |config|
       },
 
       "elasticsearch" => {
-        "version" => "1.0.1",
+        "version" => "1.1.0",
         "cluster_name" => "stucco-es",
         "bootstrap.mlockall" => false
       },
