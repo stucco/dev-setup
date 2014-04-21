@@ -46,6 +46,7 @@ cd $STUCCO_HOME/collectors
 #set various permissions
 sudo gpasswd -a logstash vagrant
 sudo chmod g+w /stucco/rt/
+sudo chmod g+w /stucco/rt/stucco-topology
 sudo chown -R vagrant:vagrant $STUCCO_HOME
 
 echo "Stucco has been installed."
