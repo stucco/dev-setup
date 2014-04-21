@@ -43,6 +43,9 @@ npm install --quiet
 cd $STUCCO_HOME/collectors
 ./maven-collectors-build.sh
 
+#set various permissions
+sudo gpasswd -a logstash vagrant
+sudo chmod g+w /stucco/rt/
 sudo chown -R vagrant:vagrant $STUCCO_HOME
 
 echo "Stucco has been installed."
