@@ -19,10 +19,11 @@ fi
 
 # Argument is the version to install, or default value
 VERSION=${1:-'0.4.2'}
+IP=${2:-'10.10.10.100'}
 BACKEND=server  #"server" includes rexter, cassandra, and all other backend/indexing support
 TITAN=titan-${BACKEND}-${VERSION}
 
-if [ ! -d /usr/local/${TITAN} ]; then 
+if [ -d /usr/local/${TITAN} ]; then 
   echo "Installing Titan ${VERSION}..."
   cd /usr/local
   FILE=${TITAN}.zip
@@ -32,7 +33,7 @@ if [ ! -d /usr/local/${TITAN} ]; then
   echo "Titan has been installed."
   cd ${TITAN}
   mv conf/rexster-cassandra-es.xml conf/rexster-cassandra-es.xml.orig
-  cat conf/rexster-cassandra-es.xml.orig | sed -e '/<base-uri>/s/localhost/10.10.10.100/' > conf/rexster-cassandra-es.xml
+  cat conf/rexster-cassandra-es.xml.orig | sed -e "/<base-uri>/s/localhost/""$IP""/" > conf/rexster-cassandra-es.xml
   ./bin/titan.sh start
   echo "Titan has been started."
 fi
