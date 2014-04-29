@@ -23,7 +23,7 @@ IP=${2:-'10.10.10.100'}
 BACKEND=server  #"server" includes rexter, cassandra, and all other backend/indexing support
 TITAN=titan-${BACKEND}-${VERSION}
 
-if [ -d /usr/local/${TITAN} ]; then 
+if [ ! -d /usr/local/${TITAN} ]; then 
   echo "Installing Titan ${VERSION}..."
   cd /usr/local
   FILE=${TITAN}.zip
