@@ -151,15 +151,15 @@ Vagrant.configure("2") do |config|
   end
 
   # [forever](https://github.com/nodejitsu/forever) for starting node.js daemons
-  config.vm.provision "shell", privileged: "false", inline: "npm install -g forever"
+  config.vm.provision "shell", inline: "npm install -g forever"
 
   # Get stucco
-  config.vm.provision "shell", privileged: "false", path: "#{options[:scriptsDir]}/setup-stucco.sh"
+  config.vm.provision "shell", path: "#{options[:scriptsDir]}/setup-stucco.sh"
 
   # Start stucco
-  config.vm.provision "shell", privileged: "false", path: "#{options[:scriptsDir]}/start-stucco.sh"
+  config.vm.provision "shell", path: "#{options[:scriptsDir]}/start-stucco.sh"
 
   # Run stucco tests
-  config.vm.provision "shell", privileged: "false", path: "#{options[:scriptsDir]}/run-stucco-tests.sh"
+  config.vm.provision "shell", path: "#{options[:scriptsDir]}/run-stucco-tests.sh"
 
 end
