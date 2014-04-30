@@ -8,6 +8,12 @@ options = {
 
 Vagrant.configure("2") do |config|
 
+  # Allow command line override of the IP address using the env VM_IP
+  # example usage: VM_IP="172.17.18.12" vagrant up
+  if ENV["VM_IP"]
+    options[:ip] = ENV["VM_IP"]
+  end
+
   # Use [omnibus plugin](https://github.com/schisamo/vagrant-omnibus) 
   # to use the omnibus installer to install [chef](http://www.opscode.com/chef/)
   # Install plugin: `vagrant plugin install vagrant-omnibus`
