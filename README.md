@@ -1,3 +1,4 @@
+
 # Setup for development, test, and demo environment
 
 This project will set up the test and demonstration environment for Stucco using [Vagrant](http://www.vagrantup.com/). 
@@ -22,6 +23,10 @@ Note: to use the provided setup, **you must have a 64-bit machine that supports 
 If you want to set an IP address, use the `VM_IP` environment variable before the `vagrant up` command:
 
         VM_IP="172.17.18.12" vagrant up
+
+If you want to set hostname, use the `VM_HOSTNAME` environment variable before the `vagrant up` command:
+
+        VM_HOSTNAME="stucco-1" vagrant up
 
 6. Run `vagrant ssh` to log into the VM. The stucco project will be in `/stucco` and/or `stucco-shared` (see below). To start loading data, run the following in the VM:  `/vagrant/scripts/load-stucco-data.sh`
 

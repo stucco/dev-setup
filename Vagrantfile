@@ -3,7 +3,8 @@
 
 options = {
   :ip => "10.10.10.100",
-  :scriptsDir => "scripts"
+  :scriptsDir => "scripts",
+  :hostname => "stucco"
 }
 
 Vagrant.configure("2") do |config|
@@ -14,13 +15,19 @@ Vagrant.configure("2") do |config|
     options[:ip] = ENV["VM_IP"]
   end
 
+  # Allow command line override of the hostname VM_HOSTNAME
+  # example usage: VM_HOSTNAME="stucco-1" vagrant up
+  if ENV["VM_HOSTNAME"]
+    options[:hostname] = ENV["VM_HOSTNAME"]
+  end
+
   # Use [omnibus plugin](https://github.com/schisamo/vagrant-omnibus) 
   # to use the omnibus installer to install [chef](http://www.opscode.com/chef/)
   # Install plugin: `vagrant plugin install vagrant-omnibus`
   config.omnibus.chef_version = :latest
 
   # VM name
-  config.vm.hostname = "stucco"
+  config.vm.hostname = options[:hostname] 
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "precise-server-cloudimg-amd64-vagrant-disk1"
