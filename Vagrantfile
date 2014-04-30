@@ -31,16 +31,6 @@ Vagrant.configure("2") do |config|
   # be found here: http://cloud-images.ubuntu.com/
   config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box"
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine.
-  # config.vm.network :forwarded_port, guest: 5672, host: 5672
-  # No port forwarding, use private network IP to connect to VM
-
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  config.vm.network :public_network
-
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   config.vm.network :private_network, ip: "#{options[:ip]}"
