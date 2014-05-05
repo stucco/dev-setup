@@ -32,7 +32,7 @@ if [ ! -d /usr/local/${TITAN} ]; then
   rm -f ${FILE}
   echo "Titan has been installed."
   cd ${TITAN}
-  #set cassandra address
+  #set rexster/doghouse address
   mv conf/rexster-cassandra-es.xml conf/rexster-cassandra-es.xml.orig
   cat conf/rexster-cassandra-es.xml.orig | sed -e "/<base-uri>/s/localhost/""$IP""/" > conf/rexster-cassandra-es.xml
   #bump rexster heap size
