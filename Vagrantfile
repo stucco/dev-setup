@@ -3,10 +3,23 @@
 
 options = {
   :ip => "10.10.10.100",
-  :scriptsDir => "scripts"
+  :scriptsDir => "scripts",
+  :hostname => "stucco"
 }
 
 Vagrant.configure("2") do |config|
+
+  # Allow command line override of the IP address using the env VM_IP
+  # example usage: VM_IP="172.17.18.12" vagrant up
+  if ENV["VM_IP"]
+    options[:ip] = ENV["VM_IP"]
+  end
+
+  # Allow command line override of the hostname VM_HOSTNAME
+  # example usage: VM_HOSTNAME="stucco-1" vagrant up
+  if ENV["VM_HOSTNAME"]
+    options[:hostname] = ENV["VM_HOSTNAME"]
+  end
 
   # Use [omnibus plugin](https://github.com/schisamo/vagrant-omnibus) 
   # to use the omnibus installer to install [chef](http://www.opscode.com/chef/)
@@ -14,7 +27,7 @@ Vagrant.configure("2") do |config|
   config.omnibus.chef_version = :latest
 
   # VM name
-  config.vm.hostname = "stucco"
+  config.vm.hostname = options[:hostname] 
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "precise-server-cloudimg-amd64-vagrant-disk1"
@@ -24,16 +37,6 @@ Vagrant.configure("2") do |config|
   # Ubuntu cloud images, including virtual box images for vagrant, can
   # be found here: http://cloud-images.ubuntu.com/
   config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box"
-
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine.
-  # config.vm.network :forwarded_port, guest: 5672, host: 5672
-  # No port forwarding, use private network IP to connect to VM
-
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  config.vm.network :public_network
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -151,19 +154,19 @@ Vagrant.configure("2") do |config|
   # Install [Titan](http://thinkaurelius.github.io/titan/), passing version as argument if needed
   config.vm.provision :shell do |shell|
     shell.path = "#{options[:scriptsDir]}/install-titan.sh"
-    shell.args = "0.4.4"
+    shell.args = ["0.4.4", "#{options[:ip]}"]
   end
 
   # [forever](https://github.com/nodejitsu/forever) for starting node.js daemons
-  config.vm.provision "shell", privileged: "false", inline: "npm install -g forever"
+  config.vm.provision "shell", inline: "npm install -g forever"
 
   # Get stucco
-  config.vm.provision "shell", privileged: "false", path: "#{options[:scriptsDir]}/setup-stucco.sh"
+  config.vm.provision "shell", path: "#{options[:scriptsDir]}/setup-stucco.sh"
 
   # Start stucco
-  config.vm.provision "shell", privileged: "false", path: "#{options[:scriptsDir]}/start-stucco.sh"
+  config.vm.provision "shell", path: "#{options[:scriptsDir]}/start-stucco.sh"
 
   # Run stucco tests
-  config.vm.provision "shell", privileged: "false", path: "#{options[:scriptsDir]}/run-stucco-tests.sh"
+  config.vm.provision "shell", path: "#{options[:scriptsDir]}/run-stucco-tests.sh"
 
 end
