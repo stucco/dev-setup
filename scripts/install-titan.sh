@@ -36,8 +36,8 @@ if [ ! -d /usr/local/${TITAN} ]; then
   mv conf/rexster-cassandra-es.xml conf/rexster-cassandra-es.xml.orig
   cat conf/rexster-cassandra-es.xml.orig | sed -e "/<base-uri>/s/localhost/""$IP""/" > conf/rexster-cassandra-es.xml
   #bump rexster heap size
-  mv bin/rexster.sh bin/rexster.sh.orig
-  cat bin/rexster.sh.orig | sed -e "/-server/s/-Xms128m -Xmx512m/-Xms128m -Xmx2048m -XX:MaxPermSize=256m/" > bin/rexster.sh
+  cp bin/rexster.sh bin/rexster.sh.orig
+  sudo bash -c 'cat bin/rexster.sh.orig | sed -e "/-server/s/-Xms128m -Xmx512m/-Xms128m -Xmx2048m -XX:MaxPermSize=256m/" > bin/rexster.sh'
   ./bin/titan.sh start
   echo "Titan has been started."
 fi
