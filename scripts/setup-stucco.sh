@@ -1,8 +1,13 @@
 #!/bin/sh
 
-STUCCO_HOME=/stucco
+echo "Installing remaining dependencies..." 
+
+echo y | sudo apt-get install supervisor
+sudo easy_install supervisor
 
 echo "Installing Stucco components..."
+
+STUCCO_HOME=/stucco
 
 sudo mkdir -p $STUCCO_HOME
 sudo chmod 4777 $STUCCO_HOME
@@ -32,7 +37,7 @@ NODE_ENV=vagrant node load.js
 # Compile rt
 cd $STUCCO_HOME/rt
 ./maven-rt-build.sh
-cd stucco-topology
+cd streaming-processor
 mvn clean package
 
 # Install node modules and start document-service
@@ -46,7 +51,7 @@ cd $STUCCO_HOME/collectors
 #set various permissions
 sudo gpasswd -a logstash vagrant
 sudo chmod g+w /stucco/rt/
-sudo chmod g+w /stucco/rt/stucco-topology
+sudo chmod g+w /stucco/rt/streaming-processor 
 sudo chown -R vagrant:vagrant $STUCCO_HOME
 
 echo "Stucco has been installed."
