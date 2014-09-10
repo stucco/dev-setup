@@ -54,6 +54,9 @@ Vagrant.configure("2") do |config|
   # be done manually, if required (`sudo apt-get upgrade`)
   config.vm.provision :shell, :inline => "echo 'Running apt-get update' ; sudo apt-get update"
 
+  # Install build tools.
+  config.vm.provision :shell, :inline => "sudo apt-get install build-essential -y"
+
   # Install required packages
   config.vm.provision :chef_solo do |chef|
     chef.json = {
