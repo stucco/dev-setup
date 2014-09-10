@@ -30,13 +30,7 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = options[:hostname] 
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "precise-server-cloudimg-amd64-vagrant-disk1"
-
-  # The url from where the 'config.vm.box' box will be fetched if it
-  # doesn't already exist on the user's system.
-  # Ubuntu cloud images, including virtual box images for vagrant, can
-  # be found here: http://cloud-images.ubuntu.com/
-  config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box"
+  config.vm.box = "ubuntu/trusty64"
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
