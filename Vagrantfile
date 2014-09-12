@@ -152,7 +152,7 @@ Vagrant.configure("2") do |config|
   # Install [Titan](http://thinkaurelius.github.io/titan/), passing version as argument if needed
   config.vm.provision :shell do |shell|
     shell.path = "#{options[:scriptsDir]}/install-titan.sh"
-    shell.args = ["0.4.4", "#{options[:ip]}"]
+    shell.args = ["0.5.0", "#{options[:ip]}"]
   end
 
   # [forever](https://github.com/nodejitsu/forever) for starting node.js daemons

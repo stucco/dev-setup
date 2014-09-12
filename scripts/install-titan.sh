@@ -1,29 +1,30 @@
 #!/bin/bash
 
 # Cassandra setup first
-if [ ! -e /usr/sbin/cassandra ]; then 
-  echo "Installing Cassandra 1.2 branch..."
-  sh -c 'echo "deb http://www.apache.org/dist/cassandra/debian 12x main" > /etc/apt/sources.list.d/cassandra.list'
-  sh -c 'echo "deb-src http://www.apache.org/dist/cassandra/debian 12x main" >> /etc/apt/sources.list.d/cassandra.list'
-  gpg --keyserver pgp.mit.edu --recv-keys F758CE318D77295D
-  gpg --export --armor F758CE318D77295D | apt-key add -
-  gpg --keyserver pgp.mit.edu --recv-keys 2B5C1B00
-  gpg --export --armor 2B5C1B00 | apt-key add -
-  apt-get update
-  apt-get -y install cassandra
-  service cassandra stop # kill the default instance
+if [ ! -e /usr/sbin/cassandra ] 
+  then 
+  echo "Installing Cassandra..."
+  echo "deb http://debian.datastax.com/community stable main" | sudo tee -a /etc/apt/sources.list.d/cassandra.sources.list
+  curl -L http://debian.datastax.com/debian/repo_key | sudo apt-key add -
+  sudo apt-get update
+  sudo apt-get install dsc20 -y #This installs the DataStax Community distribution of Cassandra. 
+  #Because the Debian packages start the Cassandra service automatically, you must stop the server and clear the data:
+  #Doing this removes the default cluster_name (Test Cluster) from the system table. All nodes must use the same cluster name.
+  #see http://www.datastax.com/documentation/cassandra/2.0/cassandra/install/installDeb_t.html
+  sudo service cassandra stop # kill the default instance
+  sudo rm -rf /var/lib/cassandra/data/system/* # remove default data
   echo "Cassandra has been installed."
 fi
 
 # Install [Titan](http://thinkaurelius.github.io/titan/)
 
 # Argument is the version to install, or default value
-VERSION=${1:-'0.4.2'}
+VERSION=${1:-'0.5.0'}
 IP=${2:-'10.10.10.100'}
-BACKEND=server  #"server" includes rexter, cassandra, and all other backend/indexing support
-TITAN=titan-${BACKEND}-${VERSION}
+TITAN=titan-${VERSION}-hadoop2
 
-if [ ! -d /usr/local/${TITAN} ]; then 
+if [ ! -d /usr/local/${TITAN} ] 
+  then 
   echo "Installing Titan ${VERSION}..."
   cd /usr/local
   FILE=${TITAN}.zip
