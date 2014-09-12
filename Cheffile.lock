@@ -38,6 +38,7 @@ SITE
     iis (2.0.2)
       windows (>= 1.2.6)
     iptables (0.12.0)
+    libarchive (0.3.0)
     logrotate (1.5.0)
     logstash (0.5.9)
       ant (>= 0.0.0)
@@ -104,13 +105,15 @@ SITE
       yum (>= 2.3.0)
 
 GIT
-  remote: https://github.com/nickpellant/chef-kibana
+  remote: https://github.com/lusis/chef-kibana
   ref: master
-  sha: 54afc93f6fe61d648fe8e1f4e12ed8a885c6847a
+  sha: dbd7ee079337a7e19aaf61a1f461882b63c95eef
   specs:
-    kibana (1.1.4)
+    kibana (1.3.0)
       apache2 (>= 0.0.0)
+      ark (>= 0.0.0)
       git (>= 0.0.0)
+      libarchive (>= 0.0.0)
       nginx (>= 0.0.0)
 
 GIT

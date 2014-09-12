@@ -9,5 +9,5 @@ cookbook "rabbitmq"
 cookbook "elasticsearch"
 cookbook "logstash"
 cookbook "kibana",
-  :github=>"nickpellant/chef-kibana"  # forked from "lusis/chef-kibana"
+  :github=>"lusis/chef-kibana"  
 cookbook "etcd"
