@@ -59,6 +59,7 @@ Vagrant.configure("2") do |config|
 
   # Install required packages
   config.vm.provision :chef_solo do |chef|
+    chef.custom_config_path = "Vagrantfile.chef"
     chef.json = {
 
       # The apt cookbook uses port 11371 to connect to the keyserver, but this
