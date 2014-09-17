@@ -24,7 +24,8 @@ Vagrant.configure("2") do |config|
   # Use [omnibus plugin](https://github.com/schisamo/vagrant-omnibus) 
   # to use the omnibus installer to install [chef](http://www.opscode.com/chef/)
   # Install plugin: `vagrant plugin install vagrant-omnibus`
-  config.omnibus.chef_version = :latest
+  #config.omnibus.chef_version = :latest # 404s currently, re-test later.
+  config.omnibus.install_url = 'https://www.opscode.com/chef/install.sh'
 
   # VM name
   config.vm.hostname = options[:hostname] 
