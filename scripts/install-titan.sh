@@ -40,6 +40,8 @@ if [ ! -d /usr/local/${TITAN} ]
   cp bin/rexster.sh bin/rexster.sh.orig
   sudo bash -c 'cat bin/rexster.sh.orig | sed -e "/-server/s/-Xms128m -Xmx512m/-Xms128m -Xmx2048m -XX:MaxPermSize=256m/" > bin/rexster.sh'
   sudo chmod a+x bin/rexster.sh
-  ./bin/titan.sh start
+  sudo killall -u elasticsearch #there is an extra instance already started for some reason, but we need the titan-created instance to be the only one
+  sleep 5
+  sudo ./bin/titan.sh start
   echo "Titan has been started."
 fi
