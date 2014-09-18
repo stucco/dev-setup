@@ -12,6 +12,7 @@ if [ ! -e /usr/sbin/cassandra ]
   #Doing this removes the default cluster_name (Test Cluster) from the system table. All nodes must use the same cluster name.
   #see http://www.datastax.com/documentation/cassandra/2.0/cassandra/install/installDeb_t.html
   sudo service cassandra stop # kill the default instance
+  sudo killall -u cassandra # try this way also
   sudo rm -rf /var/lib/cassandra/data/system/* # remove default data
   echo "Cassandra has been installed."
 fi
