@@ -149,6 +149,9 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "etcd"
   end
 
+  # use oracle JVM
+  config.vm.provision "shell", inline: "sudo update-alternatives --set java /usr/lib/jvm/java-7-oracle-amd64/bin/java"
+
   # Install Apache Maven (v3)
   config.vm.provision "shell", privileged: "false", inline: "apt-get install maven -y"
 
