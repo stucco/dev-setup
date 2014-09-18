@@ -119,9 +119,9 @@ GIT
 GIT
   remote: https://github.com/socrata-cookbooks/java
   ref: master
-  sha: 9c9dac76f72e5607fb11deac7dfb235db91e002a
+  sha: 67d455044ed30ffdb172038121cd7df0b3bf3385
   specs:
-    java (1.22.1)
+    java (1.28.0)
 
 DEPENDENCIES
   elasticsearch (>= 0)
