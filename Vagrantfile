@@ -39,6 +39,13 @@ Vagrant.configure("2") do |config|
     # Configure cached packages to be shared between instances of the same base box.
     # More info on the "Usage" link above
     config.cache.scope = :box
+
+    #using generic cache bucket for maven
+    config.cache.enable :generic, {
+      "maven-user" => { cache_dir: "/home/vagrant/.m2/repository"},
+      "maven-root" => { cache_dir: "/root/.m2/repository"},
+    }
+
   end
 
   # Create a private network, which allows host-only access to the machine
