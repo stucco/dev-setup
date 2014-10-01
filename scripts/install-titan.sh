@@ -29,9 +29,9 @@ if [ ! -d /usr/local/${TITAN} ]
   echo "Installing Titan ${VERSION}..."
   cd /usr/local
   FILE=${TITAN}.zip
-  curl --silent -LO http://s3.thinkaurelius.com/downloads/titan/${FILE}
+  wget -N -P /var/cache/wget http://s3.thinkaurelius.com/downloads/titan/${FILE}
+  ln -s /var/cache/wget/${FILE} ${FILE}
   unzip -qo ${FILE}
-  rm -f ${FILE}
   echo "Titan has been installed."
   cd ${TITAN}
   #set rexster/doghouse address

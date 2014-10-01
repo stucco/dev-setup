@@ -44,6 +44,7 @@ Vagrant.configure("2") do |config|
     config.cache.enable :generic, {
       "maven-user" => { cache_dir: "/home/vagrant/.m2/repository"},
       "maven-root" => { cache_dir: "/root/.m2/repository"},
+      "wget" => { cache_dir: "/var/cache/wget"},
     }
 
   end
