@@ -16,12 +16,18 @@ sudo chown vagrant:vagrant $STUCCO_HOME
 
 ### Download the repositories
 cd $STUCCO_HOME
-repos="ontology config-loader rt collectors document-service endogenous-data-uc1 get-exogenous-data"
+repos="ontology config-loader rt collectors document-service endogenous-data-uc1 get-exogenous-data ui"
 for repo in $repos; do
   IFS=" "
   echo "cloning ${repo}"
   git clone --recursive https://github.com/stucco/${repo}.git
 done
+
+#configure ui dependencies, start ui
+sudo npm install -g bower
+sudo npm install -g http-server
+cd $STUCCO_HOME/ui
+http-server ./ > server.log &
 
 # Download exogenous data and put in data dir
 cd $STUCCO_HOME/get-exogenous-data
