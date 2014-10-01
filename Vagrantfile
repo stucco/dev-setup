@@ -166,7 +166,7 @@ Vagrant.configure("2") do |config|
   # Install Node.js stable
   config.vm.provision :shell do |shell|
     shell.path = "#{options[:scriptsDir]}/install-node.sh"
-    shell.args = "0.10.26"
+    shell.args = "0.10.32"
   end
 
   # Install [Titan](http://thinkaurelius.github.io/titan/), passing version as argument if needed

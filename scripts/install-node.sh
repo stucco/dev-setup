@@ -2,7 +2,7 @@
 
 echo "Installing node.js..."
 
-VERSION=${1:-'0.10.26'}
+VERSION=${1:-'0.10.32'}
 PLATFORM=linux-x64
 FILE=node-v${VERSION}-${PLATFORM}.tar.gz
 
