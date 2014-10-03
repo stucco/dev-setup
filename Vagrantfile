@@ -63,6 +63,7 @@ Vagrant.configure("2") do |config|
   # Use VBoxManage to customize the VM. Change memory and limit VM's CPU.
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--memory", "12288"]
+    vb.customize ["modifyvm", :id, "--cpus", "2"]
     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "90"]
   end
   
