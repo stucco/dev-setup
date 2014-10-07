@@ -77,6 +77,11 @@ To run the demonstration or test, you should start up vagrant and then send data
     # send data to queue to process
     /vagrant/scripts/load-stucco-data.sh
 
+For more information, see the ['demo' page on the wiki.](https://github.com/stucco/dev-setup/wiki/Demo)
+
+## Troubleshooting
+
+See the ['debugging' page on the wiki.](https://github.com/stucco/dev-setup/wiki/Debugging)
 
 ## Uninstall
 
