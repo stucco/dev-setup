@@ -1,7 +1,8 @@
 #!/bin/sh
 
+STUCCO_HOME=${1:-'/stucco'}
+
 ### Start Stucco Components
-STUCCO_HOME=/stucco
 
 # Start rt (streaming-processor)
 RT_DIR=${STUCCO_HOME}/rt

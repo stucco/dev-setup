@@ -4,7 +4,8 @@
 options = {
   :ip => "10.10.10.100",
   :scriptsDir => "scripts",
-  :hostname => "stucco"
+  :hostname => "stucco",
+  :stucco_home => "/stucco"
 }
 
 Vagrant.configure("2") do |config|
@@ -180,12 +181,21 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: "npm install -g forever"
 
   # Get stucco
-  config.vm.provision "shell", path: "#{options[:scriptsDir]}/setup-stucco.sh"
+  config.vm.provision :shell do |shell|
+    shell.path = "#{options[:scriptsDir]}/setup-stucco.sh"
+    shell.args = ["#{options[:stucco_home]}"]
+  end
 
   # Start stucco
-  config.vm.provision "shell", path: "#{options[:scriptsDir]}/start-stucco.sh"
+  config.vm.provision :shell do |shell|
+    shell.path = "#{options[:scriptsDir]}/start-stucco.sh"
+    shell.args = ["#{options[:stucco_home]}"]
+  end
 
   # Run stucco tests
-  config.vm.provision "shell", path: "#{options[:scriptsDir]}/run-stucco-tests.sh"
+  config.vm.provision :shell do |shell|
+    shell.path = "#{options[:scriptsDir]}/run-stucco-tests.sh"
+    shell.args = ["#{options[:stucco_home]}"]
+  end
 
 end

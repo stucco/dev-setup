@@ -1,5 +1,7 @@
 #!/bin/sh
 
+STUCCO_HOME=${1:-'/stucco'}
+
 echo "Installing remaining dependencies..." 
 
 echo y | sudo apt-get install supervisor
@@ -7,20 +9,23 @@ sudo easy_install supervisor
 
 echo "Installing Stucco components..."
 
-STUCCO_HOME=/stucco
-
-sudo mkdir -p $STUCCO_HOME
-sudo chmod 4777 $STUCCO_HOME
-sudo chown vagrant:vagrant $STUCCO_HOME
-
+if [ ! -d $STUCCO_HOME ]; then
+  sudo mkdir -p $STUCCO_HOME
+  sudo chmod 4777 $STUCCO_HOME
+  sudo chown vagrant:vagrant $STUCCO_HOME
+fi
 
 ### Download the repositories
 cd $STUCCO_HOME
 repos="ontology config-loader rt collectors document-service endogenous-data-uc1 get-exogenous-data ui"
 for repo in $repos; do
-  IFS=" "
-  echo "cloning ${repo}"
-  git clone --recursive https://github.com/stucco/${repo}.git
+  if [ -d $repo ]; then
+  	echo "not cloning ${repo}, already exists"
+  else
+    IFS=" "
+    echo "cloning ${repo}"
+    git clone --recursive https://github.com/stucco/${repo}.git
+  fi
 done
 
 #configure ui dependencies, start ui

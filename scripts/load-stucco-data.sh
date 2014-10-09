@@ -1,6 +1,6 @@
 #!/bin/sh
 
-STUCCO_HOME=/stucco
+STUCCO_HOME=${1:-'/stucco'}
 
 echo "Loading data into message queue..."
 
