@@ -53,7 +53,7 @@ mvn clean package
 
 # Install node modules and start document-service
 cd $STUCCO_HOME/document-service
-npm install --quiet
+sudo npm install --quiet
 
 # Install collectors
 cd $STUCCO_HOME/collectors
@@ -61,8 +61,10 @@ cd $STUCCO_HOME/collectors
 
 #set various permissions
 sudo gpasswd -a logstash vagrant
-sudo chmod g+w /stucco/rt/
-sudo chmod g+w /stucco/rt/streaming-processor 
-sudo chown -R vagrant:vagrant $STUCCO_HOME
+if [ "/stucco_home" != $STUCCO_HOME ]; then
+  sudo chmod g+w /stucco/rt/
+  sudo chmod g+w /stucco/rt/streaming-processor 
+  sudo chown -R vagrant:vagrant $STUCCO_HOME
+fi
 
 echo "Stucco has been installed."
