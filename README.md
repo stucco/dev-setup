@@ -83,6 +83,10 @@ For more information, see the ['demo' page on the wiki.](https://github.com/stuc
 
 See the ['debugging' page on the wiki.](https://github.com/stucco/dev-setup/wiki/Debugging)
 
+## Snapshots
+
+See the ['Snapshots' page on the wiki.](https://github.com/stucco/dev-setup/wiki/Snapshots)
+
 ## Uninstall
 
 To completely remove everything:
