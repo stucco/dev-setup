@@ -4,5 +4,6 @@
 vagrant plugin install vagrant-librarian-chef
 vagrant plugin install vagrant-omnibus
 vagrant plugin install vagrant-cachier
+vagrant plugin install vagrant-vbox-snapshot
 
 echo "Now you can start the VM with the command: vagrant up"
