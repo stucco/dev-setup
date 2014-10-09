@@ -57,6 +57,8 @@ The parent directory of this project will be mounted within the VM at `/stucco-s
       - rt
       - other required repos...
 
+If you would like to run the code in this shared directory, instead of using a freshly cloned repo for the VM, set the stucco_home option in the vagrantfile to this shared directory: `:stucco_home => "/stucco-shared"`
+
 ###  Github Directory
 
 Using the Github directory is a good way to demonstrate stucco, since it ensures that the version of code on Github is used.
