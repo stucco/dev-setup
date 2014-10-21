@@ -61,7 +61,7 @@ cd $STUCCO_HOME/collectors
 
 #set various permissions
 sudo gpasswd -a logstash vagrant
-if [ "/stucco_home" != $STUCCO_HOME ]; then
+if [ "/stucco-shared" != $STUCCO_HOME ]; then
   sudo chmod g+w /stucco/rt/
   sudo chmod g+w /stucco/rt/streaming-processor 
   sudo chown -R vagrant:vagrant $STUCCO_HOME
