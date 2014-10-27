@@ -25,14 +25,14 @@ Vagrant.configure("2") do |config|
   # Use [omnibus plugin](https://github.com/schisamo/vagrant-omnibus) 
   # to use the omnibus installer to install [chef](http://www.opscode.com/chef/)
   # Install plugin: `vagrant plugin install vagrant-omnibus`
-  #config.omnibus.chef_version = :latest # 404s currently, re-test later.
-  config.omnibus.install_url = 'https://www.opscode.com/chef/install.sh'
+  config.omnibus.chef_version = :latest # 404s currently, re-test later.
+  # config.omnibus.install_url = 'https://www.opscode.com/chef/install.sh'
 
   # VM name
   config.vm.hostname = options[:hostname] 
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "chef/ubuntu-14.04"
 
   #config for vagrant-cachier - caches apt packages (and similar on other systems)
   #See http://fgrehm.viewdocs.io/vagrant-cachier
@@ -61,13 +61,19 @@ Vagrant.configure("2") do |config|
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   
-  # Use VBoxManage to customize the VM. Change memory and limit VM's CPU.
+  # Customization for VirtualBox
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--memory", "12288"]
     vb.customize ["modifyvm", :id, "--cpus", "2"]
     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "90"]
   end
-  
+
+  # Customization for VMWare Fusion
+  config.vm.provider "vmware_fusion" do |v|
+    v.vmx["memsize"] = "12288"
+    v.vmx["numvcpus"] = "2"
+  end
+
 
   # Update package list, but do not do upgrade. Upgrades should
   # be done manually, if required (`sudo apt-get upgrade`)
