@@ -4,8 +4,7 @@ STUCCO_HOME=${1:-'/stucco'}
 
 echo "Installing remaining dependencies..." 
 
-echo y | sudo apt-get install supervisor
-sudo easy_install supervisor
+sudo apt-get install supervisor -y
 
 echo "Installing Stucco components..."
 
