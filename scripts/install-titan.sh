@@ -22,7 +22,7 @@ fi
 # Install [Titan](http://thinkaurelius.github.io/titan/)
 
 # Argument is the version to install, or default value
-VERSION=${1:-'0.5.0'}
+VERSION=${1:-'0.5.1'}
 IP=${2:-'10.10.10.100'}
 TITAN=titan-${VERSION}-hadoop2
 
