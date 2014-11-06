@@ -6,8 +6,9 @@ VERSION=${1:-'0.10.32'}
 PLATFORM=linux-x64
 FILE=node-v${VERSION}-${PLATFORM}.tar.gz
 
+cd /var/cache/wget #TODO rename cache dir
+curl -sS -z ${FILE} -O http://nodejs.org/dist/v${VERSION}/${FILE}
 cd /usr/local
-wget -N -P /var/cache/wget http://nodejs.org/dist/v${VERSION}/${FILE}
 ln -s /var/cache/wget/${FILE} ${FILE}
 
 tar xvz --strip-components=1 -f ${FILE}

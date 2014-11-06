@@ -25,13 +25,14 @@ fi
 VERSION=${1:-'0.5.1'}
 IP=${2:-'10.10.10.100'}
 TITAN=titan-${VERSION}-hadoop2
+FILE=${TITAN}.zip
 
 if [ ! -d /usr/local/${TITAN} ] 
   then 
   echo "Installing Titan ${VERSION}..."
+  cd /var/cache/wget #TODO should rename cache dir also
+  curl -sS -z ${FILE} -O http://s3.thinkaurelius.com/downloads/titan/${FILE}
   cd /usr/local
-  FILE=${TITAN}.zip
-  wget -N -P /var/cache/wget http://s3.thinkaurelius.com/downloads/titan/${FILE}
   ln -s /var/cache/wget/${FILE} ${FILE}
   unzip -qo ${FILE}
   echo "Titan has been installed."
