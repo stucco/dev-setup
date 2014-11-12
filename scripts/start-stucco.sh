@@ -4,12 +4,16 @@ STUCCO_HOME=${1:-'/stucco'}
 
 ### Start Stucco Components
 
+# Start ui
+cd $STUCCO_HOME/ui
+http-server ./ > server.log &
+
 # Start rt (streaming-processor)
 RT_DIR=${STUCCO_HOME}/rt
 if [ -d ${RT_DIR} ]; then
   echo 'Starting rt streaming processor...'
   cd ${RT_DIR}/streaming-processor 
-  mvn clean package
+  mvn -q clean package
   supervisord -c target/classes/supervisord.conf &
 else
   echo 'The rt repository is not available. Do a `git clone https://github.com/stucco/rt.git` into the main stucco project directory and it will be available in the virtual machine, mounted under /stucco'

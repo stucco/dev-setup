@@ -26,24 +26,18 @@ for repo in $repos; do
   fi
 done
 
-#configure ui dependencies, start ui
-sudo npm install bower -g --silent
-sudo npm install http-server -g --silent
-cd $STUCCO_HOME/ui
-http-server ./ > server.log &
-
 # Download exogenous data and put in data dir
+echo "Downloading exogenous data"
 cd $STUCCO_HOME/get-exogenous-data
 QUIET=true node download.js
 
-# Move endogenous data into data dir
-cd $STUCCO_HOME/endogenous-data-uc1
-
 # Load configuration into etcd
+echo "Loading configuration"
 cd $STUCCO_HOME/config-loader
 NODE_ENV=vagrant node load.js
 
 # Compile rt
+echo "Building rt"
 cd $STUCCO_HOME/rt
 ./maven-rt-build.sh
 cd streaming-processor
@@ -51,9 +45,10 @@ mvn -q clean package
 
 # Install node modules and start document-service
 cd $STUCCO_HOME/document-service
-sudo npm install --silent
+sudo npm install --silent > /dev/null
 
 # Install collectors
+echo "Building collectors"
 cd $STUCCO_HOME/collectors
 ./maven-collectors-build.sh
 

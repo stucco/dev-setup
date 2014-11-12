@@ -85,6 +85,7 @@ Vagrant.configure("2") do |config|
   # Install required packages
   config.vm.provision :chef_solo do |chef|
     chef.custom_config_path = "Vagrantfile.chef"
+    chef.log_level = :warn
     chef.json = {
 
       # The apt cookbook uses port 11371 to connect to the keyserver, but this
@@ -183,8 +184,8 @@ Vagrant.configure("2") do |config|
     shell.args = ["0.5.1", "#{options[:ip]}"]
   end
 
-  # [forever](https://github.com/nodejitsu/forever) for starting node.js daemons
-  config.vm.provision "shell", inline: "npm install -g forever"
+  # Install node.js tools
+  config.vm.provision "shell", inline: "npm install forever http-server bower -g --silent > /dev/null"
 
   # Get stucco
   config.vm.provision :shell do |shell|
