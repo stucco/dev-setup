@@ -35,7 +35,7 @@ http-server ./ > server.log &
 
 # Download exogenous data and put in data dir
 cd $STUCCO_HOME/get-exogenous-data
-npm start
+QUIET=true node download.js
 
 # Move endogenous data into data dir
 cd $STUCCO_HOME/endogenous-data-uc1
