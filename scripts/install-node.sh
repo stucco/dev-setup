@@ -11,7 +11,7 @@ curl -sS -z ${FILE} -O http://nodejs.org/dist/v${VERSION}/${FILE}
 cd /usr/local
 ln -s /var/cache/wget/${FILE} ${FILE}
 
-tar xvz --strip-components=1 -f ${FILE}
+tar xz --strip-components=1 -f ${FILE}
 
 rm ChangeLog LICENSE README.md
 
