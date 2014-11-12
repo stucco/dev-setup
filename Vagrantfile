@@ -77,10 +77,10 @@ Vagrant.configure("2") do |config|
 
   # Update package list, but do not do upgrade. Upgrades should
   # be done manually, if required (`sudo apt-get upgrade`)
-  config.vm.provision :shell, :inline => "echo 'Running apt-get update' ; sudo apt-get update"
+  config.vm.provision :shell, :inline => "echo 'Running apt-get update' ; sudo apt-get -qq update"
 
   # Install build tools.
-  config.vm.provision :shell, :inline => "sudo apt-get install build-essential -y"
+  config.vm.provision :shell, :inline => "sudo apt-get -qq install build-essential -y"
 
   # Install required packages
   config.vm.provision :chef_solo do |chef|
@@ -169,7 +169,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: "sudo update-alternatives --set java /usr/lib/jvm/java-7-oracle-amd64/bin/java"
 
   # Install Apache Maven (v3)
-  config.vm.provision "shell", privileged: "false", inline: "apt-get install maven -y"
+  config.vm.provision "shell", privileged: "false", inline: "apt-get -qq install maven -y"
 
   # Install Node.js stable
   config.vm.provision :shell do |shell|

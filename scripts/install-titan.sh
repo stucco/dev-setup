@@ -7,9 +7,9 @@ if [ ! -e /usr/sbin/cassandra ]
   then 
   echo "Installing Cassandra..."
   echo "deb http://debian.datastax.com/community stable main" | sudo tee -a /etc/apt/sources.list.d/cassandra.sources.list
-  curl -L http://debian.datastax.com/debian/repo_key | sudo apt-key add -
-  sudo apt-get update
-  sudo apt-get install dsc${DSC_VERSION} -y #This installs the DataStax Community distribution of Cassandra. 
+  curl -sSL http://debian.datastax.com/debian/repo_key | sudo apt-key add -
+  sudo apt-get -qq update
+  sudo apt-get -qq install dsc${DSC_VERSION} -y #This installs the DataStax Community distribution of Cassandra. 
   #Because the Debian packages start the Cassandra service automatically, you must stop the server and clear the data:
   #Doing this removes the default cluster_name (Test Cluster) from the system table. All nodes must use the same cluster name.
   #see http://www.datastax.com/documentation/cassandra/2.0/cassandra/install/installDeb_t.html

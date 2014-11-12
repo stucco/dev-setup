@@ -20,6 +20,10 @@ Note: to use the provided setup, **you must have a 64-bit machine that supports 
         cd dev-setup
         vagrant up
 
+If you want less verbose output from vagrant, you can [change the log level](http://docs.vagrantup.com/v2/other/debugging.html):
+
+        VAGRANT_LOG=warn vagrant up
+
 If you want to set an IP address, use the `VM_IP` environment variable before the `vagrant up` command:
 
         VM_IP="172.17.18.12" vagrant up

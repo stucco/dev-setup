@@ -4,7 +4,7 @@ STUCCO_HOME=${1:-'/stucco'}
 
 echo "Installing remaining dependencies..." 
 
-sudo apt-get install supervisor -y
+sudo apt-get -qq install supervisor -y
 
 echo "Installing Stucco components..."
 
@@ -28,8 +28,8 @@ for repo in $repos; do
 done
 
 #configure ui dependencies, start ui
-sudo npm install -g bower
-sudo npm install -g http-server
+sudo npm install bower -g --silent
+sudo npm install http-server -g --silent
 cd $STUCCO_HOME/ui
 http-server ./ > server.log &
 
@@ -48,11 +48,11 @@ NODE_ENV=vagrant node load.js
 cd $STUCCO_HOME/rt
 ./maven-rt-build.sh
 cd streaming-processor
-mvn clean package
+mvn -q clean package
 
 # Install node modules and start document-service
 cd $STUCCO_HOME/document-service
-sudo npm install --quiet
+sudo npm install --silent
 
 # Install collectors
 cd $STUCCO_HOME/collectors
