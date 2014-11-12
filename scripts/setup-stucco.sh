@@ -22,7 +22,6 @@ for repo in $repos; do
   	echo "not cloning ${repo}, already exists"
   else
     IFS=" "
-    echo "cloning ${repo}"
     git clone --recursive https://github.com/stucco/${repo}.git
   fi
 done
