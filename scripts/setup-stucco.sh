@@ -29,7 +29,7 @@ done
 # Download exogenous data and put in data dir
 echo "Downloading exogenous data"
 cd $STUCCO_HOME/get-exogenous-data
-QUIET=true node download.js
+node download.js
 
 # Load configuration into etcd
 echo "Loading configuration"
