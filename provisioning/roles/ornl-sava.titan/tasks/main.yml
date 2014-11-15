@@ -1,0 +1,20 @@
+---
+
+- get_url: url={{ titan_download_url }} dest={{ titan_download_dir }}/titan.zip
+
+- file: path={{ titan_dir }} state=directory
+
+- unarchive: >
+    copy=no
+    src={{ titan_download_dir }}/titan.zip
+    dest={{ titan_prefix }}
+
+- copy: src=rexster.sh dest={{ titan_path }}/bin mode=0755
+
+- template: src=conf/rexster-cassandra-es.xml dest={{ titan_path }}/conf/rexster-cassandra-es.xml
+
+- template: src=etc/init/titan.conf dest=/etc/init/titan.conf
+  notify: restart titan
+
+- name: enable tita server to survive reboot
+  service: name=titan enabled=yes

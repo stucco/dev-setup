@@ -1,0 +1,4 @@
+---
+# defaults file for latest-git
+latest_git_install:
+  - git

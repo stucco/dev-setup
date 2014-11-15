@@ -53,7 +53,7 @@ cd $STUCCO_HOME/collectors
 ./maven-collectors-build.sh
 
 #set various permissions
-sudo gpasswd -a logstash vagrant
+sudo gpasswd -a vagrant
 if [ "/stucco-shared" != $STUCCO_HOME ]; then
   sudo chmod g+w $STUCCO_HOME/rt/
   sudo chmod g+w $STUCCO_HOME/rt/streaming-processor 

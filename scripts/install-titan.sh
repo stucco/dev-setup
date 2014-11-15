@@ -1,24 +1,5 @@
 #!/bin/bash
 
-DSC_VERSION=21
-
-# Cassandra setup first
-if [ ! -e /usr/sbin/cassandra ] 
-  then 
-  echo "Installing Cassandra..."
-  echo "deb http://debian.datastax.com/community stable main" | sudo tee -a /etc/apt/sources.list.d/cassandra.sources.list
-  curl -sSL http://debian.datastax.com/debian/repo_key | sudo apt-key add -
-  sudo apt-get -qq update
-  sudo apt-get -qq install dsc${DSC_VERSION} -y #This installs the DataStax Community distribution of Cassandra. 
-  #Because the Debian packages start the Cassandra service automatically, you must stop the server and clear the data:
-  #Doing this removes the default cluster_name (Test Cluster) from the system table. All nodes must use the same cluster name.
-  #see http://www.datastax.com/documentation/cassandra/2.0/cassandra/install/installDeb_t.html
-  sudo service cassandra stop # kill the default instance
-  sudo killall -u cassandra # try this way also
-  sudo rm -rf /var/lib/cassandra/data/system/* # remove default data
-  echo "Cassandra has been installed."
-fi
-
 # Install [Titan](http://thinkaurelius.github.io/titan/)
 
 # Argument is the version to install, or default value
@@ -44,8 +25,6 @@ if [ ! -d /usr/local/${TITAN} ]
   cp bin/rexster.sh bin/rexster.sh.orig
   sudo bash -c 'cat bin/rexster.sh.orig | sed -e "/-server/s/-Xms128m -Xmx512m/-Xms128m -Xmx2048m -XX:MaxPermSize=256m/" > bin/rexster.sh'
   sudo chmod a+x bin/rexster.sh
-  sudo killall -u elasticsearch #there is an extra instance already started for some reason, but we need the titan-created instance to be the only one
-  sleep 5
   sudo ./bin/titan.sh start
   echo "Titan has been started."
 fi

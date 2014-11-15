@@ -1,0 +1,6 @@
+---
+# test file for latest-git
+- hosts: localhost
+  remote_user: root
+  roles:
+    - ansible-latest-git

@@ -1,0 +1,3 @@
+---
+- name: restart titan
+  service: name=titan state=restarted enabled=yes
