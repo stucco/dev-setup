@@ -43,8 +43,10 @@
   - name: stucco -- setup config-loader
     shell: NODE_ENV=vagrant node load.js chdir=/stucco/config-loader
 
-  # - name: stucco -- download data
-  #   command: node download.js chdir=/stucco/get-exogenous-data
+    # IS THIS STILL NEEDED?
+  - name: stucco -- download data
+    command: node download.js chdir=/stucco/get-exogenous-data
+    # END NEEDED
 
   - name: stucco -- build collectors
     command: ./maven-collectors-build.sh chdir=/stucco/collectors
@@ -63,7 +65,7 @@
   roles:
   - { role: azavea.unzip }
   - { role: smola.java, java_packages: [oracle-java7-installer, oracle-java7-set-default] }
-  - { role: Mayeu.RabbitMQ, rabbitmq_ssl: false }
+  - { role: Mayeu.RabbitMQ, rabbitmq_ssl: false, rabbitmq_conf_tcp_listeners_address: '0.0.0.0', rabbitmq_users_definitions: [{vhost: /, user: guest, password: guest}] }
   - { role: Stouts.nodejs, nodejs_npm_modules: [http-server] }
   - { role: retr0h.etcd, etcd_version: v0.4.6 }
   - { role: ornl-sava.titan }
