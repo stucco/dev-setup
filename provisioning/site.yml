@@ -3,70 +3,68 @@
   sudo: yes
   sudo_user: root
 
-  # tasks:
-  # - name: install build-essential
-  #   apt: name=build-essential update_cache=yes
-  # - name: install git
-  #   apt: name=git
-  # - name: install supervisor
-  #   apt: name=supervisor
-  # - name: install maven
-  #   apt: name=maven
+  tasks:
+  - name: install build-essential
+    apt: name=build-essential update_cache=yes
+  - name: install git
+    apt: name=git
+  - name: install supervisor
+    apt: name=supervisor
+  - name: install maven
+    apt: name=maven
 
-  # - name: stucco -- group
-  #   group: name=stucco
-  # - name: stucco -- user
-  #   user: name=stucco group=stucco comment="Stucco User"
-  # - name: stucco -- directory
-  #   file: path=/stucco owner=stucco group=stucco state=directory mode=4777
+  - name: stucco -- group
+    group: name=stucco
+  - name: stucco -- user
+    user: name=stucco group=stucco comment="Stucco User"
+  - name: stucco -- directory
+    file: path=/stucco owner=stucco group=stucco state=directory mode=4777
 
-  # - name: stucco -- install ontology
-  #   git: repo=https://github.com/stucco/ontology.git dest=/stucco/ontology
-  # - name: stucco -- install config-loader
-  #   git: repo=https://github.com/stucco/config-loader.git dest=/stucco/config-loader recursive=yes
-  # - name: stucco -- install collectors
-  #   git: repo=https://github.com/stucco/collectors.git dest=/stucco/collectors
-  # - name: stucco -- install rt
-  #   git: repo=https://github.com/stucco/rt.git dest=/stucco/rt
-  # - name: stucco -- install document-service
-  #   git: repo=https://github.com/stucco/document-service.git dest=/stucco/document-service
-  # - name: stucco -- install ui
-  #   git: repo=https://github.com/stucco/ui.git dest=/stucco/ui
-  # - name: stucco -- install endogenous-data-uc1
-  #   git: repo=https://github.com/stucco/endogenous-data-uc1.git dest=/stucco/endogenous-data-uc1
-  # - name: stucco -- install get-exogenous-data
-  #   git: repo=https://github.com/stucco/get-exogenous-data.git dest=/stucco/get-exogenous-data
+  - name: stucco -- install ontology
+    git: repo=https://github.com/stucco/ontology.git dest=/stucco/ontology
+  - name: stucco -- install config-loader
+    git: repo=https://github.com/stucco/config-loader.git dest=/stucco/config-loader recursive=yes
+  - name: stucco -- install collectors
+    git: repo=https://github.com/stucco/collectors.git dest=/stucco/collectors
+  - name: stucco -- install rt
+    git: repo=https://github.com/stucco/rt.git dest=/stucco/rt
+  - name: stucco -- install document-service
+    git: repo=https://github.com/stucco/document-service.git dest=/stucco/document-service
+  - name: stucco -- install ui
+    git: repo=https://github.com/stucco/ui.git dest=/stucco/ui
+  - name: stucco -- install endogenous-data-uc1
+    git: repo=https://github.com/stucco/endogenous-data-uc1.git dest=/stucco/endogenous-data-uc1
 
-  # - name: start etcd
-  #   service: name=etcd state=started
-  # # - meta: flush_handlers
-  # - name: stucco -- setup config-loader
-  #   shell: NODE_ENV=vagrant node load.js chdir=/stucco/config-loader
+  - name: start etcd
+    service: name=etcd state=started
+  # - meta: flush_handlers
+  - name: stucco -- setup config-loader
+    shell: NODE_ENV=vagrant node load.js chdir=/stucco/config-loader
 
-  #   # IS THIS STILL NEEDED?
-  # - name: stucco -- download data
-  #   command: node download.js chdir=/stucco/get-exogenous-data
-  #   # END NEEDED
+    # IS THIS STILL NEEDED?
+  - name: stucco -- download data
+    command: node download.js chdir=/stucco/get-exogenous-data
+    # END NEEDED
 
-  # - name: stucco -- build collectors
-  #   command: ./maven-collectors-build.sh chdir=/stucco/collectors
+  - name: stucco -- build collectors
+    command: ./maven-collectors-build.sh chdir=/stucco/collectors
 
-  # - name: stucco -- build rt
-  #   command: ./maven-rt-build.sh chdir=/stucco/rt
+  - name: stucco -- build rt
+    command: ./maven-rt-build.sh chdir=/stucco/rt
 
-  # - name: stucco -- prepare document-service
-  #   command: npm install --silent chdir=/stucco/document-service
+  - name: stucco -- prepare document-service
+    command: npm install --silent chdir=/stucco/document-service
 
-  # - name: stucco -- start rt
-  #   command: supervisord -c supervisord.conf chdir=/stucco/rt
-  # - name: stucco -- start document-service
-  #   command: supervisord -c supervisord.conf chdir=/stucco/document-service
+  - name: stucco -- start rt
+    command: supervisord -c supervisord.conf chdir=/stucco/rt
+  - name: stucco -- start document-service
+    command: supervisord -c supervisord.conf chdir=/stucco/document-service
 
   roles:
-  # - { role: azavea.unzip }
-  # - { role: smola.java, java_packages: [oracle-java7-installer, oracle-java7-set-default] }
-  # - { role: Mayeu.RabbitMQ, rabbitmq_ssl: false, rabbitmq_conf_tcp_listeners_address: '0.0.0.0', rabbitmq_users_definitions: [{vhost: /, user: stucco, password: stucco}] }
+  - { role: azavea.unzip }
+  - { role: smola.java, java_packages: [oracle-java7-installer, oracle-java7-set-default] }
+  - { role: Mayeu.RabbitMQ, rabbitmq_ssl: false, rabbitmq_conf_tcp_listeners_address: '0.0.0.0', rabbitmq_users_definitions: [{vhost: /, user: stucco, password: stucco}] }
   - { role: ornl-sava.rabbitmq, rabbitmq_ssl: false, rabbitmq_conf_tcp_listeners_address: '0.0.0.0', rabbitmq_users_definitions: [{vhost: /, user: stucco, password: stucco}] }
-  # - { role: Stouts.nodejs, nodejs_npm_modules: [http-server] }
-  # - { role: retr0h.etcd, etcd_version: v0.4.6 }
-  # - { role: ornl-sava.titan }
+  - { role: Stouts.nodejs, nodejs_npm_modules: [http-server] }
+  - { role: retr0h.etcd, etcd_version: v0.4.6 }
+  - { role: ornl-sava.titan }
