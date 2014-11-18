@@ -12,8 +12,8 @@ http-server ./ > server.log &
 RT_DIR=${STUCCO_HOME}/rt
 if [ -d ${RT_DIR} ]; then
   echo 'Starting rt streaming processor...'
-  cd ${RT_DIR}/streaming-processor 
-  supervisord -c target/classes/supervisord.conf &
+  cd ${RT_DIR}
+  supervisord -c supervisord.conf &
 else
   echo 'The rt repository is not available. Do a `git clone https://github.com/stucco/rt.git` into the main stucco project directory and it will be available in the virtual machine, mounted under /stucco'
 fi
