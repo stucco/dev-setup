@@ -3,9 +3,7 @@
 
 options = {
   :ip => "10.10.10.100",
-  :scriptsDir => "scripts",
-  :hostname => "stucco",
-  :stucco_home => "/stucco"
+  :hostname => "stucco"
 }
 
 Vagrant.configure("2") do |config|
@@ -23,7 +21,8 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.hostname = options[:hostname] 
-  config.vm.box = "chef/ubuntu-14.04"
+  config.vm.box = "puphpet/ubuntu1404-x64"
+  # config.vm.box = "chef/ubuntu-14.04"
 
   # Config for vagrant-cachier - caches apt packages (and similar on other systems)
   # See http://fgrehm.viewdocs.io/vagrant-cachier
@@ -40,8 +39,6 @@ Vagrant.configure("2") do |config|
     }
   end
 
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
   config.vm.network :private_network, ip: "#{options[:ip]}"
 
   # Mount the parent directory under /stucco-shared in the VM
@@ -66,12 +63,5 @@ Vagrant.configure("2") do |config|
     ansible.playbook = "provisioning/site.yml"
     ansible.extra_vars = { ansible_ssh_user: "vagrant", rexster_uri: "http://#{options[:ip]}" }
   end
-
-
-  # # Install [Titan](http://thinkaurelius.github.io/titan/), passing version as argument if needed
-  # config.vm.provision :shell do |shell|
-  #   shell.path = "#{options[:scriptsDir]}/install-titan.sh"
-  #   shell.args = ["0.5.1", "#{options[:ip]}"]
-  # end
 
 end

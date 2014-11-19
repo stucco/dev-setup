@@ -16,5 +16,5 @@
 - template: src=etc/init/titan.conf dest=/etc/init/titan.conf
   notify: restart titan
 
-- name: enable tita server to survive reboot
+- name: enable titan server to survive reboot
   service: name=titan enabled=yes

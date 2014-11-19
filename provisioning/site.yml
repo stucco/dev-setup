@@ -4,26 +4,27 @@
   sudo_user: root
 
   tasks:
-  - name: install build-essential
-    apt: name=build-essential update_cache=yes
-  - name: install git
-    apt: name=git
-  - name: install supervisor
-    apt: name=supervisor
+  - name: install common packages
+    apt: name={{ item }} update_cache=yes state=present
+    with_items:
+      - build-essential
+      - git
+      - supervisor
+
   - name: install maven
     apt: name=maven
 
-  - name: stucco -- group
+  - name: stucco -- create group
     group: name=stucco
-  - name: stucco -- user
+  - name: stucco -- create user
     user: name=stucco group=stucco comment="Stucco User"
-  - name: stucco -- directory
+  - name: stucco -- create directory
     file: path=/stucco owner=stucco group=stucco state=directory mode=4777
 
   - name: stucco -- install ontology
     git: repo=https://github.com/stucco/ontology.git dest=/stucco/ontology
-  - name: stucco -- install config-loader
-    git: repo=https://github.com/stucco/config-loader.git dest=/stucco/config-loader recursive=yes
+  - name: stucco -- install config
+    git: repo=https://github.com/stucco/config2.git dest=/stucco/config
   - name: stucco -- install collectors
     git: repo=https://github.com/stucco/collectors.git dest=/stucco/collectors
   - name: stucco -- install rt
@@ -38,28 +39,43 @@
   - name: start etcd
     service: name=etcd state=started
   # - meta: flush_handlers
-  - name: stucco -- setup config-loader
-    shell: NODE_ENV=vagrant node load.js chdir=/stucco/config-loader
+  - name: stucco -- setup config
+    shell: NODE_ENV=vagrant node load.js chdir=/stucco/config/loader
 
   - name: stucco -- build collectors
     command: ./maven-collectors-build.sh chdir=/stucco/collectors
-
   - name: stucco -- build rt
     command: ./maven-rt-build.sh chdir=/stucco/rt
-
   - name: stucco -- prepare document-service
-    command: npm install --silent chdir=/stucco/document-service
+    command: npm install chdir=/stucco/document-service
+  - name: stucco -- prepare ui
+    npm: name=http-server global=yes production=yes
+
+  - name: stucco -- copy rt supervisord config
+    command: cp /stucco/rt/supervisord.conf /etc/supervisor/conf.d/stucco-rt.conf
+  - name: stucco -- copy document-service supervisord config
+    command: cp /stucco/document-service/supervisord.conf /etc/supervisor/conf.d/stucco-doc.conf
+  - name: stucco -- copy ui supervisord config
+    command: cp /stucco/ui/supervisord.conf /etc/supervisor/conf.d/stucco-ui.conf
+  - name: reload supervisord
+    shell: /usr/bin/supervisorctl reload
 
   - name: stucco -- start rt
-    command: supervisord -c supervisord.conf chdir=/stucco/rt
+    supervisorctl: name=stucco-rt  state=started
   - name: stucco -- start document-service
-    command: supervisord -c supervisord.conf chdir=/stucco/document-service
+    supervisorctl: name=stucco-doc state=started
+  - name: stucco -- start ui
+    supervisorctl: name=stucco-ui  state=started
+
+  - name: stucco -- set permissions for /stucco
+    file: path=/stucco state=directory recurse=yes owner=stucco group=stucco
 
   roles:
   - { role: azavea.unzip }
   - { role: smola.java, java_packages: [oracle-java7-installer, oracle-java7-set-default] }
   - { role: ornl-sava.titan }
-  # - { role: Mayeu.RabbitMQ, rabbitmq_ssl: false, rabbitmq_conf_tcp_listeners_address: '0.0.0.0', rabbitmq_users_definitions: [{vhost: /, user: stucco, password: stucco}] }
-  - { role: ornl-sava.rabbitmq, rabbitmq_ssl: false, rabbitmq_conf_tcp_listeners_address: '0.0.0.0', rabbitmq_users_definitions: [{vhost: /, user: stucco, password: stucco}] }
-  - { role: Stouts.nodejs, nodejs_npm_modules: [http-server] }
+  - { role: Mayeu.RabbitMQ, rabbitmq_ssl: false, rabbitmq_conf_tcp_listeners_address: '0.0.0.0', rabbitmq_users_definitions: [{vhost: /, user: stucco, password: stucco}] }
+  # - { role: ornl-sava.rabbitmq, rabbitmq_ssl: false, rabbitmq_conf_tcp_listeners_address: '0.0.0.0', rabbitmq_users_definitions: [{vhost: /stucco, user: stucco, password: stucco}] }
+  - { role: Stouts.nodejs }
+  # - { role: Stouts.nodejs, nodejs_npm_modules: [http-server] }
   - { role: retr0h.etcd, etcd_version: v0.4.6 }
