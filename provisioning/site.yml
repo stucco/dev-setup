@@ -51,6 +51,9 @@
   - name: stucco -- prepare ui
     npm: name=http-server global=yes production=yes
 
+  - name: stucco -- update ui rexster host
+    shell: cd /stucco/ui && mv index.html orig && cat orig | sed -e '/queryHost=/s/localhost/10.10.10.100/' > index.html && rm orig
+
   - name: stucco -- copy rt supervisord config
     command: cp /stucco/rt/supervisord.conf /etc/supervisor/conf.d/stucco-rt.conf
   - name: stucco -- copy document-service supervisord config
@@ -61,11 +64,11 @@
     shell: /usr/bin/supervisorctl reload
 
   - name: stucco -- start rt
-    supervisorctl: name=stucco-rt  state=started
+    supervisorctl: name=stucco-rt  state=started config=/etc/supervisor/supervisord.conf
   - name: stucco -- start document-service
-    supervisorctl: name=stucco-doc state=started
+    supervisorctl: name=stucco-doc state=started config=/etc/supervisor/supervisord.conf
   - name: stucco -- start ui
-    supervisorctl: name=stucco-ui  state=started
+    supervisorctl: name=stucco-ui  state=started config=/etc/supervisor/supervisord.conf
 
   - name: stucco -- set permissions for /stucco
     file: path=/stucco state=directory recurse=yes owner=stucco group=stucco
