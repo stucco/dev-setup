@@ -4,9 +4,6 @@
   sudo_user: root
 
   tasks:
-  - name: install maven
-    apt: name=maven
-
   - name: stucco -- create group
     group: name=stucco
   - name: stucco -- create user
@@ -69,8 +66,8 @@
   roles:
   - { role: ornl-sava.common }
   - { role: smola.java, java_packages: [oracle-java7-installer, oracle-java7-set-default] }
+  - { role: ornl-sava.maven, version: 3.1.1 }
   - { role: ornl-sava.titan }
   - { role: Mayeu.RabbitMQ, rabbitmq_ssl: false, rabbitmq_conf_tcp_listeners_address: '0.0.0.0', rabbitmq_users_definitions: [{vhost: /, user: stucco, password: stucco}] }
-  # - { role: ornl-sava.rabbitmq, rabbitmq_ssl: false, rabbitmq_conf_tcp_listeners_address: '0.0.0.0', rabbitmq_users_definitions: [{vhost: /stucco, user: stucco, password: stucco}] }
   - { role: Stouts.nodejs }
   - { role: retr0h.etcd, etcd_version: v0.4.6 }

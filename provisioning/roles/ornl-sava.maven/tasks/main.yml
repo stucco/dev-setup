@@ -1,11 +1,14 @@
 ---
-- get_url: url={{ maven_url }} dest=/tmp/maven.tgz
+- get_url: url={{ download_url }} dest=/tmp/maven.tgz
+- get_url: url={{ download_url }}.md5 dest=/tmp/maven.md5
 
-- file: path={{ maven_prefix }} state=directory
+- command: echo " "{{ download_url }} >> /tmp/maven.md5 && md5sum -c /tmp/maven.md5
+
+- file: path={{ install_prefix }} state=directory
 
 - unarchive: >
     copy=no
     src=/tmp/maven.tgz
-    dest={{ maven_prefix }}
+    dest={{ install_prefix }}
 
 - template: src=etc/profile.d/maven.sh dest=/etc/profile.d/maven.sh owner=root group=root mode=0644

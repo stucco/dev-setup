@@ -1,4 +1,4 @@
 ---
-maven_version: 3.2.3
-maven_url: http://supergsego.com/apache/maven/maven-3/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz
-maven_prefix: /usr/local
+version: 3.2.3
+download_url: http://www.apache.org/dist/maven/maven-3/{{ version }}/binaries/apache-maven-{{ version }}-bin.tar.gz
+install_prefix: /usr/local
