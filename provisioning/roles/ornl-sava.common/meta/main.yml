@@ -1,8 +1,8 @@
 ---
 galaxy_info:
-  author: Hector Castro
-  description: An Ansible role for installing unzip.
-  company: Azavea Inc.
+  author: John Goodall
+  description: An Ansible role for installing common tools on Ubuntu.
+  company: Oak Ridge National Laboratory
   license: Apache
   min_ansible_version: 1.2
   platforms:

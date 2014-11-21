@@ -1,0 +1,10 @@
+---
+- name: install common packages
+  apt: name={{ item }} update_cache=yes state=present
+  with_items:
+    - build-essential
+    - git
+    - supervisor
+    - unzip
+    - curl
+    - wget
