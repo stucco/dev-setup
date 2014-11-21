@@ -1,0 +1,11 @@
+---
+- get_url: url={{ maven_url }} dest=/tmp/maven.tgz
+
+- file: path={{ maven_prefix }} state=directory
+
+- unarchive: >
+    copy=no
+    src=/tmp/maven.tgz
+    dest={{ maven_prefix }}
+
+- template: src=etc/profile.d/maven.sh dest=/etc/profile.d/maven.sh owner=root group=root mode=0644
