@@ -4,6 +4,7 @@
   with_items:
     - build-essential
     - git
+    - mercurial
     - supervisor
     - unzip
     - curl
