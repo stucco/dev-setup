@@ -1,0 +1,63 @@
+---
+
+- name: create group
+  group: name={{ group }}
+- name: create user
+  user: name={{ user }} group={{ group }} comment="Stucco User"
+- name: create directory
+  file: path={{ root_dir }} owner={{ user }} group={{ group }} state=directory mode=4777
+
+- name: install ontology
+  git: repo=https://github.com/stucco/ontology.git dest={{ root_dir }}/ontology
+- name: install config
+  git: repo=https://github.com/stucco/config2.git dest={{ root_dir }}/config
+- name: install collectors
+  git: repo=https://github.com/stucco/collectors.git dest={{ root_dir }}/collectors
+- name: install rt
+  git: repo=https://github.com/stucco/rt.git dest={{ root_dir }}/rt
+- name: install document-service
+  git: repo=https://github.com/stucco/document-service.git dest={{ root_dir }}/document-service
+- name: install ui
+  git: repo=https://github.com/stucco/ui.git dest={{ root_dir }}/ui
+- name: install endogenous-data-uc1
+  git: repo=https://github.com/stucco/endogenous-data-uc1.git dest={{ root_dir }}/endogenous-data-uc1
+
+- name: make sure etcd is running
+  service: name=etcd state=started
+
+- name: setup config
+  shell: NODE_ENV={{ config_env }} node load.js chdir={{ root_dir }}/config/loader
+
+# - name: copy rt config template (THIS IS TEMPORARY, SHOULD USE CONFD)
+#   command: confd ...
+
+- name: build collectors
+  command: ./maven-collectors-build.sh chdir={{ root_dir }}/collectors
+- name: build rt
+  command: ./maven-rt-build.sh chdir={{ root_dir }}/rt
+- name: prepare document-service
+  command: npm install chdir={{ root_dir }}/document-service
+- name: prepare ui
+  npm: name=http-server global=yes production=yes
+
+- name: update ui rexster host
+  shell: cd {{ root_dir }}/ui && mv index.html orig && cat orig | sed -e '/queryHost=/s/localhost/10.10.10.100/' > index.html && rm orig
+
+- name: copy rt supervisord config
+  command: cp {{ root_dir }}/rt/supervisord.conf /etc/supervisor/conf.d/stucco-rt.conf
+- name: copy document-service supervisord config
+  command: cp {{ root_dir }}/document-service/supervisord.conf /etc/supervisor/conf.d/stucco-doc.conf
+- name: copy ui supervisord config
+  command: cp {{ root_dir }}/ui/supervisord.conf /etc/supervisor/conf.d/stucco-ui.conf
+- name: reload supervisord
+  shell: /usr/bin/supervisorctl reload
+
+- name: start rt
+  supervisorctl: name=stucco-rt  state=started config=/etc/supervisor/supervisord.conf
+- name: start document-service
+  supervisorctl: name=stucco-doc state=started config=/etc/supervisor/supervisord.conf
+- name: start ui
+  supervisorctl: name=stucco-ui  state=started config=/etc/supervisor/supervisord.conf
+
+- name: set permissions for root_dir
+  file: path={{ root_dir }} state=directory recurse=yes owner={{ user }} group={{ group }}

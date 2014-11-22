@@ -2,72 +2,17 @@
 - hosts: all
   sudo: yes
   sudo_user: root
-
-  tasks:
-  - name: stucco -- create group
-    group: name=stucco
-  - name: stucco -- create user
-    user: name=stucco group=stucco comment="Stucco User"
-  - name: stucco -- create directory
-    file: path=/stucco owner=stucco group=stucco state=directory mode=4777
-
-  - name: stucco -- install ontology
-    git: repo=https://github.com/stucco/ontology.git dest=/stucco/ontology
-  - name: stucco -- install config
-    git: repo=https://github.com/stucco/config2.git dest=/stucco/config
-  - name: stucco -- install collectors
-    git: repo=https://github.com/stucco/collectors.git dest=/stucco/collectors
-  - name: stucco -- install rt
-    git: repo=https://github.com/stucco/rt.git dest=/stucco/rt
-  - name: stucco -- install document-service
-    git: repo=https://github.com/stucco/document-service.git dest=/stucco/document-service
-  - name: stucco -- install ui
-    git: repo=https://github.com/stucco/ui.git dest=/stucco/ui
-  - name: stucco -- install endogenous-data-uc1
-    git: repo=https://github.com/stucco/endogenous-data-uc1.git dest=/stucco/endogenous-data-uc1
-
-  - name: start etcd
-    service: name=etcd state=started
-  # - meta: flush_handlers
-  - name: stucco -- setup config
-    shell: NODE_ENV=vagrant node load.js chdir=/stucco/config/loader
-
-  - name: stucco -- build collectors
-    command: ./maven-collectors-build.sh chdir=/stucco/collectors
-  - name: stucco -- build rt
-    command: ./maven-rt-build.sh chdir=/stucco/rt
-  - name: stucco -- prepare document-service
-    command: npm install chdir=/stucco/document-service
-  - name: stucco -- prepare ui
-    npm: name=http-server global=yes production=yes
-
-  - name: stucco -- update ui rexster host
-    shell: cd /stucco/ui && mv index.html orig && cat orig | sed -e '/queryHost=/s/localhost/10.10.10.100/' > index.html && rm orig
-
-  - name: stucco -- copy rt supervisord config
-    command: cp /stucco/rt/supervisord.conf /etc/supervisor/conf.d/stucco-rt.conf
-  - name: stucco -- copy document-service supervisord config
-    command: cp /stucco/document-service/supervisord.conf /etc/supervisor/conf.d/stucco-doc.conf
-  - name: stucco -- copy ui supervisord config
-    command: cp /stucco/ui/supervisord.conf /etc/supervisor/conf.d/stucco-ui.conf
-  - name: reload supervisord
-    shell: /usr/bin/supervisorctl reload
-
-  - name: stucco -- start rt
-    supervisorctl: name=stucco-rt  state=started config=/etc/supervisor/supervisord.conf
-  - name: stucco -- start document-service
-    supervisorctl: name=stucco-doc state=started config=/etc/supervisor/supervisord.conf
-  - name: stucco -- start ui
-    supervisorctl: name=stucco-ui  state=started config=/etc/supervisor/supervisord.conf
-
-  - name: stucco -- set permissions for /stucco
-    file: path=/stucco state=directory recurse=yes owner=stucco group=stucco
+  vars:
+    rmq_user: stucco
+    rmq_password: stucco
 
   roles:
   - { role: ornl-sava.common }
-  - { role: smola.java, java_packages: [oracle-java7-installer, oracle-java7-set-default] }
-  - { role: ornl-sava.maven, version: 3.1.1 }
-  - { role: ornl-sava.titan }
-  - { role: Mayeu.RabbitMQ, rabbitmq_ssl: false, rabbitmq_conf_tcp_listeners_address: '0.0.0.0', rabbitmq_users_definitions: [{vhost: /, user: stucco, password: stucco}] }
-  - { role: Stouts.nodejs }
   - { role: retr0h.etcd, etcd_version: v0.4.6 }
+  - { role: ornl-sava.confd }
+  # - { role: smola.java, java_packages: [oracle-java7-installer, oracle-java7-set-default] }
+  # - { role: ornl-sava.maven, version: 3.1.1 }
+  # - { role: ornl-sava.titan }
+  # - { role: Mayeu.RabbitMQ, rabbitmq_ssl: false, rabbitmq_conf_tcp_listeners_address: '0.0.0.0', rabbitmq_users_definitions: [{vhost: /, user: "{{ rmq_user }}", password: "{{ rmq_password }}" }] }
+  # - { role: Stouts.nodejs }
+  # - { role: ornl-sava.stucco, config_env: vagrant, rabbitmq_user: "{{ rmq_user }}", rabbitmq_password: "{{ rmq_password }}" }

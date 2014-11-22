@@ -1,0 +1,9 @@
+root_dir: /stucco
+user: stucco
+group: stucco
+config_env: vagrant
+rabbitmq_host: localhost
+rabbitmq_port: 5672
+rabbitmq_user: "{{ user }}"
+rabbitmq_password: stucco
+rabbitmq_exchange: stucco
