@@ -57,10 +57,16 @@ Vagrant.configure("2") do |config|
     v.vmx["numvcpus"] = "2"
   end
 
+  # Create ansible inventory file
+  File.open('provisioning/inventory' ,'w') do |f|
+    f.write "[default]\n"
+    f.write "stucco ansible_ssh_host=#{options[:ip]} ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key\n"
+  end
+
   config.vm.provision "ansible" do |ansible|
     # ansible.inventory_path = "provisioning/inventory"
     ansible.playbook = "provisioning/site.yml"
-    ansible.extra_vars = { ansible_ssh_user: "vagrant", rexster_uri: "http://#{options[:ip]}" }
+    ansible.extra_vars = { ansible_ssh_user: "vagrant", rexster_host: "#{options[:ip]}" }
   end
 
 end

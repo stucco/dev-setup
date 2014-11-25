@@ -1,0 +1,11 @@
+[template]
+src = "rt-config.tmpl"
+dest = "{{ stucco_dir }}/rt/config.yaml"
+uid = 0
+gid = 0
+mode = "0644"
+keys = [
+  "/stucco",
+  "/rabbitmq",  
+]
+reload_cmd = "supervisorctl restart stucco-rt"

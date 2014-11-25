@@ -1,9 +1,16 @@
-root_dir: /stucco
-user: stucco
-group: stucco
-config_env: vagrant
+stucco_dir: /stucco
+stucco_bin: "{{ stucco_dir }}/bin"
+stucco_user: stucco
+stucco_group: stucco
+stucco_env: vagrant
+
+gopath: "{{ stucco_dir }}/go"
+
 rabbitmq_host: localhost
 rabbitmq_port: 5672
-rabbitmq_user: "{{ user }}"
-rabbitmq_password: stucco
 rabbitmq_exchange: stucco
+rabbitmq_user: "{{ stucco_user }}"
+rabbitmq_password: stucco
+
+doc_service_host: localhost
+doc_service_port: 8118

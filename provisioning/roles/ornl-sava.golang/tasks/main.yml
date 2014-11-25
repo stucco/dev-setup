@@ -1,0 +1,13 @@
+---
+- get_url: url={{ golang_download_url }} dest=/tmp/golang.tgz
+
+- file: path={{ golang_install_prefix }} state=directory recurse=yes
+
+- unarchive: >
+    copy=no
+    src=/tmp/golang.tgz
+    dest={{ golang_install_prefix }}
+
+- file: path=/tmp/golang.tgz state=absent
+
+- template: src=etc/profile.d/golang.sh dest=/etc/profile.d/golang.sh owner=root group=root mode=0644

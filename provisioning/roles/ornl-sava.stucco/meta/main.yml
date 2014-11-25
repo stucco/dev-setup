@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  author: John Goodall
+  description: An Ansible role for installing stucco.
+  company: Oak Ridge National Laboratory
+  license: Apache
+  min_ansible_version: 1.3
+  platforms:
+  - name: Ubuntu
+    versions:
+    - trusty
+  categories:
+  - system
+dependencies:
+  - { role: ornl-sava.golang, golang_version: 1.3.3 }
+  - { role: Stouts.nodejs }
+  - { role: ornl-sava.maven, maven_version: 3.1.1 }
+  - { role: ornl-sava.confd }
+  - { role: retr0h.etcd, etcd_version: v0.4.6 }
