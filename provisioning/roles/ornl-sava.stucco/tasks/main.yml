@@ -26,20 +26,18 @@
 # COLLECTORS
 - name: download collectors repo
   git: repo=https://github.com/stucco/collectors.git dest={{ stucco_dir }}/collectors
+- name: copy rt config template (THIS IS TEMPORARY, SHOULD USE CONFD)
+  template: src=rt-config.yaml dest={{ stucco_dir }}/rt/config.yaml mode=0644
 - name: build collectors
   shell: ./maven-collectors-build.sh > /tmp/collectors-build.out chdir={{ stucco_dir }}/collectors creates={{ stucco_dir }}/target/scheduler.jar
-  sudo: yes
 
 # RT
 - name: download rt repo
   git: repo=https://github.com/stucco/rt.git dest={{ stucco_dir }}/rt
-# - name: copy rt config template (THIS IS TEMPORARY, SHOULD USE CONFD)
-#   template: src=rt-config.yaml dest={{ stucco_dir }}/rt/config.yml mode=0644
-# RT IS CURRENTLY NOT WORKING BECAUSE OF RABBIT CREDENTIALS IN YAML
-# CONFIG.YML NEEDS TO BE MOVED OUT OF THE JAR SO CONFD CAN WATCH.
+- name: copy rt config template (THIS IS TEMPORARY, SHOULD USE CONFD)
+  template: src=rt-config.yaml dest={{ stucco_dir }}/rt/config.yaml mode=0644
 - name: build rt
   shell: ./maven-rt-build.sh > /tmp/rt-build.out chdir={{ stucco_dir }}/rt creates={{ stucco_dir }}/rt/streaming-processor/target/rt-structured.jar
-  sudo: yes
 
 # DOCUMENT-SERVICE
 - name: create stucco GOPATH directory for document-service
@@ -59,7 +57,7 @@
 - name: prepare ui
   npm: name=http-server global=yes production=yes
 - name: update ui rexster host
-  replace: dest={{ stucco_dir }}/ui/index.html regexp='queryHost=localhost' replace='queryHost={{ rexster_host }}' backup=yes
+  replace: dest={{ stucco_dir }}/ui/index.html regexp='(queryHost=)"localhost"' replace='\1"{{ rexster_host }}"' backup=yes
 
 # START SERVICES
 - name: copy rt supervisord config
@@ -70,13 +68,6 @@
   template: src=etc/supervisor/conf.d/stucco-ui.conf dest=/etc/supervisor/conf.d/stucco-ui.conf
 - name: reload supervisord
   shell: /usr/bin/supervisorctl reload
-
-# - name: start rt
-#   supervisorctl: name=stucco-rt  state=started config=/etc/supervisor/supervisord.conf
-# - name: start document-service
-#   supervisorctl: name=stucco-doc state=started config=/etc/supervisor/supervisord.conf
-# - name: start ui
-#   supervisorctl: name=stucco-ui  state=started config=/etc/supervisor/supervisord.conf
 
 - name: set permissions for stucco_dir
   file: path={{ stucco_dir }} state=directory recurse=yes owner={{ stucco_user }} group={{ stucco_group }}
