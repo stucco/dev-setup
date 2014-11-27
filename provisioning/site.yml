@@ -7,7 +7,7 @@
     rmq_password: stucco
 
   roles:
-  - { role: ornl-sava.common }
+  - { role: jgoodall.common }
   - { role: smola.java, java_packages: [oracle-java7-installer, oracle-java7-set-default] }
   - { role: ornl-sava.titan }
   - { role: Mayeu.RabbitMQ, rabbitmq_ssl: false, rabbitmq_conf_tcp_listeners_address: '0.0.0.0', rabbitmq_users_definitions: [{vhost: /, user: "{{ rmq_user }}", password: "{{ rmq_password }}" }] }

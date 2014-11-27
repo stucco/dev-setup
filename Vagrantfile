@@ -46,14 +46,14 @@ Vagrant.configure("2") do |config|
 
   # Customization for VirtualBox
   config.vm.provider :virtualbox do |vb|
-    vb.customize ["modifyvm", :id, "--memory", "12288"]
+    vb.customize ["modifyvm", :id, "--memory", "8192"]
     vb.customize ["modifyvm", :id, "--cpus", "2"]
     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "90"]
   end
 
   # Customization for VMWare Fusion
   config.vm.provider "vmware_fusion" do |v|
-    v.vmx["memsize"] = "12288"
+    v.vmx["memsize"] = "8192"
     v.vmx["numvcpus"] = "2"
   end
 

@@ -59,7 +59,7 @@
 - name: prepare ui
   npm: name=http-server global=yes production=yes
 - name: update ui rexster host
-  replace: dest={{ stucco_dir }}/ui/index.html regexp='(queryHost)=localhost' replace='\1={{ rexster_host }}' backup=yes
+  replace: dest={{ stucco_dir }}/ui/index.html regexp='queryHost=localhost' replace='queryHost={{ rexster_host }}' backup=yes
 
 # START SERVICES
 - name: copy rt supervisord config
