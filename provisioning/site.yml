@@ -9,6 +9,6 @@
   roles:
   - { role: jgoodall.common }
   - { role: smola.java, java_packages: [oracle-java7-installer, oracle-java7-set-default] }
-  - { role: ornl-sava.titan }
+  - { role: ornl-sava.titan, titan_version: 0.5.2 }
   - { role: Mayeu.RabbitMQ, rabbitmq_ssl: false, rabbitmq_conf_tcp_listeners_address: '0.0.0.0', rabbitmq_users_definitions: [{vhost: /, user: "{{ rmq_user }}", password: "{{ rmq_password }}" }] }
   - { role: ornl-sava.stucco, config_env: vagrant, rabbitmq_user: "{{ rmq_user }}", rabbitmq_password: "{{ rmq_password }}" }
