@@ -26,8 +26,6 @@
 # COLLECTORS
 - name: download collectors repo
   git: repo=https://github.com/stucco/collectors.git dest={{ stucco_dir }}/collectors
-- name: copy rt config template (THIS IS TEMPORARY, SHOULD USE CONFD)
-  template: src=rt-config.yaml dest={{ stucco_dir }}/rt/config.yaml mode=0644
 - name: build collectors
   shell: ./maven-collectors-build.sh > /tmp/collectors-build.out chdir={{ stucco_dir }}/collectors creates={{ stucco_dir }}/target/scheduler.jar
 
@@ -36,6 +34,8 @@
   git: repo=https://github.com/stucco/rt.git dest={{ stucco_dir }}/rt
 - name: copy rt config template (THIS IS TEMPORARY, SHOULD USE CONFD)
   template: src=rt-config.yaml dest={{ stucco_dir }}/rt/config.yaml mode=0644
+- name: make sure titan is running
+  service: name=titan state=started
 - name: build rt
   shell: ./maven-rt-build.sh > /tmp/rt-build.out chdir={{ stucco_dir }}/rt creates={{ stucco_dir }}/rt/streaming-processor/target/rt-structured.jar
 
