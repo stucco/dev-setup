@@ -10,7 +10,7 @@ Note: to use the provided setup, **you must have a 64-bit machine that supports 
 1. [Download VirtualBox](https://www.virtualbox.org/wiki/Downloads) for your OS and install. This was tested with version 4.3.x.
 2. [Download Vagrant](http://www.vagrantup.com/downloads.html) for your OS and install. This was tested with version 1.6.x.
 3. [Download Ansible](http://docs.ansible.com/intro_installation.html). This was tested with version 1.7.x.
-4. Install [Vagrant plugins](http://docs.vagrantup.com/v2/plugins/index.html) by running `install-vagrant-plugins.sh`. (Note that you'll need to reinstall these plugins whenever you update vagrant.)
+4. Optionally, install [Vagrant plugins](http://docs.vagrantup.com/v2/plugins/index.html) by running `install-vagrant-plugins.sh`. This will enable the use of a cache for downloading software and the ability to use Vagrant to create VM snapshots.
 5. Get this repo from [github](https://github.com/stucco/dev-setup) and any other repos that you need.
 
         mkdir stucco && cd $_
