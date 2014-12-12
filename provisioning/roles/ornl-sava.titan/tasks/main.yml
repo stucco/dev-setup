@@ -14,7 +14,7 @@
 - template: src=conf/rexster-cassandra-es.xml dest={{ titan_path }}/conf/rexster-cassandra-es.xml
 
 - template: src=etc/init.d/titan dest=/etc/init.d/titan owner=root mode=0755
-  notify: restart titan
+  notify: start titan
 
 - name: enable titan server to survive reboot
   service: name=titan enabled=yes
