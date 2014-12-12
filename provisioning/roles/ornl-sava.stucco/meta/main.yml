@@ -13,7 +13,6 @@ galaxy_info:
   - system
 dependencies:
   - { role: Stouts.nodejs }
-  # - { role: joshualund.ruby-2_1 }
   - { role: jgoodall.golang, golang_version: 1.3.3 }
   - { role: jgoodall.maven, maven_version: 3.1.1 }
   - { role: retr0h.etcd, etcd_version: v0.4.6 }
