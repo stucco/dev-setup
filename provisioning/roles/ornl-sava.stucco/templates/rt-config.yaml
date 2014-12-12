@@ -1,0 +1,28 @@
+structured_data:
+  exchange: {{ rabbitmq_exchange }}
+  host: {{ rabbitmq_host }}
+  port: {{ rabbitmq_port }}
+  username: {{ rabbitmq_user }}
+  password: {{ rabbitmq_password }}
+  queue: stucco-in-structured
+  emptyQueueSleepTime: 90000
+  persistent: true
+  bindings: 
+      - stucco.in.structured.#
+
+unstructured_data:
+  exchange: {{ rabbitmq_exchange }}
+  host: {{ rabbitmq_host }}
+  port: {{ rabbitmq_port }}
+  username: {{ rabbitmq_user }}
+  password: {{ rabbitmq_password }}
+  queue: stucco-in-unstructured
+  emptyQueueSleepTime: 90000
+  persistent: true
+  bindings:
+      - stucco.in.unstructured.#
+
+document_service:
+  host: localhost
+  port: 8118
+  

@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  author: John Goodall
+  description: An Ansible role for installing common tools on Ubuntu.
+  company: Oak Ridge National Laboratory
+  license: MIT
+  min_ansible_version: 1.2
+  platforms:
+  - name: Debian
+    versions:
+    - 7
+  - name: Ubuntu
+    versions:
+    - trusty
+  categories:
+  - system
+dependencies: []
