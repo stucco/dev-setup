@@ -33,7 +33,9 @@ If you want to set hostname, use the `VM_HOSTNAME` environment variable before t
 
         VM_HOSTNAME="stucco-1" vagrant up
 
-7. Run `vagrant ssh` to log into the VM. The stucco project will be in `/stucco` and/or `stucco-shared` (see below). To start loading data, run the following in the VM:  `/vagrant/scripts/load-stucco-data.sh`
+7. Run `vagrant ssh` to log into the VM. The stucco project will be in `/stucco` and/or `stucco-shared` (see below). To start loading data, run the following in the VM:  
+
+    cd /stucco && ./collectors/scheduler-vm.sh demo-load
 
 
 ## Usage
