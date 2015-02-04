@@ -78,6 +78,8 @@
   template: src=etc/supervisor/conf.d/stucco-doc.conf dest=/etc/supervisor/conf.d/stucco-doc.conf
 - name: copy ui supervisord config
   template: src=etc/supervisor/conf.d/stucco-ui.conf dest=/etc/supervisor/conf.d/stucco-ui.conf
+- name: copy scheduler supervisord config
+  template: src=etc/supervisor/conf.d/stucco-scheduler.conf dest=/etc/supervisor/conf.d/stucco-scheduler.conf
 - name: reload supervisord
   shell: /usr/bin/supervisorctl reload
 
