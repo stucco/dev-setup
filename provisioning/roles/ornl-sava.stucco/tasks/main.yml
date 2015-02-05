@@ -55,21 +55,9 @@
 
 # UI
 - name: download ui repo
-  git: repo=https://github.com/stucco/ui.git dest={{ stucco_dir }}/ui version=polymer-051
-- name: prepare ui - install sass gem
-  gem: name=sass user_install=no state=present
-- name: prepare ui - install compass gem
-  gem: name=compass user_install=no state=present
-- name: prepare ui - install http-server
-  npm: name=http-server global=yes production=yes
-- name: prepare ui - install grunt-cli
-  npm: name=grunt-cli global=yes production=yes
+  git: repo=https://github.com/stucco/ui.git dest={{ stucco_dir }}/ui
 - name: prepare ui - install node_modules
-  npm: path={{ stucco_dir }}/ui
-- name: update ui rexster host
-  replace: dest={{ stucco_dir }}/ui/app/index.html regexp='(queryHost=)"localhost"' replace='\1"{{ rexster_host }}"' backup=yes
-- name: build ui (using a bash shell to make sure ruby gems are available)
-  shell: bash -lc "grunt build" chdir={{ stucco_dir }}/ui
+  npm: path={{ stucco_dir }}/ui production=yes
 
 # START SERVICES
 - name: copy rt supervisord config
