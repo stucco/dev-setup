@@ -13,7 +13,8 @@
 
   roles:
   - { role: jgoodall.common }
+  - { role: retr0h.etcd, etcd_version: v0.4.6 }
   - { role: smola.java, java_packages: [oracle-java7-installer, oracle-java7-set-default] }
-  - { role: ornl-sava.titan, titan_version: 0.5.2 }
+  - { role: jgoodall.titan, titan_version: 0.5.3 }
   - { role: Mayeu.RabbitMQ, rabbitmq_ssl: false, rabbitmq_conf_tcp_listeners_address: '0.0.0.0', rabbitmq_users_definitions: [{vhost: /, user: "{{ rmq_user }}", password: "{{ rmq_password }}" }] }
   - { role: ornl-sava.stucco, config_env: vagrant, rabbitmq_host: "{{ rmq_host }}", rabbitmq_port: "{{ rmq_port }}", rabbitmq_user: "{{ rmq_user }}", rabbitmq_password: "{{ rmq_password }}", rabbitmq_exchange: "{{ rmq_exchange }}", doc_service_host: "{{ doc_host }}", doc_service_port: "{{ doc_port }}" }

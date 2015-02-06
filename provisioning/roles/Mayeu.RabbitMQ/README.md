@@ -10,7 +10,7 @@ an issue.
 
 Use Ansible galaxy to install this playbook:
 
-    $ ansible-galaxy install Mayeu.rabbitmq,1.1.0
+    $ ansible-galaxy install Mayeu.RabbitMQ,1.4.0
 
 The `master` branch should currently be considered instable. Please avoid using
 it for something else than test purpose :)
@@ -69,9 +69,9 @@ RABBITMQ_ROCKS="correct"
 
 |Name|Type|Description|Default|
 |----|----|-----------|-------|
-`rabbitmq_cacert`|String|Name of the CA certificate file. Will be prefixed by `rabbitmq_` and postfixed by `.pem`|`cacert`
-`rabbitmq_server_key`|String|Name of the SSL key file. Will be prefixed by `rabbitmq_` and postfixed by `.pem`|`server_key`
-`rabbitmq_server_cert`|String|Name of the SSL certificate file. Will be prefixed by `rabbitmq_` and postfixed by `.pem`|`server_cert`
+`rabbitmq_cacert`|String|Path of the CA certificate file.|`files/rabbitmq_cacert.pem`
+`rabbitmq_server_key`|String|Path of the SSL key file.|`files/rabbitmq_server_key.pem`
+`rabbitmq_server_cert`|String|Path of the SSL certificate file.|`files/rabbitmq_server_cert.pem`
 `rabbitmq_ssl`|Boolean|Define if we need to use SSL|`true`
 
 ### Default configuration file
@@ -159,19 +159,28 @@ rabbitmq_policy_configuration:
 
 ## Files required
 
-You have to put the needed certificates in your `files/` folder:
+You have to put the needed certificates in your `files/` folder, for example:
 
     files/
-     |- rabbitmq_{{ rabbitmq_cacert }}.pem
-     |- rabbitmq_{{ rabbitmq_server_key }}.pem
-     |- rabbitmq_{{ rabbitmq_server_cert }}.pem
+     |- cacert.crt
+     |- myserver_key.key
+     |- myserver_cert.crt
+
+And then configure the role:
+
+```yaml
+    rabbitmq_cacert: files/cacert.crt
+    rabbitmq_server_key: files/myserver_key.key
+    rabbitmq_server_cert: files/myserver_cert.crt
+```
 
 ## Testing
 
 There is some tests that try to provision a VM using Vagrant. Just launch them
 with:
 
-    $ vagrant up
+    $ vagrant up # for test with Debian jessie
+    $ export VAGRANT_BOX_NAME='chef/centos-6.5' vagrant up # for test with Centos
 
 You can change the VM used during test by setting the `VAGRANT_BOX_NAME` env
 variable to something else than `deb/jessie`.

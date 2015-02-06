@@ -2,3 +2,7 @@ jgoodall.common
 smola.java
 jgoodall.titan
 Mayeu.RabbitMQ
+retr0h.etcd
+jgoodall.golang
+jgoodall.maven3
+Stouts.nodejs

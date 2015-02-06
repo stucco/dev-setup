@@ -1,6 +1,6 @@
 ---
 
-- name: test common tools role
+- name: test golang role
   hosts: all
   sudo: yes
 

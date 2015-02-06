@@ -1,8 +1,0 @@
-backend = "{{ backend }}"
-confdir = "{{ conf_dir }}"
-interval = {{ interval }}
-nodes = [
-  "{{ node }}",
-]
-prefix = "{{ prefix }}"
-scheme = "http"

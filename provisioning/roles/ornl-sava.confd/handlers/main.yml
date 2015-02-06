@@ -1,3 +1,0 @@
----
-- name: restart confd
-  service: name=confd state=restarted enabled=yes

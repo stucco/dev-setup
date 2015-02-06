@@ -1,0 +1,9 @@
+titan_version: 0.5.3
+titan_download_url: http://s3.thinkaurelius.com/downloads/titan/titan-{{ titan_version }}-hadoop2.zip
+titan_download_dir: /tmp
+titan_prefix: /usr/local
+titan_dir: titan-{{ titan_version }}-hadoop2
+titan_path: "{{ titan_prefix }}/{{ titan_dir }}"
+titan_host: "{{ ansible_default_ipv4.address }}"
+
+rexster_host: "{{ ansible_default_ipv4.address }}"
