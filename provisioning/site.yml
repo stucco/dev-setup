@@ -3,18 +3,33 @@
   sudo: yes
   sudo_user: root
   vars:
-    rmq_host: localhost
-    rmq_port: 5672
-    rmq_exchange: stucco
-    rmq_user: stucco
-    rmq_password: stucco
-    doc_host: localhost
-    doc_port: 8118
+    rabbitmq_ssl: false
+    rabbitmq_host: localhost
+    rabbitmq_port: 5672
+    rabbitmq_exchange: stucco
+    rabbitmq_user: stucco
+    rabbitmq_password: stucco
+    rabbitmq_conf_tcp_listeners_address: '0.0.0.0'
+    rabbitmq_users_definitions: [{vhost: /, user: "{{ rabbitmq_user }}", password: "{{ rabbitmq_password }}" }]
+
+    rexster_host: localhost
+    rexster_http_port: 8182
+    rexster_rexpro_port: 8184
+
+    stucco_dir: /stucco
+
+    stucco_doc_host: localhost
+    stucco_doc_port: 8118
+
+    stucco_ui_port: 8000
+
 
   roles:
-  - { role: jgoodall.common }
+  - { role: stucco.common, config_env: vagrant }
   - { role: retr0h.etcd, etcd_version: v0.4.6 }
-  - { role: smola.java, java_packages: [oracle-java7-installer, oracle-java7-set-default] }
   - { role: jgoodall.titan, titan_version: 0.5.3 }
-  - { role: Mayeu.RabbitMQ, rabbitmq_ssl: false, rabbitmq_conf_tcp_listeners_address: '0.0.0.0', rabbitmq_users_definitions: [{vhost: /, user: "{{ rmq_user }}", password: "{{ rmq_password }}" }] }
-  - { role: ornl-sava.stucco, config_env: vagrant, rabbitmq_host: "{{ rmq_host }}", rabbitmq_port: "{{ rmq_port }}", rabbitmq_user: "{{ rmq_user }}", rabbitmq_password: "{{ rmq_password }}", rabbitmq_exchange: "{{ rmq_exchange }}", doc_service_host: "{{ doc_host }}", doc_service_port: "{{ doc_port }}" }
+  - { role: Mayeu.RabbitMQ }
+  - { role: stucco.collectors }
+  - { role: stucco.rt }
+  - { role: stucco.doc }
+  - { role: stucco.ui }

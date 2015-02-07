@@ -1,8 +1,8 @@
-jgoodall.common
-smola.java
+stucco.common
 jgoodall.titan
 Mayeu.RabbitMQ
 retr0h.etcd
-jgoodall.golang
-jgoodall.maven3
-Stouts.nodejs
+stucco.collectors
+stucco.rt
+stucco.doc
+stucco.ui
