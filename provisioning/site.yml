@@ -3,6 +3,9 @@
   sudo: yes
   sudo_user: root
   vars:
+    etcd_version: v0.4.6
+    titan_version: 0.5.3
+
     rabbitmq_ssl: false
     rabbitmq_host: localhost
     rabbitmq_port: 5672
@@ -23,13 +26,14 @@
 
     stucco_ui_port: 8000
 
+    stucco_collector_env: demo
 
   roles:
   - { role: stucco.common, config_env: vagrant }
-  - { role: retr0h.etcd, etcd_version: v0.4.6 }
-  - { role: jgoodall.titan, titan_version: 0.5.3 }
+  - { role: retr0h.etcd }
+  - { role: jgoodall.titan }
   - { role: Mayeu.RabbitMQ }
-  - { role: stucco.collectors }
   - { role: stucco.rt }
   - { role: stucco.doc }
   - { role: stucco.ui }
+  - { role: stucco.collectors }
