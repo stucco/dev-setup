@@ -1,0 +1,18 @@
+---
+
+- name: download rt repo
+  git: repo=https://github.com/stucco/rt.git dest={{ stucco_rt_dir }}
+
+- name: copy rt config template (THIS IS TEMPORARY, SHOULD USE CONFD)
+  template: src=rt-config.yaml dest={{ stucco_rt_dir }}/config.yaml mode=0644
+
+- name: make sure titan is running
+  service: name=titan state=started
+
+- name: build rt
+  shell: ./maven-rt-build.sh > /tmp/rt-build.out chdir={{ stucco_rt_dir }} creates={{ stucco_rt_dir }}/streaming-processor/target/rt-structured.jar
+
+- name: copy rt supervisord config
+  template: src=supervisor/stucco-rt.conf dest=/etc/supervisor/conf.d/stucco-rt.conf
+- name: reload supervisord
+  shell: /usr/bin/supervisorctl reload

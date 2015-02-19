@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rexster>
     <http>
-        <server-port>8182</server-port>
+        <server-port>{{ rexster_http_port }}</server-port>
         <server-host>0.0.0.0</server-host>
         <base-uri>http://{{ rexster_host }}</base-uri>
         <web-root>public</web-root>
@@ -24,7 +24,7 @@
         <io-strategy>leader-follower</io-strategy>
     </http>
     <rexpro>
-        <server-port>8184</server-port>
+        <server-port>{{ rexster_rexpro_port }}</server-port>
         <server-host>0.0.0.0</server-host>
         <session-max-idle>1790000</session-max-idle>
         <session-check-interval>3000000</session-check-interval>

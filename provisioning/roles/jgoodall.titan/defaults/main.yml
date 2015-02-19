@@ -7,3 +7,5 @@ titan_path: "{{ titan_prefix }}/{{ titan_dir }}"
 titan_host: "{{ ansible_default_ipv4.address }}"
 
 rexster_host: "{{ ansible_default_ipv4.address }}"
+rexster_http_port: 8182
+rexster_rexpro_port: 8184

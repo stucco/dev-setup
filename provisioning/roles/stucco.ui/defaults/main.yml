@@ -1,0 +1,6 @@
+stucco_ui_dir: "{{ stucco_dir }}/ui"
+stucco_ui_port: 8000
+
+rexster_host: localhost
+rexster_http_port: 8182
+rexster_rexpro_port: 8184

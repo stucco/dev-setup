@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  author: John Goodall
+  description: An Ansible role for preparing Stucco on Ubuntu.
+  company: Oak Ridge National Laboratory
+  license: MIT
+  min_ansible_version: 1.2
+  platforms:
+  - name: Debian
+    versions:
+    - 7
+  - name: Ubuntu
+    versions:
+    - trusty
+  categories:
+  - system
+dependencies:
+  - { role: jgoodall.common }
+  - { role: retr0h.etcd, etcd_version: v0.4.6 }
+  - { role: Stouts.nodejs }

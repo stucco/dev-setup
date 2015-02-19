@@ -1,0 +1,15 @@
+---
+
+- name: download ui repo
+  git: repo=https://github.com/stucco/ui.git dest={{ stucco_ui_dir }}
+- name: copy config file
+  template: src=config/dev_config.json dest={{ stucco_ui_dir }}/dev_config.json
+
+- name: prepare ui - install node_modules
+  npm: path={{ stucco_ui_dir }} production=yes
+
+# START SERVICES
+- name: copy ui supervisord config
+  template: src=supervisor/stucco-ui.conf dest=/etc/supervisor/conf.d/stucco-ui.conf
+- name: reload supervisord
+  shell: /usr/bin/supervisorctl reload

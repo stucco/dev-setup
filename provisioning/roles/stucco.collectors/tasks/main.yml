@@ -1,0 +1,21 @@
+---
+
+- name: download collectors repo
+  git: repo=https://github.com/stucco/collectors.git dest={{ stucco_collector_dir }}
+
+- name: copy scheduler config
+  template: src=collectors.yml dest={{ stucco_collector_config }}
+
+- name: build collectors
+  shell: ./scripts/maven-collectors-build.sh > /tmp/collectors-build.out chdir={{ stucco_collector_dir }} creates={{ stucco_collector_dir }}/target/scheduler.jar
+
+- name: load data
+  shell: java -Xmx2G -jar {{ stucco_collector_dir }}/target/collect.jar -load -config {{ stucco_collector_config }} -section {{ stucco_collector_env }} chdir={{ stucco_dir }}
+  when: stucco_collector_mode == "once"
+
+- name: copy scheduler supervisord config
+  template: src=supervisor/stucco-scheduler.conf dest=/etc/supervisor/conf.d/stucco-scheduler.conf
+
+- name: reload supervisord
+  shell: /usr/bin/supervisorctl reload
+  when: stucco_collector_mode == "daemon"

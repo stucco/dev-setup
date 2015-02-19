@@ -1,0 +1,4 @@
+stucco_doc_dir: "{{ stucco_dir }}/doc"
+stucco_doc_port: 8118
+
+gopath: "{{ stucco_dir }}/go"

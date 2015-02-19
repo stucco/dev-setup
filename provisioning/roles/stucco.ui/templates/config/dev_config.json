@@ -1,0 +1,20 @@
+{
+  "isDev": true,
+  "isSecure": false,
+  "session": {
+    "secure": false
+  },
+  "http": {
+    "listen": "localhost",
+    "port": {{ stucco_ui_port }}
+  },
+  "client": {
+    "apiUrl": "http://localhost:{{ stucco_ui_port }}",
+    "debugMode": true
+  },
+  "server": {
+    "rexsterHost": "{{ rexster_host }}",
+    "rexsterPort": {{ rexster_http_port }},
+    "rexsterGraph": "graph"
+  }
+}

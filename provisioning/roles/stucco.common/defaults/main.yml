@@ -1,0 +1,5 @@
+stucco_dir: /stucco
+stucco_bin: "{{ stucco_dir }}/bin"
+stucco_user: stucco
+stucco_group: stucco
+stucco_env: vagrant

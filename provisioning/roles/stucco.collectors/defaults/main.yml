@@ -1,0 +1,13 @@
+stucco_collector_dir: "{{ stucco_dir }}/collectors"
+
+stucco_collector_config: "{{ stucco_collector_dir }}/config/collectors.yml"
+
+# There are two environments:
+#  demo: does not load all of the big files.
+#  production: load everything
+stucco_collector_env: production
+
+# There are two modes:
+#  daemon: load and continue collecting
+#  once: load and exit
+stucco_collector_mode: daemon

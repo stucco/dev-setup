@@ -1,0 +1,27 @@
+---
+
+- name: create group
+  group: name={{ stucco_group }}
+- name: create user
+  user: name={{ stucco_user }} group={{ stucco_group }} comment="Stucco User"
+- name: create Stucco directory
+  file: path={{ stucco_dir }} owner={{ stucco_user }} group={{ stucco_group }} state=directory mode=4777
+
+- name: create Stucco bin directory
+  file: path={{ stucco_bin }} owner={{ stucco_user }} group={{ stucco_group }} state=directory mode=4777
+
+# DOWNLOAD ANY DATA NECESSARY
+- name: download endogenous-data-uc1 repo
+  git: repo=https://github.com/stucco/endogenous-data-uc1.git dest={{ stucco_dir }}/endogenous-data-uc1
+
+# ONTOLOGY IS SHARED BY DIFFERENT SYSTEMS
+- name: download ontology repo
+  git: repo=https://github.com/stucco/ontology.git dest={{ stucco_dir }}/ontology
+
+# CONFIGURATION FOR ETCD
+- name: download config repo
+  git: repo=https://github.com/stucco/config2.git dest={{ stucco_dir }}/config
+- name: make sure etcd is running
+  service: name=etcd state=started
+- name: setup config
+  shell: NODE_ENV={{ stucco_env }} node load.js chdir={{ stucco_dir }}/config/loader
