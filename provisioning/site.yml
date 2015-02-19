@@ -4,7 +4,7 @@
   sudo_user: root
   vars:
     etcd_version: v0.4.6
-    titan_version: 0.5.3
+    titan_version: 0.5.4
 
     rabbitmq_ssl: false
     rabbitmq_host: localhost
