@@ -1,0 +1,9 @@
+- src: stucco.common
+- src: jgoodall.titan
+- src: Mayeu.RabbitMQ
+  version: 1.4.0
+- src: retr0h.etcd
+- src: stucco.collectors
+- src: stucco.rt
+- src: stucco.doc
+- src: stucco.ui

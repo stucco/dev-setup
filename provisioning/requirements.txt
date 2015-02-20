@@ -1,8 +1,0 @@
-stucco.common
-jgoodall.titan
-Mayeu.RabbitMQ
-retr0h.etcd
-stucco.collectors
-stucco.rt
-stucco.doc
-stucco.ui
