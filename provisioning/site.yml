@@ -15,7 +15,7 @@
     rabbitmq_conf_tcp_listeners_address: '0.0.0.0'
     rabbitmq_users_definitions: [{vhost: /, user: "{{ rabbitmq_user }}", password: "{{ rabbitmq_password }}" }]
 
-    rexster_host: localhost
+    rexster_host: "{{ host_ip }}"
     rexster_http_port: 8182
     rexster_rexpro_port: 8184
 
@@ -24,6 +24,7 @@
     stucco_doc_host: localhost
     stucco_doc_port: 8118
 
+    stucco_ui_host: "{{ host_ip }}"
     stucco_ui_port: 8000
 
     stucco_collector_env: demo

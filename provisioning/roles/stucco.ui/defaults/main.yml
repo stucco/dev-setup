@@ -1,4 +1,5 @@
 stucco_ui_dir: "{{ stucco_dir }}/ui"
+stucco_ui_host: localhost
 stucco_ui_port: 8000
 
 rexster_host: localhost

@@ -68,7 +68,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "ansible" do |ansible|
     # ansible.inventory_path = "provisioning/inventory"
     ansible.playbook = "provisioning/site.yml"
-    ansible.extra_vars = { ansible_ssh_user: "vagrant", rexster_host: "#{options[:ip]}" }
+    ansible.extra_vars = { ansible_ssh_user: "vagrant", host_ip: "#{options[:ip]}" }
   end
 
 end
