@@ -5,4 +5,4 @@ if [ $? == 1 ]; then
   echo "Install ansible: http://docs.ansible.com/intro_installation.html"
 fi
 
-ansible-galaxy install -r provisioning/requirements.yml -p provisioning/roles
+ansible-galaxy install -r requirements.yml -p roles
