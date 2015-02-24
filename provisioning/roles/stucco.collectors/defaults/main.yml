@@ -11,3 +11,13 @@ stucco_collector_env: production
 #  daemon: load and continue collecting
 #  once: load and exit
 stucco_collector_mode: daemon
+
+# RabbitMQ settings
+rabbitmq_host: localhost
+rabbitmq_port: 5672
+rabbitmq_exchange: stucco
+rabbitmq_queue: stucco
+
+# Document service settings
+stucco_doc_host: localhost
+stucco_doc_port: 8118

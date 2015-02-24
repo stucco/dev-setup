@@ -7,7 +7,7 @@
   template: src=collectors.yml dest={{ stucco_collector_config }}
 
 - name: build collectors
-  shell: ./scripts/maven-collectors-build.sh > /tmp/collectors-build.out chdir={{ stucco_collector_dir }} creates={{ stucco_collector_dir }}/target/scheduler.jar
+  shell: ./scripts/maven-collectors-build.sh chdir={{ stucco_collector_dir }} creates={{ stucco_collector_dir }}/target/scheduler.jar
 
 - name: load data
   shell: java -Xmx2G -jar {{ stucco_collector_dir }}/target/collect.jar -load -config {{ stucco_collector_config }} -section {{ stucco_collector_env }} > /tmp/collectors-load.out chdir={{ stucco_dir }}
