@@ -62,11 +62,11 @@ Vagrant.configure("2") do |config|
   # Create ansible inventory file
   File.open('provisioning/inventory' ,'w') do |f|
     f.write "[default]\n"
-    f.write "stucco ansible_ssh_host=#{options[:ip]} ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key\n"
+    f.write "stucco ansible_ssh_host=#{options[:ip]}\n"
   end
 
   config.vm.provision "ansible" do |ansible|
-    # ansible.inventory_path = "provisioning/inventory"
+    ansible.inventory_path = "provisioning/inventory"
     ansible.playbook = "provisioning/site.yml"
     ansible.extra_vars = { ansible_ssh_user: "vagrant", host_ip: "#{options[:ip]}" }
   end

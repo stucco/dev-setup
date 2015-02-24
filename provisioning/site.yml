@@ -3,7 +3,6 @@
   sudo: yes
   sudo_user: root
   vars:
-    etcd_version: v0.4.6
     titan_version: 0.5.4
 
     rabbitmq_ssl: false
@@ -30,8 +29,7 @@
     stucco_collector_env: demo
 
   roles:
-  - { role: stucco.common, config_env: vagrant }
-  - { role: retr0h.etcd }
+  - { role: stucco.common }
   - { role: jgoodall.titan }
   - { role: Mayeu.RabbitMQ }
   - { role: stucco.rt }

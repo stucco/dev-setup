@@ -17,11 +17,3 @@
 # ONTOLOGY IS SHARED BY DIFFERENT SYSTEMS
 - name: download ontology repo
   git: repo=https://github.com/stucco/ontology.git dest={{ stucco_dir }}/ontology
-
-# CONFIGURATION FOR ETCD
-- name: download config repo
-  git: repo=https://github.com/stucco/config2.git dest={{ stucco_dir }}/config
-- name: make sure etcd is running
-  service: name=etcd state=started
-- name: setup config
-  shell: NODE_ENV={{ stucco_env }} node load.js chdir={{ stucco_dir }}/config/loader
