@@ -1,4 +1,4 @@
-titan_version: 0.5.3
+titan_version: 0.5.4
 titan_download_url: http://s3.thinkaurelius.com/downloads/titan/titan-{{ titan_version }}-hadoop2.zip
 titan_download_dir: /tmp
 titan_prefix: /usr/local
