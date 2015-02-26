@@ -21,8 +21,8 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.hostname = options[:hostname] 
-  config.vm.box = "puphpet/ubuntu1404-x64"
-  config.vm.box_version = "1.2"
+  config.vm.box = "hashicorp/precise64"
+  config.vm.box_version = "1.1.0"
   config.vm.box_check_update = false
   
   # Config for vagrant-cachier - caches apt packages (and similar on other systems)
