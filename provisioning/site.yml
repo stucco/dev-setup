@@ -12,6 +12,7 @@
     rabbitmq_user: stucco
     rabbitmq_password: stucco
     rabbitmq_conf_tcp_listeners_address: '0.0.0.0'
+    rabbitmq_conf_tcp_listeners_port: "{{ rabbitmq_port }}"
     rabbitmq_users_definitions: [{vhost: /, user: "{{ rabbitmq_user }}", password: "{{ rabbitmq_password }}" }]
 
     rexster_host: "{{ host_ip }}"
