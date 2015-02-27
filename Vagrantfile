@@ -48,15 +48,15 @@ Vagrant.configure("2") do |config|
 
   # Customization for VirtualBox
   config.vm.provider :virtualbox do |vb|
-    vb.customize ["modifyvm", :id, "--memory", "8192"]
-    vb.customize ["modifyvm", :id, "--cpus", "2"]
+    vb.customize ["modifyvm", :id, "--memory", "10240"]
+    vb.customize ["modifyvm", :id, "--cpus", "4"]
     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "90"]
   end
 
   # Customization for VMWare Fusion
   config.vm.provider "vmware_fusion" do |v|
-    v.vmx["memsize"] = "8192"
-    v.vmx["numvcpus"] = "2"
+    v.vmx["memsize"] = "10240"
+    v.vmx["numvcpus"] = "4"
   end
 
   # Create ansible inventory file

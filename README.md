@@ -38,6 +38,8 @@ Networking is set up as *host-only*, so you will not be able to connect to the V
 
 #### Vagrant notes
 
+This `Vagrantfile` assumes your machine can handle 10gb of memory and 4 cores dedicated to the virtual machine, if you need to lower this, edit [this section for your provider](https://github.com/stucco/dev-setup/blob/master/Vagrantfile#L50-L60).
+
 To stop/start the VM, the fastest approach is to use `vagrant suspend` and `vagrant resume`. You can also use `vagrant halt` and `vagrant up`, but this will completely rebuild the VM each time.
 
 To cache some dependencies to make `vagrant up` faster, install the Vagrant cache plugin to use a cache for downloaded software by running `vagrant plugin install vagrant-cachier`. 
