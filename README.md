@@ -74,6 +74,16 @@ The Github code is started by default, using [supervisord](http://supervisord.or
 
 See the ['Debugging' page](https://github.com/stucco/dev-setup/wiki/Debugging) on the wiki.
 
-The Cisco VPN, and maybe others, may screw up the ability to access the guest from the host OS. Turn off the VPN and maybe restart.
+#### 64 bit / Virtualization
 
-To use the provided setup, **you must have a 64-bit machine that supports Intel VT-x or AMD-V**.
+The host OS machine should be relatively recent and should have Virtualization enabled in the BIOS. A 64-bit machine that supports Intel VT-x or AMD-V should work. If you do not have a 64-bit machine or the BIOS Virtualization enabled, you can try to change this line in the `Vagrantfile`:
+
+    config.vm.box = "hashicorp/precise64"
+
+To:
+
+    config.vm.box = "hashicorp/precise32"
+
+#### VPNs
+
+The Cisco VPN, and maybe others, may screw up the ability to access the guest from the host OS. Turn off the VPN and maybe restart.

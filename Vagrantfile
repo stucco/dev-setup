@@ -3,7 +3,11 @@
 
 options = {
   :ip => "10.10.10.100",
-  :hostname => "stucco"
+  :hostname => "stucco",
+  # By default the VM will be allocated 10gb of memory
+  :memory => "10240",
+  # By default the VM will be allocated 4 cores
+  :cores => "4"
 }
 
 Vagrant.configure("2") do |config|
@@ -20,7 +24,9 @@ Vagrant.configure("2") do |config|
     options[:hostname] = ENV["VM_HOSTNAME"]
   end
 
-  config.vm.hostname = options[:hostname] 
+  config.vm.hostname = options[:hostname]
+
+  # If you are on a Host without Virtualization in the BIOS, try changing to "hashicorp/precise32"
   config.vm.box = "hashicorp/precise64"
   config.vm.box_version = "1.1.0"
   config.vm.box_check_update = false
@@ -48,15 +54,15 @@ Vagrant.configure("2") do |config|
 
   # Customization for VirtualBox
   config.vm.provider :virtualbox do |vb|
-    vb.customize ["modifyvm", :id, "--memory", "10240"]
-    vb.customize ["modifyvm", :id, "--cpus", "4"]
-    vb.customize ["modifyvm", :id, "--cpuexecutioncap", "90"]
+    vb.customize ["modifyvm", :id, "--memory", "#{options[:memory]}"]
+    vb.customize ["modifyvm", :id, "--cpus", "#{options[:cores]}"]
+    vb.customize ["modifyvm", :id, "--cpuexecutioncap", "80"]
   end
 
   # Customization for VMWare Fusion
   config.vm.provider "vmware_fusion" do |v|
-    v.vmx["memsize"] = "10240"
-    v.vmx["numvcpus"] = "4"
+    v.vmx["memsize"] = "#{options[:memory]}"
+    v.vmx["numvcpus"] = "#{options[:cores]}"
   end
 
   # Create ansible inventory file
