@@ -13,7 +13,7 @@
   shell: ./scripts/maven-collectors-build.sh chdir={{ stucco_collector_dir }} creates={{ stucco_collector_dir }}/target/scheduler.jar
 
 - name: load data
-  shell: java -Xmx2G -jar {{ stucco_collector_dir }}/target/collect.jar -load -config {{ stucco_collector_config }} -section {{ stucco_collector_env }} > /tmp/collectors-load.out chdir={{ stucco_dir }}
+  shell: java -Xmx2G -jar {{ stucco_collector_dir }}/target/collect.jar -load -config {{ stucco_collector_config }} -section {{ stucco_collector_env }} chdir={{ stucco_dir }}
   when: stucco_collector_mode == "once"
 
 - name: copy delayed start script
