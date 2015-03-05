@@ -8,7 +8,7 @@ This project will set up the test and demonstration environment for Stucco using
 
 1. [Download VirtualBox](https://www.virtualbox.org/wiki/Downloads) for your OS and install. (Tested with version 4.3.x.)
 1. [Download Vagrant](http://www.vagrantup.com/downloads.html) for your OS and install. (Tested with version 1.7.x.)
-1. [Download Ansible](http://docs.ansible.com/intro_installation.html). (Tested with version 1.7.x.)
+1. [Download Ansible](http://docs.ansible.com/intro_installation.html). (Tested with version 1.7.x.). ([Ansible requires Python 2.6](http://docs.ansible.com/intro_installation.html#control-machine-requirements).)
 1. Get this repo from [github](https://github.com/stucco/dev-setup) : `git clone https://github.com/stucco/dev-setup.git stucco && cd stucco`.
 1. Start the VM:  `vagrant up`
 1. Open a web browser to `http://10.10.10.100:8000/`. Not all data will be there right away, it takes some time to load everything. Start on the [help page](http://10.10.10.100:8000/help). (The default Vagrant IP address is 10.10.10.100; if you change it, change the URL.)
