@@ -2,7 +2,7 @@
 Stucco Dev-Setup
 ================
 
-This project will set up the test and demonstration environment for Stucco using [Vagrant](http://www.vagrantup.com/). 
+This project will set up the test and demonstration environment for Stucco using [Vagrant](http://www.vagrantup.com/). Linux and Mac OS X are supported.
 
 ## Setup
 
