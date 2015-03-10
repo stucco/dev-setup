@@ -6,12 +6,6 @@
 - name: copy rt config template
   template: src=rt-config.yaml dest={{ stucco_rt_dir }}/config.yaml mode=0644
 
-- name: create graph-alignment config directory
-  file: path={{ stucco_rt_dir }}/rexster-config state=directory
-
-- name: copy graph-alignment config (this is temporary, should all be together)
-  template: src=graph-config dest={{ stucco_rt_dir }}/rexster-config/rexster-default-config mode=0644
-
 - name: make sure titan is running
   service: name=titan state=started
 
