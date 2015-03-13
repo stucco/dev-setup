@@ -7,7 +7,7 @@
   git: repo=https://github.com/stucco/document-service.git dest={{ gopath }}/src/github.com/stucco/document-service
 
 - name: test document-service
-  shell: "(GOPATH={{ gopath }} {{ goroot }}/bin/go run doc-service.go -port=8267 &) && sleep 2 && GOPATH={{ gopath }} {{ goroot }}/bin/go test chdir={{ gopath }}/src/github.com/stucco/document-service"
+  shell: "(GOPATH={{ gopath }} {{ goroot }}/bin/go run doc-service.go -port=8267 &) && sleep 2 && GOPATH={{ gopath }} {{ goroot }}/bin/go test -timeout 30s chdir={{ gopath }}/src/github.com/stucco/document-service"
 
 - name: build document-service
   shell: "GOPATH={{ gopath }} {{ goroot }}/bin/go build doc-service.go chdir={{ gopath }}/src/github.com/stucco/document-service"
