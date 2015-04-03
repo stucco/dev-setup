@@ -31,8 +31,8 @@
 
   roles:
   - { role: stucco.common }
-  - { role: jgoodall.titan }
   - { role: Mayeu.RabbitMQ }
+  - { role: stucco.graph }
   - { role: stucco.rt }
   - { role: stucco.doc }
   - { role: stucco.ui }

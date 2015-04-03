@@ -1,7 +1,7 @@
 - src: stucco.common
-- src: jgoodall.titan
 - src: Mayeu.RabbitMQ
   version: 1.4.0
+- src: stucco.graph
 - src: stucco.collectors
 - src: stucco.rt
 - src: stucco.doc
