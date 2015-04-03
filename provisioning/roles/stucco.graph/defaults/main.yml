@@ -1,0 +1,1 @@
+stucco_graph_init_dir: "{{ stucco_dir }}/graph-init"

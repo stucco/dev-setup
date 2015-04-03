@@ -1,0 +1,19 @@
+---
+
+- name: Copy the rexster configuration template
+  template: src=rexster-cassandra-es.xml dest={{ titan_path }}/conf/rexster-cassandra-es.xml
+
+- name: make sure titan is running
+  service: name=titan state=restarted
+
+- name: download graph-init repo
+  git: repo=https://github.com/stucco/graph-init.git dest={{ stucco_graph_init_dir }}
+
+- name: build schema and index application 
+  command: ./schema-build.sh chdir={{ stucco_graph_init_dir }}
+
+- name: wait for titan to start
+  wait_for: port=8184 delay=10
+
+- name: populate titan with schema and build indexes
+  command: ./populate-schema-indexes.sh chdir={{ stucco_graph_init_dir }}

@@ -1,0 +1,8 @@
+---
+
+- name: test stucco graph role
+  hosts: all
+  sudo: yes
+
+  tasks:
+    - include: 'tasks/main.yml'
