@@ -97,9 +97,18 @@
                 <storage.backend>cassandra</storage.backend>
                 <index.search.backend>elasticsearch</index.search.backend>
                 <index.search.hostname>127.0.0.1</index.search.hostname>
-                <index.search.elasticsearch.client-only>true</index.search.elasticsearch.client-only>
-                <index.search.elasticsearch.local-mode>false</index.search.elasticsearch.local-mode>
-                <schema.default>none</schema.default>
+                <!-- setup for remote ES search -->
+                <!-- <index.search.elasticsearch.client-only>false</index.search.elasticsearch.client-only> -->
+                <!-- <index.search.elasticsearch.local-mode>false</index.search.elasticsearch.local-mode> -->
+                <!-- end of setup for remote ES Search -->
+                <!-- ================================= -->
+                <!-- setup for embedded ES search -->
+                <index.search.elasticsearch.client-only>false</index.search.elasticsearch.client-only>
+                <index.search.elasticsearch.local-mode>true</index.search.elasticsearch.local-mode>
+                <index.search.directory>db/es</index.search.directory>
+		<!--  end of embedded defs -->
+                <!-- Force schema enforcement -->
+		<!-- <schema.default>none</schema.default> -->
             </properties>
             <extensions>
               <allows>
