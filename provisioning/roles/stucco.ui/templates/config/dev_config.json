@@ -16,5 +16,8 @@
     "rexsterHost": "{{ rexster_host }}",
     "rexsterPort": {{ rexster_http_port }},
     "rexsterGraph": "graph"
+  },
+  "indices": {
+    "fulltext": ["description", "comments", "details", "shortDescription", "solution", "removal", "behavior"]
   }
 }

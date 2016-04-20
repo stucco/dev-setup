@@ -16,4 +16,4 @@ galaxy_info:
   - system
 dependencies:
   - { role: stucco.common }
-  - { role: Stouts.nodejs }
+  - { role: nodesource.node }
