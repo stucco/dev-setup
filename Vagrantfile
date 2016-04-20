@@ -26,9 +26,9 @@ Vagrant.configure("2") do |config|
 
   config.vm.hostname = options[:hostname]
 
-  # If you are on a Host without Virtualization in the BIOS, try changing to "hashicorp/precise32"
-  config.vm.box = "hashicorp/precise64"
-  config.vm.box_version = "1.1.0"
+  # If you are on a Host without Virtualization in the BIOS, try changing to "ubuntu/trusty32"
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.box_version = "14.04"
   config.vm.box_check_update = false
   
   # Config for vagrant-cachier - caches apt packages (and similar on other systems)
