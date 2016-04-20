@@ -71,6 +71,8 @@ Vagrant.configure("2") do |config|
     f.write "stucco ansible_ssh_host=#{options[:ip]}\n"
   end
 
+  config.vm.provision "shell", path: "./scripts/base.sh"
+
   config.vm.provision "ansible" do |ansible|
     ansible.inventory_path = "provisioning/inventory"
     ansible.playbook = "provisioning/site.yml"
