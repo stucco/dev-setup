@@ -3,7 +3,6 @@
   sudo: yes
   sudo_user: root
   vars:
-    titan_version: 0.5.4
 
     rabbitmq_ssl: false
     rabbitmq_host: localhost
@@ -14,10 +13,6 @@
     rabbitmq_conf_tcp_listeners_address: '0.0.0.0'
     rabbitmq_conf_tcp_listeners_port: "{{ rabbitmq_port }}"
     rabbitmq_users_definitions: [{vhost: /, user: "{{ rabbitmq_user }}", password: "{{ rabbitmq_password }}" }]
-
-    rexster_host: "{{ host_ip }}"
-    rexster_http_port: 8182
-    rexster_rexpro_port: 8184
 
     stucco_dir: /stucco
 

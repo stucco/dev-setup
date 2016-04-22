@@ -1,3 +1,0 @@
----
-- name: start titan
-  service: name=titan state=started enabled=yes
