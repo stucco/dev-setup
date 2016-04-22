@@ -1,0 +1,11 @@
+---
+- name: Start OrientDB service
+  service:
+    name: orientdb
+    state: started
+
+- name: Stop OrientDB service
+  service:
+    name: orientdb
+    state: stopped
+

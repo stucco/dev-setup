@@ -18,4 +18,4 @@ dependencies:
   - { role: stucco.common }
   - { role: smola.java, java_packages: [oracle-java7-installer, oracle-java7-set-default] }
   - { role: jgoodall.maven3, maven_version: 3.1.1 }
-  - { role: jgoodall.titan }
+  - { role: migibert.orientdb }
