@@ -1,7 +1,7 @@
 ---
 
 - name: download ui repo
-  git: repo=https://github.com/stucco/ui.git dest={{ stucco_ui_dir }}
+  git: repo=https://github.com/stucco/ui.git version=stix-ui dest={{ stucco_ui_dir }}
 - name: copy config file
   template: src=config/dev_config.json dest={{ stucco_ui_dir }}/dev_config.json
 
