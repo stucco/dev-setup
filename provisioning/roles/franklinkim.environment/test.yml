@@ -1,0 +1,9 @@
+---
+
+- hosts: all
+  sudo: yes
+  roles:
+    - franklinkim.environment
+  vars:
+    environment_config:
+      LC_ALL: C

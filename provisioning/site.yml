@@ -24,7 +24,13 @@
 
     stucco_collector_env: demo
 
+    environment_config:
+      STUCCO_DB_TYPE: ORIENTDB
+      STUCCO_DB_CONFIG: "/stucco/graph-init/config/orientdb.yml"
+      STUCCO_DB_INDEX_CONFIG: "/stucco/graph-init/config/stucco_orientdb_indexing.json"
+
   roles:
+  - { role: franklinkim.environment }
   - { role: stucco.common }
   - { role: Mayeu.RabbitMQ }
   - { role: stucco.graph }
