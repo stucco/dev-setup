@@ -15,5 +15,5 @@
   git: repo=https://github.com/stucco/endogenous-data-uc1.git dest={{ stucco_dir }}/endogenous-data-uc1
 
 # ONTOLOGY IS SHARED BY DIFFERENT SYSTEMS
-- name: download ontology repo
-  git: repo=https://github.com/stucco/ontology.git dest={{ stucco_dir }}/ontology
+#- name: download ontology repo
+#  git: repo=https://github.com/stucco/ontology.git dest={{ stucco_dir }}/ontology
