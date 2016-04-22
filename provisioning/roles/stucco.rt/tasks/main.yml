@@ -1,13 +1,13 @@
 ---
 
 - name: download rt repo
-  git: repo=https://github.com/stucco/rt.git dest={{ stucco_rt_dir }}
+  git: repo=https://github.com/stucco/rt.git version=STIX dest={{ stucco_rt_dir }}
 
 - name: copy rt config template
   template: src=rt-config.yaml dest={{ stucco_rt_dir }}/config.yaml mode=0644
 
-- name: make sure titan is running
-  service: name=titan state=started
+- name: make sure orientdb is running
+  service: name=orientdb state=started
 
 - name: build rt
   shell: ./maven-rt-build.sh chdir={{ stucco_rt_dir }} creates={{ stucco_rt_dir }}/streaming-processor/target/rt-structured.jar
