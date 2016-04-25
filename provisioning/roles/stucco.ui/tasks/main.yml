@@ -2,14 +2,32 @@
 
 - name: download ui repo
   git: repo=https://github.com/stucco/ui.git version=stix-ui dest={{ stucco_ui_dir }}
+
 - name: copy config file
   template: src=config/dev_config.json dest={{ stucco_ui_dir }}/dev_config.json
 
 - name: prepare ui - install node_modules
   npm: path={{ stucco_ui_dir }} production=yes
 
+- name: download DB rest service
+  git: repo=https://github.com/stucco/graph-db-connection-service.git version=develop dest="/stucco/graph-db-connection-service"
+
+- name: download dependency
+  shell: mvn --non-recursive scm:checkout -Dmodule.name=graph-db-connection -DscmVersion=STIX -DscmVersionType=branch chdir="/stucco/graph-db-connection-service"
+
+- name: build dependency
+  shell: mvn -e clean install -Dmaven.test.skip=true chdir="/stucco/graph-db-connection-service/graph-db-connection"
+
+- name: build DB rest service
+  shell: mvn -e package chdir="/stucco/graph-db-connection-service"
+
+- name: start DB rest service
+  shell: java -jar /stucco/graph-db-connection-service/target/DBConnectionService-0.0.1-SNAPSHOT.jar &
+#TODO: manage above with supervisord
+
 # START SERVICES
 - name: copy ui supervisord config
   template: src=supervisor/stucco-ui.conf dest=/etc/supervisor/conf.d/stucco-ui.conf
+
 - name: reload supervisord
   shell: /usr/bin/supervisorctl reload
