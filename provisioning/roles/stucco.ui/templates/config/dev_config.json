@@ -12,10 +12,12 @@
     "apiUrl": "http://{{ stucco_ui_host }}:{{ stucco_ui_port }}",
     "debugMode": true
   },
-  "server": {
-    "rexsterHost": "{{ rexster_host }}",
-    "rexsterPort": {{ rexster_http_port }},
-    "rexsterGraph": "graph"
+  "graphServer": {
+    "graphHost": "localhost",
+    "graphPort": 8080,
+    "graphRootPath": "api", //only used by our db service.
+    "graphName": "", //only used by rexster
+    "isRexster": false
   },
   "indices": {
     "fulltext": ["description", "comments", "details", "shortDescription", "solution", "removal", "behavior"]
