@@ -32,3 +32,8 @@
   - { role: stucco.rt }
   - { role: stucco.ui }
   - { role: stucco.collectors }
+
+  environment:
+    STUCCO_DB_TYPE: "ORIENTDB"
+    STUCCO_DB_CONFIG: "/stucco/graph-init/config/orientdb.yml"
+    STUCCO_DB_INDEX_CONFIG: "/stucco/graph-init/config/stucco_orientdb_indexing.json"
