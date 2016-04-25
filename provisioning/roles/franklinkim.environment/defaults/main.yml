@@ -1,8 +1,0 @@
----
-# For more information about default variables see:
-# http://www.ansibleworks.com/docs/playbooks_variables.html#id26
-#
-# environment_config:
-#   LC_ALL: en_US.UTF-8
-#
-environment_config:
