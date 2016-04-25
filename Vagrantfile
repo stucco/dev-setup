@@ -5,7 +5,7 @@ options = {
   :ip => "10.10.10.100",
   :hostname => "stucco",
   # By default the VM will be allocated 10gb of memory
-  :memory => "10240",
+  :memory => "12288",
   # By default the VM will be allocated 4 cores
   :cores => "4"
 }
