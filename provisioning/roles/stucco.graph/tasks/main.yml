@@ -1,19 +1,19 @@
 ---
+#this supervisord shim is kind of hacky, but it does what it needs to.
+- name: copy db monitoring script
+  template: src=orientdb_monitor.sh dest=/stucco/orientdb_monitor.sh
 
-#- name: Copy the rexster configuration template
-#  template: src=rexster-cassandra-es.xml dest={{ titan_path }}/conf/rexster-cassandra-es.xml
+- name: copy supervisord conf for db monitoring script
+  template: src=supervisor/db-monitor.conf dest=/etc/supervisor/conf.d/db-monitor.conf
 
-- name: start orientdb service
-  command: 'service orientdb start'
-
-#- name: make sure orientdb is running
-#  service: name=orientdb state=restarted
+- name: reload supervisord
+  shell: /usr/bin/supervisorctl reload
 
 - name: download graph-init repo
   git: repo=https://github.com/stucco/graph-init.git version=DBConnection dest={{ stucco_graph_init_dir }}
 
 - name: build schema and index application 
-  command: ./schema-build.sh chdir={{ stucco_graph_init_dir }}
+  shell: ./schema-build.sh chdir={{ stucco_graph_init_dir }}
 
 - name: wait for orientdb
   wait_for: port=2424 delay=10
@@ -24,4 +24,6 @@
 #TODO: confirm it does not exist before creating
 
 - name: populate orient with schema and build indexes
-  command: ./populate-schema-indexes.sh chdir={{ stucco_graph_init_dir }}
+  shell: ./populate-schema-indexes.sh chdir={{ stucco_graph_init_dir }}
+  args:
+    executable: /bin/bash
