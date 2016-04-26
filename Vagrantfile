@@ -4,7 +4,7 @@
 options = {
   :ip => "10.10.10.100",
   :hostname => "stucco",
-  # By default the VM will be allocated 10gb of memory
+  # By default the VM will be allocated 12 gb of memory
   :memory => "12288",
   # By default the VM will be allocated 4 cores
   :cores => "4"
@@ -25,12 +25,10 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.hostname = options[:hostname]
-
-  # If you are on a Host without Virtualization in the BIOS, try changing to "ubuntu/trusty32"
-  config.vm.box = "ubuntu/trusty64"
-  config.vm.box_version = "14.04"
+  config.vm.box = "bento/ubuntu-14.04"
+  config.vm.box_version = "2.2.3"
   config.vm.box_check_update = false
-  
+
   # Config for vagrant-cachier - caches apt packages (and similar on other systems)
   # See http://fgrehm.viewdocs.io/vagrant-cachier
   if Vagrant.has_plugin?("vagrant-cachier")
