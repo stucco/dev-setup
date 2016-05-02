@@ -36,7 +36,7 @@ default:
         source-name: hone
         source-URI: endogenous-data-uc1/hone.csv
         content-type : text/csv
-        now-collect: new 
+        now-collect: new
       -
         type: FILEBYLINE
         data-type: structured
@@ -62,7 +62,7 @@ default:
         source-URI: https://raw.githubusercontent.com/stucco/exogenous-data-ms/master/module_details_with_refs.csv
         content-type : text/csv
         now-collect: new
-        cron: 0 40 21 ? * 5   # collect on Friday 
+#        cron: 0 40 21 ? * 5   # collect on Friday 
 #
 #  Content being retrieved from the sites
 #
@@ -81,38 +81,38 @@ default:
 #        entry-regex: 'href="(report.aspx\?md5=.*?)" target='
 #        next-page-regex: 'href="(reports.aspx\?page=\d+[^"]+)">Next'
 #        cron: 0 39 * * * ?   # collect every hour 
-      -
-        type: RSS
-        data-type: structured
-        source-name: threatexpert
-        source-URI: http://www.threatexpert.com/latest_threat_reports.aspx
-        content-type : text/html
-        now-collect: new 
-        cron: 0 39 * * * ?   # collect every hour 
-      -
-        type: RSS
-        data-type: structured
-        source-name: malc0de
-        source-URI: http://malc0de.com/rss/
-        content-type : text/xml
-        now-collect: new 
-        cron: 0 39 * * * ?   # collect every hour 
-      -
-        type: WEB
-        data-type: structured
-        source-name: caida.as2org
-        source-URI: http://data.caida.org/datasets/as-organizations/20150101.as-org2info.txt.gz
-        post-process: unzip
-        content-type : text/csv
-        now-collect: new 
-      -
-        type: WEB
-        data-type: structured
-        source-name: caida.ip2org
-        source-URI: http://data.caida.org/datasets/routing/routeviews-prefix2as/2015/01/routeviews-rv2-20150122-1200.pfx2as.gz
-        post-process: unzip
-        content-type : text/csv
-        now-collect: new 
+      #-
+      #  type: RSS
+      #  data-type: structured
+      #  source-name: threatexpert
+      #  source-URI: http://www.threatexpert.com/latest_threat_reports.aspx
+      #  content-type : text/html
+      #  now-collect: new
+      #  cron: 0 39 * * * ?   # collect every hour 
+      #-
+      #  type: RSS
+      #  data-type: structured
+      #  source-name: malc0de
+      #  source-URI: http://malc0de.com/rss/
+      #  content-type : text/xml
+      #  now-collect: new
+      #  cron: 0 39 * * * ?   # collect every hour 
+      #-
+      #  type: WEB
+      #  data-type: structured
+      #  source-name: caida.as2org
+      #  source-URI: http://data.caida.org/datasets/as-organizations/20150101.as-org2info.txt.gz
+      #  post-process: unzip
+      #  content-type : text/csv
+      #  now-collect: new
+      #-
+      #  type: WEB
+      #  data-type: structured
+      #  source-name: caida.ip2org
+      #  source-URI: http://data.caida.org/datasets/routing/routeviews-prefix2as/2015/01/routeviews-rv2-20150122-1200.pfx2as.gz
+      #  post-process: unzip
+      #  content-type : text/csv
+      #  now-collect: new
 #      -
 # Need to build this type of collector for this site as each page is data, but we need to 
 # increment to the next page for content
@@ -127,15 +127,15 @@ default:
 #        cron: 0 40 22 ? * 5   # collect on Friday   
 #
 # Tested SITES
-      -
-        type: WEB
-        data-type: structured
-        source-name: maxmind
-        post-process: unzip
-        source-URI: http://download.maxmind.com/download/geoip/database/asnum/GeoIPASNum2.zip
-        content-type : text/csv
-        now-collect: new 
-        cron: 0 40 22 ? * 5   # collect on Friday 
+      #-
+      #  type: WEB
+      #  data-type: structured
+      #  source-name: maxmind
+      #  post-process: unzip
+      #  source-URI: http://download.maxmind.com/download/geoip/database/asnum/GeoIPASNum2.zip
+      #  content-type : text/csv
+      #  now-collect: new
+      #  cron: 0 40 22 ? * 5   # collect on Friday 
       -
         type: WEB
         data-type: structured
@@ -144,7 +144,7 @@ default:
         source-URI: http://geolite.maxmind.com/download/geoip/database/GeoIPCountryCSV.zip
         content-type : text/csv
         now-collect: new
-        cron: 0 40 21 ? * 5   # collect on Friday 
+      #  cron: 0 40 21 ? * 5   # collect on Friday 
       # -
       #   type: NVD
       #   data-type: structured
@@ -260,8 +260,8 @@ default:
         post-process: unzip
         source-URI: https://nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2014.xml.gz
         content-type : text/xml
-        now-collect: new 
-        cron: 0 30 19 ? * 5   # collect on Friday
+        now-collect: new
+        #cron: 0 30 19 ? * 5   # collect on Friday
       -
         type: NVD
         data-type: structured
@@ -269,8 +269,8 @@ default:
         post-process: unzip
         source-URI: https://nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2015.xml.gz
         content-type : text/xml
-        now-collect: new 
-        cron: 0 30 20 ? * 5   # collect on Friday
+        now-collect: new
+        #cron: 0 30 20 ? * 5   # collect on Friday
       -
         type: NVD
         data-type: structured
@@ -278,24 +278,24 @@ default:
         post-process: unzip
         source-URI: https://nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-Recent.xml.gz
         content-type : text/xml
-        now-collect: new 
-        cron: 0 20 * * * ? # collect on every hour
-      -
-        type: WEB
-        data-type: structured
-        source-name: cleanmx
-        source-URI: http://support.clean-mx.de/clean-mx/xmlviruses.php
-        content-type : text/xml
-        now-collect: new 
-        cron: 0 40 21 ? * 5   # collect on Friday
+        now-collect: new
+        #cron: 0 20 * * * ? # collect on every hour
+      #-
+      #  type: WEB
+      #  data-type: structured
+      #  source-name: cleanmx
+      #  source-URI: http://support.clean-mx.de/clean-mx/xmlviruses.php
+      #  content-type : text/xml
+      #  now-collect: new
+      #  cron: 0 40 21 ? * 5   # collect on Friday
       -
         type: WEB
         data-type: structured
         source-name: cpe
         source-URI: http://static.nvd.nist.gov/feeds/xml/cpe/dictionary/official-cpe-dictionary_v2.3.xml
         content-type : text/xml
-        now-collect: new 
-        cron: 0 0 21 ? * 5   # collect on Friday
+        now-collect: new
+        #cron: 0 0 21 ? * 5   # collect on Friday
       -
         type: RSS
         data-type: structured
@@ -304,7 +304,7 @@ default:
         content-type : text/xml
         store-entry: true
         tab-regex: 'href="(http://www\.sophos\.com/\S*\.aspx)">(Summary|More information)'
-        now-collect: new 
+        now-collect: new
         cron: 0 10 * * * ? # collect on every hour
       -
         type: PSEUDO_RSS
@@ -316,7 +316,7 @@ default:
         entry-regex: 'href="(/bid/\d+)"'
         tab-regex: 'href="(/bid/\d+/(info|discuss|exploit|solution|references))"'
 #        next-page-regex: 'href="(/cgi-bin/index\.cgi\?o[^"]+)">Next &gt;<'
-        now-collect: new 
+        now-collect: new
         cron: 0 45 * * * ?  # collect every hour
       -
         type: RSS
@@ -324,7 +324,7 @@ default:
         source-name: fsecure
         source-URI: https://www.f-secure.com/exclude/vdesc-xml/latest_50.rss
         content-type : text/xml
-        now-collect: new 
+        now-collect: new
         cron: 0 10 * * * ? # collect on every hour
 #
 # malwaredomainslist doesn't have a nice navigational approach, we have two entries
