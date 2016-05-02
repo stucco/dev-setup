@@ -24,6 +24,8 @@
 
     stucco_collector_env: demo
 
+    orientdb_version: 2.1.2
+
   roles:
   - { role: stucco.common }
   - { role: Mayeu.RabbitMQ }
