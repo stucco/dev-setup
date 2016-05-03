@@ -19,7 +19,7 @@
   wait_for: port=2424 delay=10
 
 - name: create database
-  shell: /opt/orientdb-community-2.0.1/bin/console.sh create database remote:localhost:2424/graph root root plocal
+  shell: /opt/orientdb-community-{{ orientdb_version }}/bin/console.sh create database remote:localhost:2424/graph root root plocal
 #TODO: check version, build path above from that.
 #TODO: confirm it does not exist before creating
 
