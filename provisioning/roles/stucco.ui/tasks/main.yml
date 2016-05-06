@@ -10,10 +10,10 @@
   npm: path={{ stucco_ui_dir }} production=yes
 
 - name: download DB rest service
-  git: repo=https://github.com/stucco/graph-db-connection-service.git version=develop dest="/stucco/graph-db-connection-service"
+  git: repo=https://github.com/stucco/graph-db-connection-service.git dest="/stucco/graph-db-connection-service"
 
 - name: download dependency
-  shell: mvn --non-recursive scm:checkout -Dmodule.name=graph-db-connection -DscmVersion=STIX -DscmVersionType=branch chdir="/stucco/graph-db-connection-service"
+  shell: mvn --non-recursive scm:checkout -Dmodule.name=graph-db-connection -DscmVersion=1.0.0 -DscmVersionType=tag chdir="/stucco/graph-db-connection-service"
 
 - name: build dependency
   shell: mvn -e clean install -Dmaven.test.skip=true chdir="/stucco/graph-db-connection-service/graph-db-connection"

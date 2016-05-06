@@ -10,7 +10,7 @@
   shell: /usr/bin/supervisorctl reload
 
 - name: download graph-init repo
-  git: repo=https://github.com/stucco/graph-init.git version=DBConnection dest={{ stucco_graph_init_dir }}
+  git: repo=https://github.com/stucco/graph-init.git dest={{ stucco_graph_init_dir }}
 
 - name: build schema and index application 
   shell: ./schema-build.sh chdir={{ stucco_graph_init_dir }}
