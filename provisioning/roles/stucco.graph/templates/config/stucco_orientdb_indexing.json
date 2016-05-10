@@ -1,0 +1,184 @@
+{
+  "indexes": [
+    {
+      "type": "NOTUNIQUE",
+      "keys": [
+        {
+          "name": "name",
+          "class": "String"
+        }
+      ]    
+    },
+    {
+      "type": "NOTUNIQUE",
+      "keys": [
+        {
+          "name": "vertexType",
+          "class": "String"
+        }
+      ]    
+    },
+    {
+      "type": "NOTUNIQUE",
+      "keys": [
+        {
+          "name": "nvdId",
+          "class": "String"
+        }
+      ]    
+    },
+    {
+      "type": "NOTUNIQUE",
+      "keys": [
+        {
+          "name": "countryCode",
+          "class": "String"
+        }
+      ]    
+    },
+    {
+      "type": "NOTUNIQUE",
+      "keys": [
+        {
+          "name": "countryName",
+          "class": "String"
+        }
+      ]    
+    },
+    {
+      "type": "NOTUNIQUE",
+      "keys": [
+        {
+          "name": "startTime",
+          "class": "Long"
+        }
+      ]    
+    },
+    {
+      "type": "FULLTEXT ENGINE LUCENE",
+      "keys": [
+        {
+          "name": "description",
+          "class": "String"
+        }
+      ]    
+    },
+    {
+      "type": "FULLTEXT",
+      "keys": [
+        {
+          "name": "shortDescription",
+          "class": "String"
+        }
+      ]    
+    },
+    {
+      "type": "FULLTEXT",
+      "keys": [
+        {
+          "name": "solution",
+          "class": "String"
+        }
+      ]    
+    },
+    {
+      "type": "NOTUNIQUE",
+      "keys": [
+        {
+          "name": "ipInt",
+          "class": "Long"
+        }
+      ]    
+    },
+    {
+      "type": "FULLTEXT",
+      "keys": [
+        {
+          "name": "startIP",
+          "class": "String"
+        }
+      ]    
+    },
+    {
+      "type": "NOTUNIQUE",
+      "keys": [
+        {
+          "name": "startIPInt",
+          "class": "Long"
+        }
+      ]    
+    },
+    {
+      "type": "FULLTEXT",
+      "keys": [
+        {
+          "name": "endIP",
+          "class": "String"
+        }
+      ]    
+    },
+    {
+      "type": "NOTUNIQUE",
+      "keys": [
+        {
+          "name": "endIPInt",
+          "class": "Long"
+        }
+      ]    
+    },
+    {
+      "type": "FULLTEXT",
+      "keys": [
+        {
+          "name": "details",
+          "class": "String"
+        }
+      ]    
+    },
+    {
+      "type": "FULLTEXT",
+      "keys": [
+        {
+          "name": "removal",
+          "class": "String"
+        }
+      ]    
+    },
+    {
+      "type": "FULLTEXT",
+      "keys": [
+        {
+          "name": "behavior",
+          "class": "String"
+        }
+      ]    
+    },
+    {
+      "type": "FULLTEXT",
+      "keys": [
+        {
+          "name": "overview",
+          "class": "String"
+        }
+      ]    
+    },
+    {
+      "type": "NOTUNIQUE",
+      "keys": [
+        {
+          "name": "observableType",
+          "class": "String"
+        }
+      ]    
+    },
+    {
+      "type": "NOTUNIQUE",
+      "keys": [
+        {
+          "name": "alias",
+          "class": "String"
+        }
+      ]    
+    }
+  ]
+}

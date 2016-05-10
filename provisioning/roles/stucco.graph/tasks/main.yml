@@ -12,6 +12,9 @@
 - name: download graph-init repo
   git: repo=https://github.com/stucco/graph-init.git dest={{ stucco_graph_init_dir }}
 
+- name: copy index config
+  template: src=config/stucco_orientdb_indexing.json dest=/stucco/graph-init/config/stucco_orientdb_indexing.json
+
 - name: build schema and index application 
   shell: ./schema-build.sh chdir={{ stucco_graph_init_dir }}
 
