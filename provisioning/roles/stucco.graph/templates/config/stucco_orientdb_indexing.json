@@ -1,7 +1,7 @@
 {
   "indexes": [
     {
-      "type": "NOTUNIQUE",
+      "type": "NOTUNIQUE_HASH_INDEX",
       "keys": [
         {
           "name": "name",
@@ -10,7 +10,7 @@
       ]    
     },
     {
-      "type": "NOTUNIQUE",
+      "type": "NOTUNIQUE_HASH_INDEX",
       "keys": [
         {
           "name": "vertexType",
@@ -19,7 +19,7 @@
       ]    
     },
     {
-      "type": "NOTUNIQUE",
+      "type": "NOTUNIQUE_HASH_INDEX",
       "keys": [
         {
           "name": "nvdId",
@@ -28,7 +28,7 @@
       ]    
     },
     {
-      "type": "NOTUNIQUE",
+      "type": "NOTUNIQUE_HASH_INDEX",
       "keys": [
         {
           "name": "countryCode",
@@ -64,7 +64,7 @@
       ]    
     },
     {
-      "type": "FULLTEXT",
+      "type": "FULLTEXT ENGINE LUCENE",
       "keys": [
         {
           "name": "shortDescription",
@@ -73,7 +73,7 @@
       ]    
     },
     {
-      "type": "FULLTEXT",
+      "type": "FULLTEXT ENGINE LUCENE",
       "keys": [
         {
           "name": "solution",
@@ -127,7 +127,7 @@
       ]    
     },
     {
-      "type": "FULLTEXT",
+      "type": "FULLTEXT ENGINE LUCENE",
       "keys": [
         {
           "name": "details",
@@ -136,7 +136,7 @@
       ]    
     },
     {
-      "type": "FULLTEXT",
+      "type": "FULLTEXT ENGINE LUCENE",
       "keys": [
         {
           "name": "removal",
@@ -145,7 +145,7 @@
       ]    
     },
     {
-      "type": "FULLTEXT",
+      "type": "FULLTEXT ENGINE LUCENE",
       "keys": [
         {
           "name": "behavior",
@@ -154,7 +154,7 @@
       ]    
     },
     {
-      "type": "FULLTEXT",
+      "type": "FULLTEXT ENGINE LUCENE",
       "keys": [
         {
           "name": "overview",
@@ -163,7 +163,7 @@
       ]    
     },
     {
-      "type": "NOTUNIQUE",
+      "type": "NOTUNIQUE_HASH_INDEX",
       "keys": [
         {
           "name": "observableType",
@@ -172,7 +172,7 @@
       ]    
     },
     {
-      "type": "NOTUNIQUE",
+      "type": "NOTUNIQUE_HASH_INDEX",
       "keys": [
         {
           "name": "alias",
