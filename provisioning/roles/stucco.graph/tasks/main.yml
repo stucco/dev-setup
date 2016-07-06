@@ -1,7 +1,7 @@
 ---
 #this supervisord shim is kind of hacky, but it does what it needs to.
-- name: copy db monitoring script
-  template: src=orientdb_monitor.sh dest=/stucco/orientdb_monitor.sh
+- name: copy postgresql db monitor
+  template: src=postgresql_monitor.sh dest={{ stucco_dir }}/postgresql_monitor.sh
 
 - name: copy supervisord conf for db monitoring script
   template: src=supervisor/db-monitor.conf dest=/etc/supervisor/conf.d/db-monitor.conf
@@ -9,21 +9,5 @@
 - name: reload supervisord
   shell: /usr/bin/supervisorctl reload
 
-- name: download graph-init repo
-  git: repo=https://github.com/stucco/graph-init.git version=DBConnection dest={{ stucco_graph_init_dir }}
-
-- name: build schema and index application 
-  shell: ./schema-build.sh chdir={{ stucco_graph_init_dir }}
-
-- name: wait for orientdb
-  wait_for: port=2424 delay=10
-
-- name: create database
-  shell: /opt/orientdb-community-2.0.1/bin/console.sh create database remote:localhost:2424/graph root root plocal
-#TODO: check version, build path above from that.
-#TODO: confirm it does not exist before creating
-
-- name: populate orient with schema and build indexes
-  shell: ./populate-schema-indexes.sh chdir={{ stucco_graph_init_dir }}
-  args:
-    executable: /bin/bash
+- name: wait for postgresql
+  wait_for: port=5432 delay=10  
