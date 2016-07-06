@@ -27,16 +27,19 @@ document_service:
   port: {{ stucco_doc_port }}
 
 database_connection:
-  hostname : localhost
-  port : 8184
+  hostname : localhost 
+  port : 5432
+  database : testdby
+  username : stucco
+  password : ""
   timeout-connection-ms : 18000
   timeout-write-ms : 4000
-  timeout-read-ms : 16000
+  timeout-read-ms : 16000 
   max-async-write-queue-size : 512000
   message-retry-count : 4
   message-retry-wait-ms : 50
-  language : groovy
-  graph-obj-name : g
-  graph-name : graph
+  language : c
+  graph-obj-name : graph
+  graph-name : graph_name
   transaction : true
   serializer : 0
