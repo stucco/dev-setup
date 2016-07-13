@@ -36,7 +36,7 @@
 
   roles:
   - { role: stucco.common }
-  - { role: Mayeu.RabbitMQ }
+  - { role: mikeiannacone.rabbitmq }
   - { role: stucco.graph }
   - { role: stucco.doc }
   - { role: stucco.rt }
