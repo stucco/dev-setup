@@ -24,7 +24,7 @@
 
     stucco_collector_env: demo
 
-    postgresql_version: 9.4
+    postgresql_version: 9.5
 
     postgresql_listen_addresses:
       - localhost
