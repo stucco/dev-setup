@@ -23,20 +23,20 @@ default:
 #
 #     Endogenous Content
 #
-      -
-        type: FILEBYLINE
-        data-type: structured
-        source-name: argus
-        source-URI: endogenous-data-uc1/argus.csv
-        content-type : text/csv
-        now-collect: new
-      -
-        type: FILEBYLINE
-        data-type: structured
-        source-name: hone
-        source-URI: endogenous-data-uc1/hone.csv
-        content-type : text/csv
-        now-collect: new
+#      -
+#        type: FILE
+#        data-type: structured
+#        source-name: argus
+#        source-URI: endogenous-data-uc1/argus.csv
+#        content-type : text/csv
+#        now-collect: new
+#      -
+#        type: FILEBYLINE
+#        data-type: structured
+#        source-name: hone
+#        source-URI: endogenous-data-uc1/hone.csv
+#        content-type : text/csv
+#        now-collect: new
       -
         type: FILEBYLINE
         data-type: structured
@@ -44,24 +44,24 @@ default:
         source-URI: endogenous-data-uc1/auth.log.csv
         content-type : text/csv
         now-collect: new
-      -
-        type: FILEBYLINE
-        data-type: structured
-        source-name: installed_package
-        source-URI: endogenous-data-uc1/deb_package_list.csv
-        content-type : text/csv
-        now-collect: new
+#      -
+#        type: FILEBYLINE
+#        data-type: structured
+#        source-name: installed_package
+#        source-URI: endogenous-data-uc1/deb_package_list.csv
+#        content-type : text/csv
+#        now-collect: new
 #
 # data previously collected, which will transition to new collector but is current housed in in Github
 #
-      -
-        type: WEB
-        data-type: structured
-        source-name: metasploit
-#        source-URI: http://raw.github.com/stucco/exogenous-data-ms/master/module_details_with_refs.csv
-        source-URI: https://raw.githubusercontent.com/stucco/exogenous-data-ms/master/module_details_with_refs.csv
-        content-type : text/csv
-        now-collect: new
+#      -
+#        type: WEB
+#        data-type: structured
+#        source-name: metasploit
+##        source-URI: http://raw.github.com/stucco/exogenous-data-ms/master/module_details_with_refs.csv
+#        source-URI: https://raw.githubusercontent.com/stucco/exogenous-data-ms/master/module_details_with_refs.csv
+#        content-type : text/csv
+#        now-collect: new
 #        cron: 0 40 21 ? * 5   # collect on Friday 
 #
 #  Content being retrieved from the sites
@@ -136,14 +136,14 @@ default:
       #  content-type : text/csv
       #  now-collect: new
       #  cron: 0 40 22 ? * 5   # collect on Friday 
-      -
-        type: WEB
-        data-type: structured
-        source-name: maxmind
-        post-process: unzip
-        source-URI: http://geolite.maxmind.com/download/geoip/database/GeoIPCountryCSV.zip
-        content-type : text/csv
-        now-collect: new
+#      -
+#        type: WEB
+#        data-type: structured
+#        source-name: maxmind
+#        post-process: unzip
+#        source-URI: http://geolite.maxmind.com/download/geoip/database/GeoIPCountryCSV.zip
+#        content-type : text/csv
+#        now-collect: new
       #  cron: 0 40 21 ? * 5   # collect on Friday 
       # -
       #   type: NVD
@@ -253,33 +253,33 @@ default:
       #   content-type : text/xml
       #   now-collect: new 
       #   cron: 0 0 18 ? * 5   # collect on Friday
-      -
-        type: NVD
-        data-type: structured
-        source-name: nvd
-        post-process: unzip
-        source-URI: https://nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2014.xml.gz
-        content-type : text/xml
-        now-collect: new
-        #cron: 0 30 19 ? * 5   # collect on Friday
-      -
-        type: NVD
-        data-type: structured
-        source-name: nvd
-        post-process: unzip
-        source-URI: https://nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2015.xml.gz
-        content-type : text/xml
-        now-collect: new
-        #cron: 0 30 20 ? * 5   # collect on Friday
-      -
-        type: NVD
-        data-type: structured
-        source-name: nvd
-        post-process: unzip
-        source-URI: https://nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-Recent.xml.gz
-        content-type : text/xml
-        now-collect: new
-        #cron: 0 20 * * * ? # collect on every hour
+#      -
+#        type: NVD
+#        data-type: structured
+#        source-name: nvd
+#        post-process: unzip
+#        source-URI: https://nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2014.xml.gz
+#        content-type : text/xml
+#        now-collect: new
+#        #cron: 0 30 19 ? * 5   # collect on Friday
+#      -
+#        type: NVD
+#        data-type: structured
+#        source-name: nvd
+#        post-process: unzip
+#        source-URI: https://nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2015.xml.gz
+#        content-type : text/xml
+#        now-collect: new
+#        #cron: 0 30 20 ? * 5   # collect on Friday
+#      -
+#        type: NVD
+#        data-type: structured
+#        source-name: nvd
+#        post-process: unzip
+#        source-URI: https://nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-Recent.xml.gz
+#        content-type : text/xml
+#        now-collect: new
+#        #cron: 0 20 * * * ? # collect on every hour
       #-
       #  type: WEB
       #  data-type: structured
@@ -288,55 +288,55 @@ default:
       #  content-type : text/xml
       #  now-collect: new
       #  cron: 0 40 21 ? * 5   # collect on Friday
-      -
-        type: WEB
-        data-type: structured
-        source-name: cpe
-        source-URI: http://static.nvd.nist.gov/feeds/xml/cpe/dictionary/official-cpe-dictionary_v2.3.xml
-        content-type : text/xml
-        now-collect: new
-        #cron: 0 0 21 ? * 5   # collect on Friday
-      -
-        type: RSS
-        data-type: structured
-        source-name: sophos
-        source-URI: http://www.sophos.com/en-us/rss/threats/latest-viruses.xml
-        content-type : text/xml
-        store-entry: true
-        tab-regex: 'href="(http://www\.sophos\.com/\S*\.aspx)">(Summary|More information)'
-        now-collect: new
-        cron: 0 10 * * * ? # collect on every hour
-      -
-        type: PSEUDO_RSS
-        data-type: structured
-        source-name: bugtraq
-        source-URI: http://www.securityfocus.com/vulnerabilities
-        content-type: text/html
-        crawl-delay: 2
-        entry-regex: 'href="(/bid/\d+)"'
-        tab-regex: 'href="(/bid/\d+/(info|discuss|exploit|solution|references))"'
-#        next-page-regex: 'href="(/cgi-bin/index\.cgi\?o[^"]+)">Next &gt;<'
-        now-collect: new
-        cron: 0 45 * * * ?  # collect every hour
-      -
-        type: RSS
-        data-type: structured
-        source-name: fsecure
-        source-URI: https://www.f-secure.com/exclude/vdesc-xml/latest_50.rss
-        content-type : text/xml
-        now-collect: new
-        cron: 0 10 * * * ? # collect on every hour
+#      -
+#        type: WEB
+#        data-type: structured
+#        source-name: cpe
+#        source-URI: http://static.nvd.nist.gov/feeds/xml/cpe/dictionary/official-cpe-dictionary_v2.3.xml
+#        content-type : text/xml
+#        now-collect: new
+#        #cron: 0 0 21 ? * 5   # collect on Friday
+#      -
+#        type: RSS
+#        data-type: structured
+#        source-name: sophos
+#        source-URI: http://www.sophos.com/en-us/rss/threats/latest-viruses.xml
+#        content-type : text/xml
+#        store-entry: true
+#        tab-regex: 'href="(http://www\.sophos\.com/\S*\.aspx)">(Summary|More information)'
+#        now-collect: new
+#        cron: 0 10 * * * ? # collect on every hour
+#      -
+#        type: PSEUDO_RSS
+#        data-type: structured
+#        source-name: bugtraq
+#        source-URI: http://www.securityfocus.com/vulnerabilities
+#        content-type: text/html
+#        crawl-delay: 2
+#        entry-regex: 'href="(/bid/\d+)"'
+#        tab-regex: 'href="(/bid/\d+/(info|discuss|exploit|solution|references))"'
+##        next-page-regex: 'href="(/cgi-bin/index\.cgi\?o[^"]+)">Next &gt;<'
+#        now-collect: new
+#        cron: 0 45 * * * ?  # collect every hour
+#      -
+#        type: RSS
+#        data-type: structured
+#        source-name: fsecure
+#        source-URI: https://www.f-secure.com/exclude/vdesc-xml/latest_50.rss
+#        content-type : text/xml
+#        now-collect: new
+#        cron: 0 10 * * * ? # collect on every hour
 #
 # malwaredomainslist doesn't have a nice navigational approach, we have two entries
 #                    one to get the updates, and one to get everything the first time.
 #
-      -
-        type: RSS
-        data-type: structured
-        source-name: malwaredomainlist
-        source-URI: http://www.malwaredomainlist.com/hostslist/mdl.xml
-        content-type : text/xml
-        cron: 0 20 * * * ? # collect on every hour
+#      -
+#        type: RSS
+#        data-type: structured
+#        source-name: malwaredomainlist
+#        source-URI: http://www.malwaredomainlist.com/hostslist/mdl.xml
+#        content-type : text/xml
+#        cron: 0 20 * * * ? # collect on every hour
 #      -
 #        type: WEB
 #        data-type: structured
