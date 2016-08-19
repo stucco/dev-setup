@@ -1,4 +1,4 @@
 stucco.common
 smola.java
 jgoodall.maven
-ANSX.postgresql
+zenoamaro.postgresql
