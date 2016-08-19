@@ -6,8 +6,8 @@
 - name: copy rt config template
   template: src=rt-config.yaml dest={{ stucco_rt_dir }}/config.yaml mode=0644
 
-#- name: copy rt build scripts
-#  template: src=maven-rt-build.sh dest={{stucco_rt_dir}}/maven-rt-build.sh mode=0777
+- name: copy rt build scripts
+  template: src=maven-rt-build.sh dest={{stucco_rt_dir}}/maven-rt-build.sh mode=0777
 
 - name: make sure postgresqldb is running
   service: name=postgresql state=started 
