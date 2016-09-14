@@ -1,7 +1,7 @@
 ---
 
 - name: download rt repo
-  git: repo=https://github.com/stucco/rt.git version=feature dest={{ stucco_rt_dir }}
+  git: repo=https://github.com/stucco/rt.git force=yes version=feature dest={{ stucco_rt_dir }}
 
 - name: copy rt config template
   template: src=rt-config.yaml dest={{ stucco_rt_dir }}/config.yaml mode=0644
