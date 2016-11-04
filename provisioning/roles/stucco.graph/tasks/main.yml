@@ -11,3 +11,19 @@
 
 - name: wait for postgresql
   wait_for: port=5432 delay=10  
+
+- name: create stucco db user
+  shell: psql -c "CREATE USER stucco WITH PASSWORD 'stucco' CREATEDB CREATEROLE SUPERUSER REPLICATION;"
+  become: true
+  become_user: postgres
+
+- name: initialize stucco db user
+  shell: createdb
+  become: true
+  become_user: stucco
+
+- name: create the database as stucco user
+  shell: psql -c "CREATE DATABASE testdb;"
+  become: true
+  become_user: stucco
+
