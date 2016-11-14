@@ -15,8 +15,8 @@
   "graphServer": {
     "graphHost": "localhost",
     "graphPort": 8080,
-    "graphRootPath": "api", //only used by our db service.
-    "graphName": "", //only used by rexster
+    "graphRootPath": "api", 
+    "graphName": "",
     "isRexster": false
   },
   "indices": {
