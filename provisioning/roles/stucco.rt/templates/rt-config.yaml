@@ -29,9 +29,9 @@ document_service:
 database_connection:
   hostname : localhost 
   port : 5432
-  database : testdby
+  database : testdb
   username : stucco
-  password : ""
+  password : "stucco"
   timeout-connection-ms : 18000
   timeout-write-ms : 4000
   timeout-read-ms : 16000 
