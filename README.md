@@ -68,3 +68,11 @@ To use this VM for development, vagrant will mount the parent directory of this 
       - ui
 
 The Github code is started by default, using [supervisord](http://supervisord.org/). In order to use the repos from your host OS, you will need to change the paths for each of the stucco files in `/etc/supervisor/conf.d` to `/stucco-shared`, and reload the configurations (`supervisorctl reload`), then restart the processes (`supervisorctl start all`).
+
+P.S.: Commands to run to complete installation (installation script is not running properly with new node v6, have to fix it):
+
+  $ vagrant ssh
+  $ cd ../../stucco/ui
+  $ sudo npm install
+  $ sudo node run build
+  $ sudo supervisorctl reload
