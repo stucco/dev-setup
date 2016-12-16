@@ -5,7 +5,7 @@
     "secure": false
   },
   "http": {
-    "listen": "localhost",
+    "listen": "{{ stucco_ui_host }}",
     "port": {{ stucco_ui_port }}
   },
   "client": {
