@@ -1,0 +1,31 @@
+---
+galaxy_info:
+  author: w3aran
+  description: An Ansible Role for installing Node.js
+  license: MIT
+  min_ansible_version: 1.9
+  platforms:
+    - name: Ubuntu
+      versions:
+        - precise
+        - quantal
+        - raring
+        - saucy
+        - trusty
+        - utopic
+        - vivid
+    - name: Debian
+      versions:
+        - jessie
+        - squeeze
+        - wheezy
+  categories:
+    - development
+    - packaging
+    - web
+    - nodejs
+    - node
+    - nvm
+    - npm
+    - gulpjs
+dependencies: []
