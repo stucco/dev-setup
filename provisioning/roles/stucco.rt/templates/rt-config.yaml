@@ -10,7 +10,7 @@ structured_data:
   bindings: 
       - stucco.in.structured.#
 
-unstructured_data:
+unstructured_data: 
   exchange: {{ rabbitmq_exchange }}
   host: {{ rabbitmq_host }}
   port: {{ rabbitmq_port }}
@@ -28,10 +28,10 @@ document_service:
 
 database_connection:
   hostname : localhost 
-  port : 5432
+  port : {{ postgresql_port }}
   database : testdb
-  username : stucco
-  password : "stucco"
+  username : {{ postgresql_superuser }}
+  password : {{ postgresql_password }}
   timeout-connection-ms : 18000
   timeout-write-ms : 4000
   timeout-read-ms : 16000 

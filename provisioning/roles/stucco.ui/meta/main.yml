@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  author: John Goodall
+  author: Maria Vincent
   description: An Ansible role for installing Stucco UI on Ubuntu.
   company: Oak Ridge National Laboratory
   license: MIT
@@ -16,4 +16,5 @@ galaxy_info:
   - system
 dependencies:
   - { role: stucco.common }
+  - { role: jgoodall.maven3 }
   - { role: ansible-role.nodejs }

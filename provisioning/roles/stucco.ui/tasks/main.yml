@@ -6,23 +6,29 @@
 - name: copy config file
   template: src=config/dev_config.json dest={{ stucco_ui_dir }}/dev_config.json
 
-#- name: prepare ui - install node_modules 
-#  npm: path={{ stucco_ui_dir }} executable="/home/vagrant/.nvm/versions/node/v6.0.0/bin/npm" production=yes
+- name: prepare ui - install node_modules 
+  npm: path={{ stucco_ui_dir }} production=no # executable="/home/stucco/.nvm/versions/node/v6.0.0/bin/npm" production=yes
 
-#- name: build ui
-#  shell: node build
+- name: copy build-ui.sh file
+  template: src=config/build-ui.sh dest={{ stucco_ui_dir }}/build-ui.sh
+
+- name: setting build-ui.sh node_mode
+  file: path={{ stucco_ui_dir }}/build-ui.sh mode=0777
+
+- name: build ui
+  shell: ./build-ui.sh chdir={{ stucco_ui_dir }}
 
 - name: download DB rest service
-  git: repo=https://github.com/stucco/graph-db-connection-service.git version=develop dest="/stucco/graph-db-connection-service"
+  git: repo=https://github.com/stucco/graph-db-connection-service.git version=develop dest="{{ stucco_dir }}/graph-db-connection-service"
 
 - name: download dependency
-  shell: mvn --non-recursive scm:checkout -Dmodule.name=graph-db-connection -DscmVersion=feature/bulkLoad -DscmVersionType=branch chdir="/stucco/graph-db-connection-service"
+  shell: mvn --non-recursive scm:checkout -Dmodule.name=graph-db-connection -DscmVersion=feature/bulkLoad -DscmVersionType=branch chdir="{{ stucco_dir }}/graph-db-connection-service"
 
 - name: build dependency
-  shell: mvn -e clean install -Dmaven.test.skip=true chdir="/stucco/graph-db-connection-service/graph-db-connection"
+  shell: mvn -e clean install -Dmaven.test.skip=true chdir="{{ stucco_dir }}/graph-db-connection-service/graph-db-connection"
 
 - name: build DB rest service
-  shell: mvn -e package chdir="/stucco/graph-db-connection-service"
+  shell: mvn -e package chdir="{{ stucco_dir }}/graph-db-connection-service"
 
 # START SERVICES
 - name: copy ui supervisord config
@@ -31,5 +37,5 @@
 - name: copy sb rest service supervisord config
   template: src=supervisor/stucco-db-rest-service.conf dest=/etc/supervisor/conf.d/stucco-db-rest-service.conf
 
-#- name: reload supervisord
-#  shell: /usr/bin/supervisorctl reload
+- name: reload supervisord
+  shell: /usr/bin/supervisorctl reload

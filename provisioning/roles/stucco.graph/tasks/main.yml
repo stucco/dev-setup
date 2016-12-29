@@ -7,7 +7,7 @@
   template: src=supervisor/db-monitor.conf dest=/etc/supervisor/conf.d/db-monitor.conf
 
 - name: reload supervisord
-  shell: /usr/bin/supervisorctl reload
+  shell: /usr/bin/supervisorctl reload 
 
 - name: wait for postgresql
   wait_for: port=5432 delay=10
@@ -27,13 +27,15 @@
 
 - name: create stucco db user
 #  shell: createuser --createdb --createrole --superuser --username=postgres stucco;
-  shell: psql -c "CREATE USER stucco WITH PASSWORD 'stucco' CREATEDB CREATEROLE SUPERUSER REPLICATION;"
+  shell: psql -c "CREATE USER {{ postgresql_superuser }} WITH PASSWORD '{{ postgresql_password }}' CREATEDB CREATEROLE SUPERUSER REPLICATION;"
   become: true
   become_user: postgres
 
-- name: create the database as stucco user
+- name: create the database as {{ postgresql_superuser }} user
   shell: createdb testdb
-  # shell: psql -c "CREATE DATABASE testdb;"
+  # shell: psql -c "CREATE DATABASE {{ item }};"
   become: true
   become_user: stucco
+  with_items:
+   "{{ postgresql_databases }}"
 

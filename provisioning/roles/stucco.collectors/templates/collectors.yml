@@ -5,8 +5,8 @@ default:
     vhost: /
     exchange: {{ rabbitmq_exchange }}
     queue: {{ rabbitmq_queue }}
-    login: stucco
-    password: stucco
+    login: {{ rabbitmq_user }}
+    password: {{ rabbitmq_password }}
     message_size_limit: 10485760
   stucco:
     document-service:

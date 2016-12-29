@@ -13,8 +13,8 @@
     "debugMode": true
   },
   "graphServer": {
-    "graphHost": "localhost",
-    "graphPort": 8080,
+    "graphHost": "{{ stucco_graph_db_connection_service_host }}",
+    "graphPort": {{ stucco_graph_db_connection_service_host }},
     "graphRootPath": "api", 
     "graphName": "",
     "isRexster": false
@@ -22,4 +22,4 @@
   "indices": {
     "fulltext": ["description", "comments", "details", "shortDescription", "solution", "removal", "behavior"]
   }
-}
+} 
