@@ -110,22 +110,11 @@
   file: path='/home/{{ nodejs_nvm_user }}/.nvm/versions/node/v6.0.0' state=directory recurse=yes mode=755
 
 - name: copying node to /usr/local
-  synchronize: mode=pull src="/home/{{ nodejs_nvm_user }}/.nvm/versions/node/v6.0.0/{{ item }}" dest="/usr/local" 
-  delegate_to: '10.10.10.100'
+  synchronize: mode=pull src="/home/{{ nodejs_nvm_user }}/.nvm/versions/node/v6.0.0/{{ item }}" dest="/usr/local"
+  delegate_to: "{{ host_ip }}"
   become: yes
   become_user: root
   with_items:
     - bin
     - lib
     - share
-
-
-
-
-
-
-
-
-
-
-

@@ -31,7 +31,7 @@
 
     # Document service settings
     stucco_doc_host: localhost
-    stucco_doc_port: 8118 
+    stucco_doc_port: 8118
     stucco_doc_dir: "{{ stucco_dir }}/doc"
 
     #Postgresql settings
@@ -61,13 +61,13 @@
     stucco_rt_dir: "{{ stucco_dir }}/rt"
 
   roles:
-  #- { role: stucco.common }
-  #- { role: jgoodall.common }
-  #- { role: jgoodall.maven3 }
-  #- { role: mikeiannacone.rabbitmq }
-  #- { role: stucco.graph }
-  #- { role: stucco.doc }
-  #- { role: stucco.rt }
+  - { role: stucco.common }
+  - { role: jgoodall.common }
+  - { role: jgoodall.maven3 }
+  - { role: mikeiannacone.rabbitmq }
+  - { role: stucco.graph }
+  - { role: stucco.doc }
+  - { role: stucco.rt }
   - { role: stucco.ui }
   - { role: stucco.collectors }
 

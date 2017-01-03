@@ -22,4 +22,4 @@
   "indices": {
     "fulltext": ["description", "comments", "details", "shortDescription", "solution", "removal", "behavior"]
   }
-} 
+}
