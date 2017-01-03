@@ -6,7 +6,7 @@
   },
   "http": {
     "listen": "{{ stucco_ui_host }}",
-    "port": {{ stucco_ui_port }}
+    "port": "{{ stucco_ui_port }}"
   },
   "client": {
     "apiUrl": "http://{{ stucco_ui_host }}:{{ stucco_ui_port }}",
@@ -14,7 +14,7 @@
   },
   "graphServer": {
     "graphHost": "{{ stucco_graph_db_connection_service_host }}",
-    "graphPort": {{ stucco_graph_db_connection_service_host }},
+    "graphPort": "{{ stucco_graph_db_connection_service_host }}",
     "graphRootPath": "api", 
     "graphName": "",
     "isRexster": false

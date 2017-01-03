@@ -6,6 +6,9 @@
 - name: copy config file
   template: src=config/dev_config.json dest={{ stucco_ui_dir }}/dev_config.json
 
+- name: copy routes.json file
+  template: src=routes/routes.json dest={{ stucco_ui_dir }}/routes.json
+
 - name: prepare ui - install node_modules 
   npm: path={{ stucco_ui_dir }} production=no # executable="/home/stucco/.nvm/versions/node/v6.0.0/bin/npm" production=yes
 
