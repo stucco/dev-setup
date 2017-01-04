@@ -14,7 +14,7 @@
   },
   "graphServer": {
     "graphHost": "{{ stucco_graph_db_connection_service_host }}",
-    "graphPort": "{{ stucco_graph_db_connection_service_host }}",
+    "graphPort": "{{ stucco_graph_db_connection_service_port }}",
     "graphRootPath": "api", 
     "graphName": "",
     "isRexster": false
