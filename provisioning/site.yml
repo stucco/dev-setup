@@ -41,6 +41,7 @@
     postgresql_port: 5432
     postgresql_superuser: stucco
     postgresql_password: stucco
+    postgresql_user: stucco_user
     postgresql_databases:
       - name: testdb
 
@@ -61,12 +62,12 @@
     stucco_rt_dir: "{{ stucco_dir }}/rt"
 
   roles:
-  - { role: stucco.common }
-  - { role: jgoodall.common }
-  - { role: jgoodall.maven3 }
-  - { role: mikeiannacone.rabbitmq }
-  - { role: stucco.graph }
-  - { role: stucco.doc }
+  #- { role: stucco.common }
+  #- { role: jgoodall.common }
+  #- { role: jgoodall.maven3 }
+  #- { role: mikeiannacone.rabbitmq }
+  #- { role: stucco.graph }
+  #- { role: stucco.doc }
   - { role: stucco.rt }
   - { role: stucco.ui }
   - { role: stucco.collectors }
@@ -75,4 +76,4 @@
     STUCCO_DB_TYPE: "POSTGRESQL"
     STUCCO_DB_CONFIG: "{{ stucco_dir }}/graph-db-connection-service/graph-db-connection/config/postgresql.yml"
     STUCCO_DB_INDEX_CONFIG:
-    STUCCO_HOST_IP: "{{ host_ip }}"
+    STUCCO_UI_CONFIG: "{{ stucco_dir }}/ui/dev_config.json"
