@@ -62,12 +62,12 @@
     stucco_rt_dir: "{{ stucco_dir }}/rt"
 
   roles:
-  #- { role: stucco.common }
-  #- { role: jgoodall.common }
-  #- { role: jgoodall.maven3 }
-  #- { role: mikeiannacone.rabbitmq }
-  #- { role: stucco.graph }
-  #- { role: stucco.doc }
+  - { role: stucco.common }
+  - { role: jgoodall.common }
+  - { role: jgoodall.maven3 }
+  - { role: mikeiannacone.rabbitmq }
+  - { role: stucco.graph }
+  - { role: stucco.doc }
   - { role: stucco.rt }
   - { role: stucco.ui }
   - { role: stucco.collectors }
