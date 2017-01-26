@@ -22,16 +22,22 @@
   become: true
   become_user: postgres
 
+- name: create the database as {{ postgresql_superuser }} user
+  shell: createdb -O {{ postgresql_superuser }} {{ item.name }}
+  become: true
+  become_user: postgres
+  with_items: "{{ postgresql_databases }}"
+
 - name: initialize stucco user db
   shell: createdb -O {{ postgresql_superuser }} {{ postgresql_superuser }}
   become: true
   become_user: postgres
 
-- name: create the database as {{ postgresql_superuser }} user
-  shell: createdb -O {{ postgresql_superuser }} {{ item }}
-  #shell: psql -c "CREATE DATABASE {{ item }} OWNER {{ postgresql_superuser }};"
-  become: true
-  become_user: {{ postgresql_superuser }}
-  with_items:
-   "{{ postgresql_databases }}"
+#- name: create the database as {{ postgresql_superuser }} user
+#  shell: createdb -O {{ postgresql_superuser }} {{ item }}
+#  #shell: psql -c "CREATE DATABASE {{ item }} OWNER {{ postgresql_superuser }};"
+#  become: true
+#  become_user: "{{ postgresql_superuser }}"
+#  with_items:
+#   "{{ postgresql_databases }}"
 
