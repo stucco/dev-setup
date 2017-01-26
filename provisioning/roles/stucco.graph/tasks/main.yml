@@ -29,9 +29,9 @@
 
 - name: create the database as {{ postgresql_superuser }} user
   shell: createdb -O {{ postgresql_superuser }} {{ item }}
-  # shell: psql -c "CREATE DATABASE {{ item }};"
+  #shell: psql -c "CREATE DATABASE {{ item }} OWNER {{ postgresql_superuser }};"
   become: true
-  become_user: postgres
+  become_user: {{ postgresql_superuser }}
   with_items:
    "{{ postgresql_databases }}"
 
