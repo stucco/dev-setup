@@ -29,12 +29,12 @@
 
   roles:
   - { role: stucco.common }
-  # - { role: Mayeu.RabbitMQ }
-  # - { role: stucco.graph }
+  - { role: mikeiannacone.rabbitmq }
+  - { role: stucco.graph }
   - { role: stucco.doc }
-  # - { role: stucco.rt }
-  # - { role: stucco.ui }
-  # - { role: stucco.collectors }
+  - { role: stucco.rt }
+  - { role: stucco.ui }
+  - { role: stucco.collectors }
 
   environment:
     STUCCO_DB_TYPE: "ORIENTDB"
