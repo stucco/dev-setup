@@ -7,10 +7,10 @@
   git: repo=https://github.com/stucco/document-service.git dest={{ gopath }}/src/github.com/stucco/document-service
 
 - name: test document-service
-  shell: "go test . chdir={{ gopath }}/src/github.com/stucco/document-service"
+  shell: "GOPATH={{ gopath }} go test . chdir={{ gopath }}/src/github.com/stucco/document-service"
 
 - name: build document-service
-  shell: "go build doc-service.go chdir={{ gopath }}/src/github.com/stucco/document-service"
+  shell: "GOPATH={{ gopath }} go build doc-service.go chdir={{ gopath }}/src/github.com/stucco/document-service"
 
 - name: install document-service
   file: src={{ gopath }}/src/github.com/stucco/document-service/doc-service dest={{ stucco_bin }}/doc-service state=link
