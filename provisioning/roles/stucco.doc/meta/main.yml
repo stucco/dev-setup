@@ -16,4 +16,4 @@ galaxy_info:
   - system
 dependencies:
   - { role: stucco.common }
-  - { role: jgoodall.golang, golang_version: 1.4.1 }
+  - { role: jgoodall.golang }
