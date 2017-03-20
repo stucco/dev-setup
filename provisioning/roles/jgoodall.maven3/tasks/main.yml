@@ -1,5 +1,5 @@
 ---
-- get_url: url={{ maven_url }} dest=/tmp/maven.tgz
+- get_url: url={{ maven_url }} dest=/tmp/maven.zip
 - get_url: url={{ maven_url }}.md5 dest=/tmp/maven.md5
 
 - command: echo " "{{ maven_url }} >> /tmp/maven.md5 && md5sum -c /tmp/maven.md5
@@ -8,10 +8,10 @@
 
 - unarchive: >
     copy=no
-    src=/tmp/maven.tgz
+    src=/tmp/maven.zip
     dest={{ maven_prefix }}
 
-- file: path=/tmp/maven.tgz state=absent
+- file: path=/tmp/maven.zip state=absent
 - file: path=/tmp/maven.md5 state=absent
 
 - template: src=etc/profile.d/maven.sh dest=/etc/profile.d/maven.sh owner=root group=root mode=0644

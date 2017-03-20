@@ -10,7 +10,7 @@ structured_data:
   bindings: 
       - stucco.in.structured.#
 
-unstructured_data:
+unstructured_data: 
   exchange: {{ rabbitmq_exchange }}
   host: {{ rabbitmq_host }}
   port: {{ rabbitmq_port }}
@@ -27,16 +27,19 @@ document_service:
   port: {{ stucco_doc_port }}
 
 database_connection:
-  hostname : localhost
-  port : 8184
+  hostname : localhost 
+  port : {{ postgresql_port }}
+  database : testdb
+  username : {{ postgresql_superuser }}
+  password : {{ postgresql_password }}
   timeout-connection-ms : 18000
   timeout-write-ms : 4000
-  timeout-read-ms : 16000
+  timeout-read-ms : 16000 
   max-async-write-queue-size : 512000
   message-retry-count : 4
   message-retry-wait-ms : 50
-  language : groovy
-  graph-obj-name : g
-  graph-name : graph
+  language : c
+  graph-obj-name : graph
+  graph-name : graph_name
   transaction : true
   serializer : 0

@@ -1,3 +1,4 @@
 stucco.common
 smola.java
 jgoodall.maven3
+mikeiannacone.rabbitmq

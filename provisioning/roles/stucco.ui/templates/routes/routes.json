@@ -1,0 +1,41 @@
+[
+  {
+    "path": "/",
+    "page": "./pages/Home",
+    "chunk": "main"
+  },
+  {
+    "path": "/help",
+    "page": "./pages/Help",
+    "chunk": "main"
+  },
+  {
+    "path": "/ontology/stucco",
+    "page": "./pages/StuccoOntology"
+  },
+  {
+    "path": "/ontology/stix",
+    "page": "./pages/StixOntology"
+  },
+  {
+    "path": "/resultslist/search/:key=:value&page=:pNumber&pageSize=:pSize",
+    "page": "./pages/ResultsList",
+    "data": {
+      "vertex": "http://{{ stucco_graph_db_connection_service_host }}:{{ stucco_graph_db_connection_service_port }}/api/search?q={key:value,page:pNumber,pageSize:pSize}"
+    },
+    "chunk": "main"
+  },
+  {
+    "path": "/details/:id",
+    "page": "./pages/Details",
+    "data": {
+      "vertex": "http://{{ stucco_graph_db_connection_service_host }}:{{ stucco_graph_db_connection_service_port }}/api/vertex/id"
+    },
+    "chunk": "main"
+  },
+  {
+    "path": "/error",
+    "page": "./pages/Error",
+    "chunk": "main"
+  }
+]

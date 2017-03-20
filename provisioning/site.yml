@@ -3,8 +3,12 @@
   sudo: yes
   sudo_user: root
   vars:
-    titan_version: 0.5.4
+    stucco_dir: /home/stucco
+    stucco_bin: "{{ stucco_dir }}/bin"
+    stucco_user: stucco
+    stucco_group: stucco
 
+    # RabbitMQ settings
     rabbitmq_ssl: false
     rabbitmq_host: localhost
     rabbitmq_port: 5672
@@ -15,25 +19,62 @@
     rabbitmq_conf_tcp_listeners_port: "{{ rabbitmq_port }}"
     rabbitmq_users_definitions: [{vhost: /, user: "{{ rabbitmq_user }}", password: "{{ rabbitmq_password }}" }]
 
-    rexster_host: "{{ host_ip }}"
-    rexster_http_port: 8182
-    rexster_rexpro_port: 8184
-
-    stucco_dir: /stucco
-
-    stucco_doc_host: localhost
-    stucco_doc_port: 8118
-
+    # UI settings
     stucco_ui_host: "{{ host_ip }}"
     stucco_ui_port: 8000
 
+    # Collectors settings
     stucco_collector_env: demo
+    stucco_collector_dir: "{{ stucco_dir }}/collectors"
+    stucco_collector_config: "{{ stucco_collector_dir }}/config/collectors.yml"
+    stucco_collector_mode: daemon
+
+    # Document service settings
+    stucco_doc_host: localhost
+    stucco_doc_port: 8118
+    stucco_doc_dir: "{{ stucco_dir }}/doc"
+    golang_version: 1.7.5
+
+    #Postgresql settings
+    postgresql_version: 9.5
+    postgresql_listen_addresses:
+      - localhost
+    postgresql_port: 5432
+    postgresql_superuser: stucco
+    postgresql_password: stucco
+    postgresql_user: stucco_user
+    postgresql_databases:
+      - name: testdb
+
+    # Node settings
+    nodejs_nvm_version: v0.29.0
+    nodejs_nvm_user: "{{ ansible_ssh_user }}"
+    nodejs_nvm_destination: "/home/{{ nodejs_nvm_user }}/.nvm"
+    nodejs_version: 6.0
+
+    # Graph DB connection REST service settings
+    stucco_graph_db_connection_service_host: "{{ host_ip }}"
+    stucco_graph_db_connection_service_port: 8080
+
+    # Graph init settings
+    stucco_graph_init_dir: "{{ stucco_dir }}/graph-init"
+
+    #RT settings
+    stucco_rt_dir: "{{ stucco_dir }}/rt"
 
   roles:
   - { role: stucco.common }
-  - { role: Mayeu.RabbitMQ }
+  - { role: jgoodall.common }
+  - { role: jgoodall.maven3 }
+  - { role: mikeiannacone.rabbitmq }
   - { role: stucco.graph }
-  - { role: stucco.rt }
   - { role: stucco.doc }
+  - { role: stucco.rt }
   - { role: stucco.ui }
   - { role: stucco.collectors }
+
+  environment:
+    STUCCO_DB_TYPE: "POSTGRESQL"
+    STUCCO_DB_CONFIG: "{{ stucco_dir }}/graph-db-connection-service/graph-db-connection/config/postgresql.yml"
+    STUCCO_DB_INDEX_CONFIG:
+    STUCCO_UI_CONFIG: "{{ stucco_dir }}/ui/dev_config.json"
