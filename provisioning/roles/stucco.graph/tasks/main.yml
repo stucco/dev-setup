@@ -47,10 +47,9 @@
   become: true
   become_user: root
 
-- name: Add apt-transport-https for elasticsearch
-  shell: apt-get install apt-transport-https
-  become: true
-  become_user: root
+- name: Install apt-transport-https for elasticsearch
+  apt:
+    name: apt-transport-https
 
 - name: Add elasticsearch to apt sources
   shell: echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-5.x.list
@@ -58,9 +57,9 @@
   become_user: root
 
 - name: Install elasticsearch
-  shell: apt-get update && apt-get install elasticsearch
-  become: true
-  become_user: root
+  apt:
+    name: elasticsearch
+    update_cache: yes
 
 - name: Set up elasticsearch init
   shell: update-rc.d elasticsearch defaults 95 10
@@ -68,9 +67,12 @@
   become_user: root
 
 - name: start elasticsearch
-  shell: service elasticsearch start
-  become: true
-  become_user: root
+  service:
+    name: elasticsearch
+    state: started
+
+- name: wait for elasticsearch
+  wait_for: port=9200 delay=10
 
 - name: install elasticdump
   shell: npm install elasticdump -g
