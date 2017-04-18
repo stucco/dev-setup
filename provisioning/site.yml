@@ -77,5 +77,6 @@
   environment:
     STUCCO_DB_TYPE: "POSTGRESQL"
     STUCCO_DB_CONFIG: "{{ stucco_dir }}/graph-db-connection-service/graph-db-connection/config/postgresql.yml"
+    SITU_DB_CONFIG: "{{ stucco_dir }}/graph-db-connection-service/graph-db-connection/config/elasticsearch.yml"
     STUCCO_DB_INDEX_CONFIG:
     STUCCO_UI_CONFIG: "{{ stucco_dir }}/ui/dev_config.json"
