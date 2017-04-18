@@ -4,23 +4,22 @@ echo "Checking out modules..."
 mvn --non-recursive scm:checkout -Dmodule.name=document-service-client-java
 mvn --non-recursive scm:checkout -Dmodule.name=STIXExtractors
 
-mvn --non-recursive scm:checkout -Dmodule.name=entity-extractor -DscmVersion=STIX -DscmVersionType=branch
+mvn --non-recursive scm:checkout -Dmodule.name=entity-extractor -DscmVersion=master -DscmVersionType=branch
 cd entity-extractor
 mvn -e clean install -Dmaven.test.skip=true
 cd ..
 
-mvn --non-recursive scm:checkout -Dmodule.name=relation-extractor -DscmVersion=STIX -DscmVersionType=branch
+mvn --non-recursive scm:checkout -Dmodule.name=relation-extractor -DscmVersion=master -DscmVersionType=branch
 cd relation-extractor
 mvn -e clean install -Dmaven.test.skip=true
 cd ..
 
-mvn -q --non-recursive scm:checkout -Dmodule.name=graph-db-connection -DscmVersion=feature/bulkLoad -DscmVersionType=branch
+mvn -q --non-recursive scm:checkout -Dmodule.name=graph-db-connection -DscmVersion=master -DscmVersionType=branch
 cd graph-db-connection
 mvn -e clean install -Dmaven.test.skip=true
 cd ..
 
-#mvn -q --non-recursive scm:checkout -Dmodule.name=graph-alignment -DscmVersion=feature -DscmVersionType=branch
-mvn -q --non-recursive scm:checkout -Dmodule.name=graph-alignment -DscmVersion=feature/bulkLoad -DscmVersionType=branch
+mvn -q --non-recursive scm:checkout -Dmodule.name=graph-alignment -DscmVersion=master -DscmVersionType=branch
 cd graph-alignment
 mvn -e clean install -Dmaven.test.skip=true
 cd ..

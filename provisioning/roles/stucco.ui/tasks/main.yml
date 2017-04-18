@@ -1,7 +1,7 @@
 ---
 
 - name: download ui repo
-  git: repo=https://github.com/stucco/ui.git version=react-static-ui dest={{ stucco_ui_dir }} force=yes
+  git: repo=https://github.com/stucco/ui.git version=master dest={{ stucco_ui_dir }} force=yes
 
 - name: copy config file
   template: src=config/dev_config.json dest={{ stucco_ui_dir }}/dev_config.json
@@ -9,7 +9,7 @@
 - name: copy routes.json file
   template: src=routes/routes.json dest={{ stucco_ui_dir }}/routes.json
 
-- name: prepare ui - install node_modules 
+- name: prepare ui - install node_modules
   npm: path={{ stucco_ui_dir }} production=no # executable="/home/stucco/.nvm/versions/node/v6.0.0/bin/npm" production=yes
 
 - name: copy build-ui.sh file
@@ -22,10 +22,10 @@
   shell: ./build-ui.sh chdir={{ stucco_ui_dir }}
 
 - name: download DB rest service
-  git: repo=https://github.com/stucco/graph-db-connection-service.git version=develop dest="{{ stucco_dir }}/graph-db-connection-service"
+  git: repo=https://github.com/stucco/graph-db-connection-service.git version=master dest="{{ stucco_dir }}/graph-db-connection-service"
 
 - name: download dependency
-  shell: mvn --non-recursive scm:checkout -Dmodule.name=graph-db-connection -DscmVersion=feature/bulkLoad -DscmVersionType=branch chdir="{{ stucco_dir }}/graph-db-connection-service"
+  shell: mvn --non-recursive scm:checkout -Dmodule.name=graph-db-connection -DscmVersion=master -DscmVersionType=branch chdir="{{ stucco_dir }}/graph-db-connection-service"
 
 - name: build dependency
   shell: mvn -e clean install -Dmaven.test.skip=true chdir="{{ stucco_dir }}/graph-db-connection-service/graph-db-connection"
