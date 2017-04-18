@@ -15,5 +15,4 @@ galaxy_info:
   categories:
   - system
 dependencies:
-  - { role: smola.java, java_packages: [oracle-java7-installer, oracle-java7-set-default] }
-
+  - { role: smola.java, java_packages: [oracle-java8-installer, oracle-java8-set-default] }
