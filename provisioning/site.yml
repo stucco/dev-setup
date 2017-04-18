@@ -67,6 +67,7 @@
   - { role: jgoodall.common }
   - { role: jgoodall.maven3 }
   - { role: mikeiannacone.rabbitmq }
+  - { role: ansible-role.nodejs }
   - { role: stucco.graph }
   - { role: stucco.doc }
   - { role: stucco.rt }

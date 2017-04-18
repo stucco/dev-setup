@@ -7,7 +7,7 @@
   template: src=supervisor/db-monitor.conf dest=/etc/supervisor/conf.d/db-monitor.conf
 
 - name: reload supervisord
-  shell: /usr/bin/supervisorctl reload 
+  shell: /usr/bin/supervisorctl reload
 
 - name: wait for postgresql
   wait_for: port=5432 delay=10
@@ -41,3 +41,48 @@
 #  with_items:
 #   "{{ postgresql_databases }}"
 
+#ELASTICSEARCH STUFF!
+- name: Add elasticsearch key
+  shell: wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+  become: true
+  become_user: root
+
+- name: Add apt-transport-https for elasticsearch
+  shell: apt-get install apt-transport-https
+  become: true
+  become_user: root
+
+- name: Add elasticsearch to apt sources
+  shell: echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-5.x.list
+  become: true
+  become_user: root
+
+- name: Install elasticsearch
+  shell: apt-get update && apt-get install elasticsearch
+  become: true
+  become_user: root
+
+- name: Set up elasticsearch init
+  shell: update-rc.d elasticsearch defaults 95 10
+  become: true
+  become_user: root
+
+- name: start elasticsearch
+  shell: service elasticsearch start
+  become: true
+  become_user: root
+
+- name: install elasticdump
+  shell: npm install elasticdump -g
+  become: true
+  become_user: root
+
+- name: add mapping
+  shell: elasticdump --output=http://localhost:9200/situ_2013-07-11 --input=/home/stucco/endogenous-data-uc1/flows_mapping.json --type=mapping
+  become: true
+  become_user: root
+
+- name: add data
+  shell: elasticdump --output=http://localhost:9200/situ_2013-07-11 --input=/home/stucco/endogenous-data-uc1/flows_data.json --type=data
+  become: true
+  become_user: root
