@@ -11,11 +11,24 @@
 
 - name: make sure postgresqldb is running
   service: name=postgresql state=started
+  become: true
+  become_user: root
 
 - name: build rt
-  shell: ./maven-rt-build.sh chdir={{ stucco_rt_dir }} creates={{ stucco_rt_dir }}/streaming-processor/target/rt-structured.jar
+  shell: ./maven-rt-build.sh >> rt_build_log.txt
+  args:
+    executable: /bin/bash
+    chdir: "{{ stucco_rt_dir | quote }}"
+    creates: "{{ stucco_rt_dir | quote }}/streaming-processor/target/rt-structured.jar"
+  become: true
+  become_user: root
 
 - name: copy rt supervisord config
   template: src=supervisor/stucco-rt.conf dest=/etc/supervisor/conf.d/stucco-rt.conf
+  become: true
+  become_user: root
+
 - name: reload supervisord
   shell: /usr/bin/supervisorctl reload
+  become: true
+  become_user: root

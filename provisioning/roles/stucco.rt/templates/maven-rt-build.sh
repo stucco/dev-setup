@@ -2,7 +2,11 @@
 
 echo "Checking out modules..."
 mvn --non-recursive scm:checkout -Dmodule.name=document-service-client-java
+
 mvn --non-recursive scm:checkout -Dmodule.name=STIXExtractors
+cd STIXExtractors
+mvn -e clean install -Dmaven.test.skip=true
+cd ..
 
 mvn --non-recursive scm:checkout -Dmodule.name=entity-extractor -DscmVersion=master -DscmVersionType=branch
 cd entity-extractor
