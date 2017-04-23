@@ -31,7 +31,7 @@
   become_user: stucco
 
 - name: build ui
-  shell: ./build-ui.sh chdir={{ stucco_ui_dir }}
+  shell: ./build-ui.sh >> ui_build_log.txt chdir={{ stucco_ui_dir }}
   become: true
   become_user: stucco
 
