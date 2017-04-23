@@ -2,21 +2,36 @@
 
 - name: create stucco GOPATH directory for document-service
   file: path={{ gopath }}/src/github.com/stucco/document-service owner={{ stucco_user }} group={{ stucco_group }} state=directory mode=4777 recurse=yes
+  become: true
+  become_user: stucco
 
 - name: download document-service repo
   git: repo=https://github.com/stucco/document-service.git dest={{ gopath }}/src/github.com/stucco/document-service
+  become: true
+  become_user: stucco
 
 - name: test document-service
   shell: "GOPATH={{ gopath }} go test . chdir={{ gopath }}/src/github.com/stucco/document-service"
+  become: true
+  become_user: stucco
 
 - name: build document-service
   shell: "GOPATH={{ gopath }} go build doc-service.go chdir={{ gopath }}/src/github.com/stucco/document-service"
+  become: true
+  become_user: stucco
 
 - name: install document-service
   file: src={{ gopath }}/src/github.com/stucco/document-service/doc-service dest={{ stucco_bin }}/doc-service state=link
+  become: true
+  become_user: stucco
 
 # START SERVICES
 - name: copy document-service supervisord config
   template: src=supervisor/stucco-doc.conf dest=/etc/supervisor/conf.d/stucco-doc.conf
+  become: true
+  become_user: root
+
 - name: reload supervisord
   shell: /usr/bin/supervisorctl reload
+  become: true
+  become_user: root

@@ -1,3 +1,3 @@
 #!/bin/sh
 
-sudo node run build
+node run build

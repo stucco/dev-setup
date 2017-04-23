@@ -2,12 +2,18 @@
 
 - name: download rt repo
   git: repo=https://github.com/stucco/rt.git force=yes version=master dest={{ stucco_rt_dir }}
+  become: true
+  become_user: stucco
 
 - name: copy rt config template
   template: src=rt-config.yaml dest={{ stucco_rt_dir }}/config.yaml mode=0644
+  become: true
+  become_user: stucco
 
 - name: copy rt build scripts
   template: src=maven-rt-build.sh dest={{stucco_rt_dir}}/maven-rt-build.sh mode=0777
+  become: true
+  become_user: stucco
 
 - name: make sure postgresqldb is running
   service: name=postgresql state=started
@@ -21,7 +27,7 @@
     chdir: "{{ stucco_rt_dir | quote }}"
     creates: "{{ stucco_rt_dir | quote }}/streaming-processor/target/rt-structured.jar"
   become: true
-  become_user: root
+  become_user: stucco
 
 - name: copy rt supervisord config
   template: src=supervisor/stucco-rt.conf dest=/etc/supervisor/conf.d/stucco-rt.conf

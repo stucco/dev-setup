@@ -2,43 +2,71 @@
 
 - name: download ui repo
   git: repo=https://github.com/stucco/ui.git version=master dest={{ stucco_ui_dir }} force=yes
+  become: true
+  become_user: stucco
 
 - name: copy config file
   template: src=config/dev_config.json dest={{ stucco_ui_dir }}/dev_config.json
+  become: true
+  become_user: stucco
 
 - name: copy routes.json file
   template: src=routes/routes.json dest={{ stucco_ui_dir }}/routes.json
+  become: true
+  become_user: stucco
 
 - name: prepare ui - install node_modules
   npm: path={{ stucco_ui_dir }} production=no # executable="/home/stucco/.nvm/versions/node/v6.0.0/bin/npm" production=yes
+  become: true
+  become_user: stucco
 
 - name: copy build-ui.sh file
   template: src=config/build-ui.sh dest={{ stucco_ui_dir }}/build-ui.sh
+  become: true
+  become_user: stucco
 
 - name: setting build-ui.sh node_mode
   file: path={{ stucco_ui_dir }}/build-ui.sh mode=0777
+  become: true
+  become_user: stucco
 
 - name: build ui
   shell: ./build-ui.sh chdir={{ stucco_ui_dir }}
+  become: true
+  become_user: stucco
 
 - name: download DB rest service
   git: repo=https://github.com/stucco/graph-db-connection-service.git version=master dest="{{ stucco_dir }}/graph-db-connection-service"
+  become: true
+  become_user: stucco
 
 - name: download dependency
   shell: mvn --non-recursive scm:checkout -Dmodule.name=graph-db-connection -DscmVersion=master -DscmVersionType=branch chdir="{{ stucco_dir }}/graph-db-connection-service"
+  become: true
+  become_user: stucco
 
 - name: build dependency
   shell: mvn -e clean install -Dmaven.test.skip=true chdir="{{ stucco_dir }}/graph-db-connection-service/graph-db-connection"
+  become: true
+  become_user: stucco
 
 - name: build DB rest service
   shell: mvn -e package chdir="{{ stucco_dir }}/graph-db-connection-service"
+  become: true
+  become_user: stucco
 
 # START SERVICES
 - name: copy ui supervisord config
   template: src=supervisor/stucco-ui.conf dest=/etc/supervisor/conf.d/stucco-ui.conf
+  become: true
+  become_user: root
 
 - name: copy sb rest service supervisord config
   template: src=supervisor/stucco-db-rest-service.conf dest=/etc/supervisor/conf.d/stucco-db-rest-service.conf
+  become: true
+  become_user: root
 
 - name: reload supervisord
   shell: /usr/bin/supervisorctl reload
+  become: true
+  become_user: root
