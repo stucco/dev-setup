@@ -7,10 +7,13 @@ structured_data:
   queue: stucco-in-structured
   emptyQueueSleepTime: 90000
   persistent: true
-  bindings: 
+  bindings:
       - stucco.in.structured.#
+  outputToDB: true
+  outputToSTIXFile: false
+  outputSTIXPath: stixOutput.xml
 
-unstructured_data: 
+unstructured_data:
   exchange: {{ rabbitmq_exchange }}
   host: {{ rabbitmq_host }}
   port: {{ rabbitmq_port }}
@@ -21,20 +24,23 @@ unstructured_data:
   persistent: true
   bindings:
       - stucco.in.unstructured.#
+  outputToDB: true
+  outputToSTIXFile: false
+  outputSTIXPath: stixOutput.xml
 
 document_service:
   host: {{ stucco_doc_host }}
   port: {{ stucco_doc_port }}
 
 database_connection:
-  hostname : localhost 
+  hostname : localhost
   port : {{ postgresql_port }}
   database : testdb
   username : {{ postgresql_superuser }}
   password : {{ postgresql_password }}
   timeout-connection-ms : 18000
   timeout-write-ms : 4000
-  timeout-read-ms : 16000 
+  timeout-read-ms : 16000
   max-async-write-queue-size : 512000
   message-retry-count : 4
   message-retry-wait-ms : 50
