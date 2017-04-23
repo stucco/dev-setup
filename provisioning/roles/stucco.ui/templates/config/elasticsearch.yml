@@ -1,0 +1,6 @@
+elasticsearch_connection:
+  cluster: elasticsearch
+  host: localhost
+  port: 9300
+  index: situ_2013-07-11
+  source: ["Situ"]

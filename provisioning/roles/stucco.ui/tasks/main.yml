@@ -1,5 +1,13 @@
 ---
 
+- name: remove old ES config file
+  file: path={{ stucco_dir }}/rt/graph-db-connection/config/elasticsearch.yml state=absent
+
+- name: copy new ES config file
+  template: src=config/elasticsearch.yml dest={{ stucco_dir }}/rt/graph-db-connection/config/elasticsearch.yml
+  become: true
+  become_user: stucco
+
 - name: download ui repo
   git: repo=https://github.com/stucco/ui.git version=master dest={{ stucco_ui_dir }} force=yes
   become: true
