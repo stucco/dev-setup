@@ -1,6 +1,15 @@
 ---
 - get_url: url={{ maven_url }} dest=/tmp/maven.zip
+  register: get_url_result
+  until: get_url_result | succeeded
+  retries: 5
+  delay: 10
+
 - get_url: url={{ maven_url }}.md5 dest=/tmp/maven.md5
+  register: get_url_result
+  until: get_url_result | succeeded
+  retries: 5
+  delay: 10
 
 - command: echo " "{{ maven_url }} >> /tmp/maven.md5 && md5sum -c /tmp/maven.md5
 
