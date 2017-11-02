@@ -11,7 +11,7 @@
   retries: 5
   delay: 10
 
-- command: echo " "{{ maven_url }} >> /tmp/maven.md5 && md5sum -c /tmp/maven.md5
+- command: echo " "/tmp/maven.zip >> /tmp/maven.md5 && md5sum -c /tmp/maven.md5
 
 - file: path={{ maven_prefix }} state=directory
 
