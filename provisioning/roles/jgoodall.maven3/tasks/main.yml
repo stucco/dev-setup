@@ -1,16 +1,18 @@
 ---
-- name: Download Maven#
+- name: Download Maven
   get_url: url={{ maven_url }} dest=/tmp/maven.zip
   register: get_url_result
   until: get_url_result | succeeded
   retries: 3
   delay: 10
+  ignore_errors: yes
 
 # There are some network errors which `wget` handles and `get_url` module does not, so added this check/fallback.
 - stat: path=/tmp/maven.zip
   register: maven_file
 
-- shell: wget {{ maven_url }} -O /tmp/maven.zip
+- name: Download Maven (retry)
+  shell: wget {{ maven_url }} -O /tmp/maven.zip
   when: maven_file.stat.exists == False
 
 - name: Download Maven checksum
@@ -19,12 +21,14 @@
   until: get_url_result | succeeded
   retries: 3
   delay: 10
+  ignore_errors: yes
 
 # There are some network errors which `wget` handles and `get_url` module does not, so added this check/fallback.
 - stat: path=/tmp/maven.md5
   register: maven_file_md5
 
-- shell: wget {{ maven_url }}.md5 -O /tmp/maven.md5
+- name: Download Maven checksum (retry)
+  shell: wget {{ maven_url }}.md5 -O /tmp/maven.md5
   when: maven_file_md5.stat.exists == False
 
 - command: echo " "/tmp/maven.zip >> /tmp/maven.md5 && md5sum -c /tmp/maven.md5
